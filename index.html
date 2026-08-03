@@ -25,12 +25,14 @@
       --image-y:0px;
       --title-y:0px;
       --hero-cover:0%;
+      --header-height:80px;
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth;overflow-x:hidden}
     body{
       margin:0;
+      padding-top:var(--header-height);
       overflow-x:hidden;
       background:var(--paper);
       color:var(--navy);
@@ -59,9 +61,9 @@
 
     /* Musta yläpalkki kuten mallikuvassa */
     .site-header{
-      position:sticky;
-      top:0;
-      z-index:1000;
+      position:fixed;
+      inset:0 0 auto 0;
+      z-index:10000;
       width:100%;
       background:var(--black);
       color:#fff;
@@ -549,11 +551,12 @@
     .footer-contact a:hover,.footer-contact a:focus-visible{color:var(--orange);outline:none}
 
     @media(max-width:880px){
+      :root{--header-height:72px}
       .header-inner{min-height:72px}
       .brand-logo{width:54px;height:46px}
       .main-nav{
         position:absolute;
-        top:70px;
+        top:var(--header-height);
         left:16px;
         right:16px;
         display:none;
