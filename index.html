@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Pintapojat – nopea ja siisti talomaalaus Joensuussa." />
+  <title>Pintapojat | Talomaalaus Joensuussa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="#alku" aria-label="Pintapojat etusivu">
+        <img src="assets/logo.png" alt="Pintapojat" />
+      </a>
+      <nav class="top-actions" aria-label="Päävalikko">
+        <a class="mini-btn" href="#meista">Katso kohteitamme</a>
+        <a class="mini-btn" href="#tarjous">Pyydä tarjous</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="alku">
+      <img class="hero-image" src="assets/hero.jpg" alt="Kaksi talomaalaria työn äärellä" />
+      <div class="hero-copy" aria-label="Nopea ja siisti talomaalaus Joensuussa">
+        <span>Nopea &amp; siisti</span>
+        <span>talomaalaus</span>
+        <span>Joensuussa</span>
+      </div>
+    </section>
+
+    <section class="intro" id="meista">
+      <div class="primary-actions">
+        <a class="cta cta-orange" href="#tarjous">Pyydä tarjous</a>
+        <a class="cta cta-blue" href="#arviot">Asiakaspalautteet</a>
+      </div>
+
+      <h1>Keitä olemme?</h1>
+      <p class="hello">Hei!</p>
+      <p class="about-text">
+        Olemme Vilho ja Ilmari, maalaamme kesätöiksemme omakotitaloja sekä muita
+        rakennuksia. Aloitimme Joensuulaisena maalausyrityksellä vuonna 2024, mutta jo
+        seuraavana vuonna päätimme ottaa riskin ja ryhtyä toimimaan yrittäjiksi. Päätös
+        kannatti ja olemme saaneet palvella kymmeniä tyytyväisiä talonomistajia pitkin
+        kesäkautta. Panostamme työn jäljessä pitkäkestoiseen ja siistiin lopputulokseen,
+        josta voi olla ylpeä.
+      </p>
+
+      <div class="team-grid">
+        <article class="person-card">
+          <img src="assets/ilmar.jpg" alt="Ilmari Sippola" />
+          <h2>Ilmari Sippola</h2>
+          <p>040 7862 555</p>
+          <p>Y-tunnus 3398196-5</p>
+          <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a>
+        </article>
+        <article class="person-card">
+          <img src="assets/vilho.jpg" alt="Vilho Räisänen" />
+          <h2>Vilho Räisänen</h2>
+          <p>044 908 1084</p>
+          <p>Y-tunnus 3428389-6</p>
+          <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="rating" id="arviot">
+      <p>Asiakkaiden antama keskiarvo työllemme:</p>
+      <div class="stars" aria-label="Arvosana 4,73 viidestä">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span class="partial">☆</span>
+      </div>
+      <strong>4,73 tähteä</strong>
+      <small>(Keskiarvo on laskettu asiakkaiden täyttämistä loppuarviolomakkeista)</small>
+    </section>
+
+    <section class="quote-section" id="tarjous">
+      <div class="form-heading">
+        <p>Pyydä maksuton tarjous</p>
+        <h2>Kerro kohteestasi</h2>
+        <span>Vastaamme mahdollisimman pian.</span>
+      </div>
+
+      <form class="quote-form" action="https://formsubmit.co/pintapojat@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Uusi tarjouspyyntö Pintapojat-sivulta">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off">
+
+        <div class="field-row">
+          <label>
+            Nimi
+            <input type="text" name="Nimi" autocomplete="name" required />
+          </label>
+          <label>
+            Puhelinnumero
+            <input type="tel" name="Puhelinnumero" autocomplete="tel" required />
+          </label>
+        </div>
+
+        <label>
+          Sähköposti
+          <input type="email" name="Sähköposti" autocomplete="email" required />
+        </label>
+
+        <label>
+          Kohteen osoite / paikkakunta
+          <input type="text" name="Kohde" autocomplete="street-address" />
+        </label>
+
+        <label>
+          Kerro maalauskohteesta
+          <textarea name="Kuvaus" rows="6" placeholder="Esimerkiksi rakennuksen koko, nykyinen pintamateriaali, arvioitu ajankohta ja mahdolliset lisätiedot." required></textarea>
+        </label>
+
+        <label class="consent">
+          <input type="checkbox" required />
+          <span>Hyväksyn, että tietojani käytetään tarjouspyyntöön vastaamiseen.</span>
+        </label>
+
+        <button class="submit-btn" type="submit">Lähetä tarjouspyyntö</button>
+        <p class="form-note">Lomake käyttää FormSubmit-palvelua. Ensimmäisellä käyttökerralla sähköpostiosoite vahvistetaan.</p>
+      </form>
+    </section>
+
+    <footer>
+      <strong>Pintapojat</strong>
+      <span>Joensuu ja lähialueet</span>
+      <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a>
+    </footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
