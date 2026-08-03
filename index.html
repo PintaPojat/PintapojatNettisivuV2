@@ -8,7 +8,7 @@
   <meta name="description" content="PintaPojat tekee nopeita, siistejä ja kestäviä talomaalauksia Joensuussa ja lähialueilla. Pyydä ilmainen arviointikäynti.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -18,8 +18,9 @@
       --paper:#e5e5e5;
       --black:#000;
       --white:#fff;
-      --line:rgba(20,33,61,.18);
       --max:1120px;
+      --section-space:clamp(72px,9vw,104px);
+      --content-gap:clamp(28px,4vw,44px);
       --image-y:0px;
       --title-y:0px;
       --hero-cover:0%;
@@ -41,8 +42,13 @@
     img{display:block;width:100%;height:auto}
     button,input,textarea{font:inherit}
     button{color:inherit}
+    button,.nav-pill,.hero-action,.submit-button{
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-weight:400;
+      letter-spacing:.015em;
+    }
     .wrap{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
-    .impact{font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-weight:400}
+    .impact{font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-weight:400}
 
     .skip-link{
       position:absolute;left:-9999px;top:12px;z-index:1000;
@@ -74,7 +80,7 @@
     }
     .brand-logo{width:52px;height:52px;flex:none}
     .brand-name{
-      font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
       font-size:clamp(29px,3.2vw,42px);
       line-height:1;
       letter-spacing:.025em;
@@ -91,7 +97,7 @@
       background:var(--navy);
       color:#fff;
       font-size:clamp(14px,1.65vw,20px);
-      font-weight:500;
+      font-weight:400;
       line-height:1;
       white-space:nowrap;
       transition:transform .18s ease,background .18s ease;
@@ -104,14 +110,14 @@
       background:var(--orange);
       color:#000;
       padding:11px 14px;
-      font-weight:800;
+      font-weight:400;
       cursor:pointer;
     }
 
     /* Hero: kuva liikkuu hitaammin ja otsikko nopeammin */
     .hero{
       position:relative;
-      z-index:1;
+      z-index:10;
       height:clamp(345px,43vw,620px);
       overflow:visible;
       background:#1c1c1c;
@@ -154,20 +160,20 @@
       color:#fff;
       text-align:center;
       text-transform:uppercase;
-      font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
       font-size:clamp(50px,7.55vw,94px);
       font-weight:400;
       letter-spacing:.005em;
       line-height:1.04;
-      text-shadow:0 3px 20px rgba(0,0,0,.2);
+      text-shadow:0 3px 20px rgba(0,0,0,.34);
       transform:translate3d(-50%,var(--title-y),0);
       will-change:transform;
     }
 
     .intro{
       position:relative;
-      z-index:4;
-      padding:clamp(160px,17vw,215px) 0 86px;
+      z-index:2;
+      padding:clamp(160px,17vw,215px) 0 var(--section-space);
       background:var(--paper);
       text-align:center;
     }
@@ -176,8 +182,8 @@
       align-items:stretch;
       justify-content:center;
       flex-wrap:wrap;
-      gap:44px;
-      margin:0 auto 26px;
+      gap:clamp(18px,4vw,44px);
+      margin:0 auto var(--content-gap);
     }
     .hero-action{
       display:inline-flex;
@@ -198,7 +204,7 @@
     .hero-action.navy{background:var(--navy)}
 
     .about-title{
-      margin:20px 0 0;
+      margin:0;
       color:var(--navy);
       text-transform:uppercase;
       font-size:clamp(46px,6.2vw,72px);
@@ -208,86 +214,87 @@
     .hello{margin:1px 0 0;font-size:clamp(24px,3vw,34px)}
     .about-text{
       width:min(980px,100%);
-      margin:5px auto 0;
+      margin:12px auto 0;
       font-size:clamp(18px,2vw,22px);
       line-height:1.5;
       text-align:center;
     }
 
-    /* Mallikuvan alaosan kaltainen yhteiskuva + kaksi pyöristettyä kuvakorttia */
-    .portrait-stage{
-      position:relative;
-      width:min(760px,100%);
-      min-height:515px;
-      margin:28px auto 0;
-      overflow:hidden;
-      background:var(--navy);
-      box-shadow:0 14px 30px rgba(20,33,61,.16);
-    }
-    .stage-bg{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center;
-      filter:saturate(.92);
-    }
-    .stage-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,33,61,.04),rgba(20,33,61,.24))}
-    .portraits{
-      position:absolute;
-      left:50%;
-      bottom:-1px;
-      width:min(620px,88%);
-      transform:translateX(-50%);
+    /* Kaarevat henkilökortit mallikuvan visuaalista linjaa mukaillen */
+    .people-grid{
+      width:min(860px,100%);
+      margin:var(--content-gap) auto 0;
       display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:26px;
-      align-items:end;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:clamp(20px,3vw,32px);
+      align-items:start;
     }
-    .portrait-card{
-      position:relative;
+    .person-card{
       min-width:0;
-      height:385px;
       overflow:hidden;
-      border-radius:48% 48% 18px 18px / 31% 31% 18px 18px;
-      background:#d6d7d9;
-      border:1px solid rgba(255,255,255,.65);
-      box-shadow:0 14px 30px rgba(0,0,0,.18);
+      border-radius:48% 48% 26px 26px / 30% 30% 26px 26px;
+      background:#fff;
+      box-shadow:0 18px 38px rgba(20,33,61,.14);
     }
-    .portrait-card img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center 16%;
+    .person-photo{
+      position:relative;
+      aspect-ratio:4/4.7;
+      overflow:hidden;
+      background:#d8dadd;
     }
-    .portrait-card::after{
+    .person-photo::after{
       content:"";
       position:absolute;
-      inset:56% 0 0;
-      background:linear-gradient(to bottom,transparent,rgba(20,33,61,.92));
+      inset:auto 0 0;
+      height:28%;
+      background:linear-gradient(to top,rgba(20,33,61,.28),transparent);
+      pointer-events:none;
     }
-    .portrait-name{
-      position:absolute;
-      z-index:2;
-      left:10px;
-      right:10px;
-      bottom:15px;
-      margin:0;
+    .person-photo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center 14%;
+    }
+    .person-content{
+      min-height:238px;
+      padding:26px clamp(20px,3vw,30px) 28px;
+      background:var(--navy);
       color:#fff;
+      text-align:left;
+    }
+    .person-name{
+      margin:0;
       text-align:center;
       text-transform:uppercase;
-      font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:clamp(22px,3vw,31px);
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:clamp(28px,3.6vw,40px);
       font-weight:400;
-      letter-spacing:.01em;
       line-height:1;
+      letter-spacing:.01em;
     }
+    .person-details{
+      display:grid;
+      gap:12px;
+      margin:22px 0 0;
+      padding:0;
+      list-style:none;
+    }
+    .person-detail{
+      display:grid;
+      grid-template-columns:90px minmax(0,1fr);
+      gap:12px;
+      align-items:start;
+      font-size:15px;
+      line-height:1.45;
+    }
+    .person-detail strong{color:var(--orange)}
+    .person-detail a{overflow-wrap:anywhere}
+    .person-detail a:hover,.person-detail a:focus-visible{color:var(--orange);outline:none}
 
     .section{
-      padding:90px 0;
+      padding:var(--section-space) 0;
       background:var(--paper);
-      border-top:1px solid var(--line);
       scroll-margin-top:20px;
     }
     .section-title{
@@ -295,25 +302,33 @@
       color:var(--navy);
       text-align:center;
       text-transform:uppercase;
-      font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
       font-size:clamp(45px,6vw,72px);
       font-weight:400;
       line-height:1;
       letter-spacing:.005em;
+      text-wrap:balance;
+      max-width:980px;
+      margin-inline:auto;
     }
     .section-lead{
       width:min(760px,100%);
-      margin:10px auto 34px;
+      margin:14px auto var(--content-gap);
       text-align:center;
       color:var(--navy);
       font-size:18px;
     }
 
     /* Asiakaspalautteet: viisi vaakasuunnassa selattavaa korttia */
-    .rating{display:grid;justify-items:center;gap:4px;margin:24px 0 30px;text-align:center}
+    .rating{display:grid;justify-items:center;gap:6px;margin:20px 0 var(--content-gap);text-align:center}
     .stars{color:var(--orange);font-size:clamp(39px,5vw,62px);line-height:1;letter-spacing:.08em}
     .rating strong{font-size:27px}
-    .rating small{font-size:15px;color:#4f596e}
+    .rating small{
+      width:min(760px,100%);
+      font-size:15px;
+      line-height:1.45;
+      color:#4f596e;
+    }
 
     .feedback-shell{position:relative;width:min(920px,100%);margin-inline:auto;padding:0 68px}
     .feedback-viewport{
@@ -394,13 +409,12 @@
       padding:32px;
       border-radius:18px;
       background:#fff;
-      border:1px solid var(--line);
       box-shadow:0 14px 30px rgba(20,33,61,.1);
     }
     .offer-card h3{
       margin:0 0 20px;
       text-transform:uppercase;
-      font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
       font-size:35px;
       font-weight:400;
     }
@@ -409,15 +423,15 @@
     label{display:block;margin-bottom:5px;font-weight:700}
     input,textarea{
       width:100%;
-      border:1px solid #c6cad2;
+      border:0;
       border-radius:10px;
       padding:14px;
-      background:#fafafa;
+      background:#f3f4f6;
       color:var(--navy);
       font-size:16px;
     }
     textarea{min-height:150px;resize:vertical}
-    input:focus,textarea:focus{outline:3px solid rgba(252,163,17,.27);border-color:var(--orange)}
+    input:focus,textarea:focus{outline:3px solid rgba(252,163,17,.32)}
     .submit-button{
       min-height:58px;
       border:0;
@@ -425,7 +439,7 @@
       background:var(--orange);
       color:#fff;
       font-size:20px;
-      font-weight:700;
+      font-weight:400;
       cursor:pointer;
       transition:transform .18s ease,filter .18s ease;
     }
@@ -433,7 +447,7 @@
 
     footer{padding:38px 0;background:#000;color:#fff}
     .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-    .footer-brand{font-family:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-size:30px;letter-spacing:.02em}
+    .footer-brand{font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-size:30px;letter-spacing:.02em}
     .footer-links{display:flex;gap:20px;flex-wrap:wrap;color:#d8d8d8}
     .footer-links a:hover{text-decoration:underline}
 
@@ -454,8 +468,6 @@
       .main-nav.open{display:flex}
       .nav-pill{width:100%;min-height:48px}
       .menu-toggle{display:block}
-      .portrait-stage{min-height:475px}
-      .portrait-card{height:355px}
     }
 
     @media(max-width:650px){
@@ -464,16 +476,15 @@
       .hero{height:400px}
       .hero-image{object-position:center 45%}
       .hero-title{bottom:-91px;font-size:44px;line-height:1.05}
-      .intro{padding-top:128px;padding-bottom:66px}
-      .hero-actions{gap:13px;margin-bottom:30px}
+      .intro{padding-top:128px;padding-bottom:var(--section-space)}
+      .hero-actions{gap:13px;margin-bottom:var(--content-gap)}
       .hero-action{width:100%;min-height:66px;font-size:28px}
       .about-title,.section-title{font-size:45px}
       .about-text{font-size:17px;line-height:1.55}
-      .portrait-stage{min-height:410px}
-      .portraits{width:92%;gap:10px}
-      .portrait-card{height:315px;border-radius:48% 48% 14px 14px / 27% 27% 14px 14px}
-      .portrait-name{font-size:21px}
-      .section{padding:68px 0}
+      .people-grid{grid-template-columns:1fr;width:min(410px,100%)}
+      .person-card{border-radius:48% 48% 22px 22px / 25% 25% 22px 22px}
+      .person-content{min-height:0}
+      .person-detail{grid-template-columns:82px minmax(0,1fr);font-size:14px}
       .feedback-shell{padding:0 0 72px}
       .carousel-arrow{top:auto;bottom:0;transform:none}
       .carousel-arrow:hover,.carousel-arrow:focus-visible{transform:scale(1.06)}
@@ -545,30 +556,45 @@
           pitkin kesäkautta. Panostamme työn jäljessä pitkäikäiseen ja siistiin lopputulokseen, josta voi olla ylpeä.
         </p>
 
-        <div class="portrait-stage" aria-label="Vilho ja Ilmari PintaPojista">
-          <img class="stage-bg" src="assets/Pintapojat_tiimikuva1.jpg" alt="" aria-hidden="true">
-          <div class="stage-overlay" aria-hidden="true"></div>
-          <div class="portraits">
-            <article class="portrait-card">
+        <div class="people-grid" aria-label="Vilho ja Ilmari PintaPojista">
+          <article class="person-card">
+            <div class="person-photo">
               <img src="assets/Vilho_omakuva.jpg" alt="Vilho Räisänen">
-              <h3 class="portrait-name">Vilho Räisänen</h3>
-            </article>
-            <article class="portrait-card">
+            </div>
+            <div class="person-content">
+              <h3 class="person-name">Vilho Räisänen</h3>
+              <ul class="person-details">
+                <li class="person-detail"><strong>Puhelin</strong><a href="tel:+358449805844">044 980 5844</a></li>
+                <li class="person-detail"><strong>Sähköposti</strong><a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a></li>
+                <li class="person-detail"><strong>Y-tunnus</strong><span>3453360-6</span></li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="person-card">
+            <div class="person-photo">
               <img src="assets/Ilmari_omakuva.jpg" alt="Ilmari Sippola">
-              <h3 class="portrait-name">Ilmari Sippola</h3>
-            </article>
-          </div>
+            </div>
+            <div class="person-content">
+              <h3 class="person-name">Ilmari Sippola</h3>
+              <ul class="person-details">
+                <li class="person-detail"><strong>Puhelin</strong><a href="tel:+3584578325502">045 7832 5502</a></li>
+                <li class="person-detail"><strong>Sähköposti</strong><a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a></li>
+                <li class="person-detail"><strong>Y-tunnus</strong><span>3586169-5</span></li>
+              </ul>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
     <section class="section" id="palaute">
       <div class="wrap">
-        <h2 class="section-title">Asiakaspalautteet</h2>
+        <h2 class="section-title">Asiakkaiden antama keskiarvo työllemme</h2>
         <div class="rating" aria-label="Viiden tähden tähtiarvio">
           <div class="stars" aria-hidden="true">★★★★★</div>
           <strong>5,0 / 5</strong>
-          <small>Esimerkkipalautteet – korvaa nämä oikeilla asiakaspalautteilla ennen julkaisua.</small>
+          <small>(Keskiarvo on laskettu asiakkaiden täyttämistä loppuarviolomakkeista)</small>
         </div>
 
         <div class="feedback-shell">
