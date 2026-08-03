@@ -293,6 +293,75 @@
     .person-detail a{overflow-wrap:anywhere}
     .person-detail a:hover,.person-detail a:focus-visible{color:var(--orange);outline:none}
 
+    /* Automaattisesti liukuva kohdegalleria */
+    .projects-showcase{
+      padding:0 0 var(--section-space);
+      overflow:hidden;
+      background:var(--paper);
+      scroll-margin-top:20px;
+    }
+    .projects-heading{
+      width:min(var(--max),calc(100% - 40px));
+      margin:0 auto var(--content-gap);
+      text-align:center;
+    }
+    .projects-heading .section-title{margin-bottom:18px}
+    .projects-heading p{
+      width:min(720px,100%);
+      margin:0 auto;
+      font-size:17px;
+      line-height:1.6;
+    }
+    .projects-marquee{
+      width:100%;
+      overflow:hidden;
+      -webkit-mask-image:linear-gradient(to right,transparent 0,#000 4%,#000 96%,transparent 100%);
+      mask-image:linear-gradient(to right,transparent 0,#000 4%,#000 96%,transparent 100%);
+    }
+    .projects-track{
+      display:flex;
+      width:max-content;
+      will-change:transform;
+      animation:projects-scroll 46s linear infinite;
+    }
+    .projects-marquee:hover .projects-track,
+    .projects-marquee:focus-within .projects-track{animation-play-state:paused}
+    .projects-group{
+      display:flex;
+      flex:none;
+      gap:20px;
+      padding-right:20px;
+    }
+    .project-card{
+      position:relative;
+      flex:none;
+      width:clamp(280px,30vw,420px);
+      aspect-ratio:4/3;
+      overflow:hidden;
+      border-radius:var(--radius-ui);
+      background:#cfd2d7;
+      box-shadow:0 18px 38px rgba(20,33,61,.14);
+    }
+    .project-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .5s ease;
+    }
+    .project-card:hover img{transform:scale(1.035)}
+    .project-card::after{
+      content:"";
+      position:absolute;
+      inset:auto 0 0;
+      height:38%;
+      background:linear-gradient(to top,rgba(0,0,0,.34),transparent);
+      pointer-events:none;
+    }
+    @keyframes projects-scroll{
+      from{transform:translate3d(0,0,0)}
+      to{transform:translate3d(-50%,0,0)}
+    }
+
     .section{
       padding:var(--section-space) 0;
       background:var(--paper);
@@ -478,6 +547,11 @@
       .person-card{border-radius:var(--radius-ui)}
       .person-content{min-height:0}
       .person-detail{grid-template-columns:82px minmax(0,1fr);font-size:14px}
+      .projects-heading{width:min(var(--max),calc(100% - 26px));margin-bottom:34px}
+      .projects-heading p{font-size:16px}
+      .projects-group{gap:14px;padding-right:14px}
+      .project-card{width:78vw;max-width:340px}
+      .projects-track{animation-duration:38s}
       .feedback-shell{padding:0 0 72px}
       .carousel-arrow{top:auto;bottom:0;transform:none}
       .carousel-arrow:hover,.carousel-arrow:focus-visible{transform:scale(1.06)}
@@ -493,6 +567,9 @@
       html{scroll-behavior:auto}
       .hero-image,.hero-title{transform:none!important}
       .hero-grey-cover{display:none}
+      .projects-marquee{overflow-x:auto;mask-image:none;-webkit-mask-image:none}
+      .projects-track{animation:none}
+      .projects-group[aria-hidden="true"]{display:none}
       .feedback-viewport{scroll-behavior:auto}
       *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
     }
@@ -517,7 +594,7 @@
       <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">Valikko</button>
 
       <nav class="main-nav" id="mainNav" aria-label="Päävalikko">
-        <a class="nav-pill" href="#meista">KATSO KOHTEITAMME</a>
+        <a class="nav-pill" href="#kohteet">KATSO KOHTEITAMME</a>
         <a class="nav-pill" href="#tarjous">PYYDÄ TARJOUS</a>
       </nav>
     </div>
@@ -577,6 +654,39 @@
               </ul>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects-showcase" id="kohteet" aria-labelledby="kohteet-otsikko">
+      <div class="projects-heading">
+        <h2 class="section-title" id="kohteet-otsikko">Maalaamiamme taloja</h2>
+        <p>Tässä muutamia toteuttamiamme maalauskohteita. Galleria liikkuu automaattisesti ja pysähtyy, kun viet osoittimen kuvien päälle.</p>
+      </div>
+
+      <div class="projects-marquee" aria-label="Kuvagalleria maalaamistamme taloista">
+        <div class="projects-track">
+          <div class="projects-group">
+            <figure class="project-card"><img src="assets/Talo_01.jpg" alt="PintaPoikien maalaama talo" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_02.jpg" alt="PintaPoikien maalaama talon julkisivu" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_03.jpg" alt="Valmis talomaalauskohde Joensuun seudulla" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_04.jpg" alt="Huolellisesti maalattu omakotitalo" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_05.jpg" alt="PintaPoikien viimeistelemä ulkomaalauskohde" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_06.jpg" alt="Maalattu talo valmiina" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_07.jpg" alt="Talon uusi maalipinta" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_08.jpg" alt="Valmis julkisivumaalaus" loading="lazy" decoding="async"></figure>
+          </div>
+
+          <div class="projects-group" aria-hidden="true">
+            <figure class="project-card"><img src="assets/Talo_01.jpg" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_02.jpg" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_03.jpg" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_04.jpg" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_05.jpg" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_06.jpg" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_07.jpg" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="project-card"><img src="assets/Talo_08.jpg" alt="" loading="lazy" decoding="async"></figure>
+          </div>
         </div>
       </div>
     </section>
@@ -679,6 +789,7 @@
       <nav class="footer-links" aria-label="Alatunnisteen linkit">
         <a href="#alku">Etusivu</a>
         <a href="#meista">Keitä olemme?</a>
+        <a href="#kohteet">Kohteitamme</a>
         <a href="#palaute">Asiakaspalautteet</a>
         <a href="#tarjous">Pyydä tarjous</a>
       </nav>
