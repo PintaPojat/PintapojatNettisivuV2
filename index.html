@@ -79,7 +79,7 @@
       gap:15px;
       min-width:max-content;
     }
-    .brand-logo{width:52px;height:52px;flex:none}
+    .brand-logo{display:block;width:64px;height:54px;flex:none;border:0;overflow:hidden;background:transparent;pointer-events:none}
     .brand-name{
       font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
       font-size:clamp(27px,3vw,38px);
@@ -127,11 +127,11 @@
     .hero-image{
       position:absolute;
       left:0;
-      top:-8%;
+      top:-2%;
       width:100%;
-      height:118%;
+      height:110%;
       object-fit:cover;
-      object-position:center 45%;
+      object-position:center 22%;
       transform:translate3d(0,var(--image-y),0) scale(1.025);
       will-change:transform;
     }
@@ -215,7 +215,7 @@
     .hello{margin:8px 0 0;font-size:clamp(21px,2.4vw,29px)}
     .about-text{
       width:min(980px,100%);
-      margin:20px auto 0;
+      margin:5px auto 0;
       font-size:clamp(17px,1.7vw,20px);
       line-height:1.5;
       text-align:center;
@@ -368,16 +368,6 @@
       line-height:1.33;
     }
     .feedback-card cite{font-style:normal;color:#d7dfef;font-size:16px}
-    .feedback-placeholder{
-      display:inline-flex;
-      margin-top:9px;
-      padding:5px 10px;
-      border-radius:var(--radius-ui);
-      background:rgba(255,255,255,.1);
-      color:#eef2fa;
-      font-size:12px;
-      letter-spacing:.02em;
-    }
     .carousel-arrow{
       position:absolute;
       top:50%;
@@ -456,7 +446,7 @@
 
     @media(max-width:880px){
       .header-inner{min-height:72px}
-      .brand-logo{width:44px;height:44px}
+      .brand-logo{width:54px;height:46px}
       .main-nav{
         position:absolute;
         top:70px;
@@ -514,13 +504,13 @@
   <header class="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="#alku" aria-label="PintaPojat etusivu">
-        <svg class="brand-logo" viewBox="0 0 64 64" aria-hidden="true">
-          <circle cx="32" cy="32" r="29" fill="none" stroke="white" stroke-width="4"/>
-          <path d="M15 42 39 18l7 7-24 24H15z" fill="white"/>
-          <path d="m35 16 5-5 12 12-5 5z" fill="white"/>
-          <path d="M13 45h15v7H13z" fill="white"/>
-          <circle cx="49" cy="12" r="4" fill="#fca311"/>
-        </svg>
+        <object
+          class="brand-logo"
+          data="assets/LogoKuva.pdf#page=1&toolbar=0&navpanes=0&scrollbar=0&view=Fit"
+          type="application/pdf"
+          aria-label="PintaPojat-logo">
+          <span aria-hidden="true">PP</span>
+        </object>
         <span class="brand-name">PINTAPOJAT</span>
       </a>
 
@@ -609,35 +599,30 @@
                 <div class="mini-stars" aria-hidden="true">★★★★★</div>
                 <blockquote>“Työ eteni sovitussa aikataulussa ja lopputulos oli erittäin siisti. Piha jäi työn jälkeen hyvään kuntoon.”</blockquote>
                 <cite>— Esimerkkiasiakas, Joensuu</cite>
-                <span class="feedback-placeholder">Esimerkkipalaute 1/5</span>
               </article>
 
               <article class="feedback-card">
                 <div class="mini-stars" aria-hidden="true">★★★★★</div>
                 <blockquote>“Yhteydenpito oli helppoa ja kaikki työvaiheet kerrottiin selkeästi etukäteen. Talon ilme muuttui täysin.”</blockquote>
                 <cite>— Esimerkkiasiakas, Kontiolahti</cite>
-                <span class="feedback-placeholder">Esimerkkipalaute 2/5</span>
               </article>
 
               <article class="feedback-card">
                 <div class="mini-stars" aria-hidden="true">★★★★★</div>
                 <blockquote>“Pohjatyöt tehtiin huolella ja maalipinnasta tuli tasainen. Reipas ja luotettava kaksikko.”</blockquote>
                 <cite>— Esimerkkiasiakas, Liperi</cite>
-                <span class="feedback-placeholder">Esimerkkipalaute 3/5</span>
               </article>
 
               <article class="feedback-card">
                 <div class="mini-stars" aria-hidden="true">★★★★★</div>
                 <blockquote>“Tarjous oli selkeä, aikataulu piti ja työnjälki vastasi odotuksia. Voin suositella lämpimästi.”</blockquote>
                 <cite>— Esimerkkiasiakas, Joensuu</cite>
-                <span class="feedback-placeholder">Esimerkkipalaute 4/5</span>
               </article>
 
               <article class="feedback-card">
                 <div class="mini-stars" aria-hidden="true">★★★★★</div>
                 <blockquote>“Nopea toteutus ilman turhaa kiireen tuntua. Suojaukset ja loppusiivous hoidettiin erityisen hyvin.”</blockquote>
                 <cite>— Esimerkkiasiakas, Outokumpu</cite>
-                <span class="feedback-placeholder">Esimerkkipalaute 5/5</span>
               </article>
             </div>
           </div>
@@ -790,14 +775,14 @@
     }
 
     function goToFeedback(index) {
-      activeFeedback = Math.max(0, Math.min(cards.length - 1, index));
+      activeFeedback = (index + cards.length) % cards.length;
       viewport.scrollTo({ left: activeFeedback * cardStep(), behavior: reduceMotion.matches ? 'auto' : 'smooth' });
       updateCarouselControls();
     }
 
     function updateCarouselControls() {
-      prevButton.disabled = activeFeedback === 0;
-      nextButton.disabled = activeFeedback === cards.length - 1;
+      prevButton.disabled = false;
+      nextButton.disabled = false;
       dots.forEach((dot, index) => dot.setAttribute('aria-current', String(index === activeFeedback)));
     }
 
@@ -818,7 +803,7 @@
     viewport.addEventListener('scroll', () => {
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(() => {
-        activeFeedback = Math.max(0, Math.min(cards.length - 1, Math.round(viewport.scrollLeft / cardStep())));
+        activeFeedback = Math.round(viewport.scrollLeft / cardStep()) % cards.length;
         updateCarouselControls();
       }, 80);
     }, { passive: true });
