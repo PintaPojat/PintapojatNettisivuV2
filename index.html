@@ -104,6 +104,8 @@
       transition:transform .18s ease,background .18s ease;
     }
     .nav-pill:hover,.nav-pill:focus-visible{background:var(--navy-hover);transform:translateY(-2px);outline:none}
+    .nav-pill.offer{background:var(--orange);color:#000}
+    .nav-pill.offer:hover,.nav-pill.offer:focus-visible{background:#ffb532}
     .menu-toggle{
       display:none;
       border:0;
@@ -307,11 +309,18 @@
     }
     .projects-heading .section-title{margin-bottom:18px}
     .projects-heading p{
-      width:min(720px,100%);
+      width:min(760px,100%);
       margin:0 auto;
       font-size:17px;
       line-height:1.6;
     }
+    .projects-heading a{
+      font-weight:800;
+      text-decoration:underline;
+      text-decoration-thickness:2px;
+      text-underline-offset:4px;
+    }
+    .projects-heading a:hover,.projects-heading a:focus-visible{color:#000;outline:none}
     .projects-marquee{
       width:100%;
       overflow:hidden;
@@ -507,11 +516,27 @@
     }
     .submit-button:hover,.submit-button:focus-visible{transform:translateY(-2px);filter:brightness(1.02);outline:none}
 
-    footer{padding:50px 0;background:#000;color:#fff}
-    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-    .footer-brand{font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-size:30px;letter-spacing:.02em}
-    .footer-links{display:flex;gap:20px;flex-wrap:wrap;color:#d8d8d8}
-    .footer-links a:hover{text-decoration:underline}
+    footer{padding:64px 0;background:#000;color:#fff}
+    .footer-inner{display:grid;gap:34px}
+    .footer-top{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+    .footer-brand{font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-size:32px;letter-spacing:.02em}
+    .footer-page-links{display:flex;gap:12px;flex-wrap:wrap}
+    .footer-page-link{
+      display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 18px;
+      border-radius:var(--radius-ui);background:var(--navy);color:#fff;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:15px;letter-spacing:.015em;transition:transform .18s ease,background .18s ease;
+    }
+    .footer-page-link:hover,.footer-page-link:focus-visible{background:var(--navy-hover);transform:translateY(-2px);outline:none}
+    .footer-contacts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+    .footer-contact{padding:22px;background:#111;border-radius:var(--radius-ui)}
+    .footer-contact h3{
+      margin:0 0 14px;color:var(--orange);text-transform:uppercase;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:23px;font-weight:400;letter-spacing:.01em;
+    }
+    .footer-contact p{margin:6px 0;color:#e6e6e6;font-size:14px;line-height:1.5}
+    .footer-contact a:hover,.footer-contact a:focus-visible{color:var(--orange);outline:none}
 
     @media(max-width:880px){
       .header-inner{min-height:72px}
@@ -561,6 +586,10 @@
       .feedback-card{min-height:335px;padding:38px 24px}
       .form-row{grid-template-columns:1fr}
       .offer-card{padding:22px 17px}
+      .footer-top{align-items:flex-start}
+      .footer-page-links{width:100%;display:grid}
+      .footer-page-link{width:100%}
+      .footer-contacts{grid-template-columns:1fr}
     }
 
     @media(prefers-reduced-motion:reduce){
@@ -594,10 +623,9 @@
       <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">Valikko</button>
 
       <nav class="main-nav" id="mainNav" aria-label="Päävalikko">
-        <a class="nav-pill" href="#kohteet">KATSO KOHTEITAMME</a>
-        <a class="nav-pill" href="#tarjous">PYYDÄ TARJOUS</a>
         <a class="nav-pill" href="maalaustavat.html">MITEN MAALAAMME?</a>
-        <a class="nav-pill" href="kohteet.html">KOHTEET</a>
+        <a class="nav-pill" href="kohteet.html">REFERENSSIT</a>
+        <a class="nav-pill offer" href="#tarjous">PYYDÄ TARJOUS</a>
       </nav>
     </div>
   </header>
@@ -616,14 +644,14 @@
       <div class="wrap">
         <div class="hero-actions">
           <a class="hero-action orange" href="#tarjous">Pyydä tarjous</a>
-          <a class="hero-action navy" href="#palaute">Asiakaspalautteet</a>
+          <a class="hero-action navy" href="maalaustavat.html">Miten maalaamme?</a>
         </div>
 
         <h2 class="about-title impact">Keitä olemme?</h2>
         <p class="hello">Hei!</p>
         <p class="about-text">
           Olemme Vilho ja Ilmari, maalaamme kesätöiksemme omakotitaloja sekä muita rakenteita.
-          Aloitimme Joensuulaisella maalausyrityksellä vuonna 2024, mutta jo seuraavana vuonna päätimme ottaa riskin ja
+          Aloitimme Joensuulaisella maalausyrityksellä vuonna 2025, mutta jo seuraavana vuonna päätimme ottaa riskin ja
           ryhtyä toiminimiyrittäjiksi. Päätös kannatti ja olemme saaneet palvella kymmeniä tyytyväisiä talonomistajia
           pitkin kesäkautta. Panostamme työn jäljessä pitkäikäiseen ja siistiin lopputulokseen, josta voi olla ylpeä.
         </p>
@@ -663,7 +691,7 @@
     <section class="projects-showcase" id="kohteet" aria-labelledby="kohteet-otsikko">
       <div class="projects-heading">
         <h2 class="section-title" id="kohteet-otsikko">Maalaamiamme taloja</h2>
-        <p>Tässä muutamia toteuttamiamme maalauskohteita. Galleria liikkuu automaattisesti ja pysähtyy, kun viet osoittimen kuvien päälle.</p>
+        <p>Tässä muutamia toteuttamiamme maalauskohteita. Galleria liikkuu automaattisesti ja pysähtyy, kun viet osoittimen kuvien päälle. <a href="kohteet.html">Näet lisää kohteita painamalla tästä</a>.</p>
       </div>
 
       <div class="projects-marquee" aria-label="Kuvagalleria maalaamistamme taloista">
@@ -787,14 +815,30 @@
 
   <footer>
     <div class="wrap footer-inner">
-      <div class="footer-brand">PINTAPOJAT</div>
-      <nav class="footer-links" aria-label="Alatunnisteen linkit">
-        <a href="#alku">Etusivu</a>
-        <a href="#meista">Keitä olemme?</a>
-        <a href="#kohteet">Kohteitamme</a>
-        <a href="#palaute">Asiakaspalautteet</a>
-        <a href="#tarjous">Pyydä tarjous</a>
-      </nav>
+      <div class="footer-top">
+        <div class="footer-brand">PINTAPOJAT</div>
+        <nav class="footer-page-links" aria-label="Alatunnisteen sivulinkit">
+          <a class="footer-page-link" href="index.html">ETUSIVU</a>
+          <a class="footer-page-link" href="maalaustavat.html">MITEN MAALAAMME?</a>
+          <a class="footer-page-link" href="kohteet.html">REFERENSSIT</a>
+        </nav>
+      </div>
+
+      <div class="footer-contacts" aria-label="PintaPoikien yhteystiedot">
+        <section class="footer-contact">
+          <h3>Vilho Räisänen</h3>
+          <p><strong>Puhelin:</strong> <a href="tel:+358449805844">044 980 5844</a></p>
+          <p><strong>Sähköposti:</strong> <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a></p>
+          <p><strong>Y-tunnus:</strong> 3453360-6</p>
+        </section>
+
+        <section class="footer-contact">
+          <h3>Ilmari Sippola</h3>
+          <p><strong>Puhelin:</strong> <a href="tel:+3584578325502">045 7832 5502</a></p>
+          <p><strong>Sähköposti:</strong> <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a></p>
+          <p><strong>Y-tunnus:</strong> 3586169-5</p>
+        </section>
+      </div>
     </div>
   </footer>
 
