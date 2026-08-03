@@ -1,134 +1,224 @@
 <!doctype html>
 <html lang="fi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Pintapojat – nopea ja siisti talomaalaus Joensuussa." />
-  <title>Pintapojat | Talomaalaus Joensuussa</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#050505">
+  <title>PintaPojat | Talomaalaus Joensuussa</title>
+  <meta name="description" content="PintaPojat toteuttaa siistit ja kestävät talomaalaukset Joensuussa ja lähialueilla. Pyydä ilmainen arvio.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#102143;
+      --ink-2:#17284b;
+      --orange:#ff9f08;
+      --black:#050505;
+      --paper:#ededed;
+      --white:#fff;
+      --muted:#5d6678;
+      --line:rgba(16,33,67,.14);
+      --max:1180px;
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.55}
+    img{display:block;width:100%;height:auto}
+    a{color:inherit;text-decoration:none}
+    button,input,textarea{font:inherit}
+    .wrap{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
+
+    /* Header – follows the reference image closely */
+    .site-header{position:sticky;top:0;z-index:50;background:var(--black);border-bottom:1px solid rgba(255,255,255,.08)}
+    .header-inner{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    .brand{display:flex;align-items:center;gap:14px;color:#fff;white-space:nowrap}
+    .brand-mark{width:52px;height:52px;display:grid;place-items:center;border:3px solid #fff;border-radius:50%;font-weight:900;font-size:20px}
+    .brand-name{font-size:clamp(24px,3vw,38px);font-weight:500;letter-spacing:.02em}
+    .main-nav{display:flex;align-items:center;gap:14px}
+    .nav-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:999px;background:var(--ink-2);color:#fff;font-size:17px;font-weight:600;white-space:nowrap;transition:.2s}
+    .nav-link:hover{transform:translateY(-2px);background:#20345f}
+    .menu-btn{display:none;border:0;border-radius:12px;background:var(--orange);padding:11px 14px;font-weight:800;color:var(--black)}
+
+    /* Hero – image, then oversized title crossing into next section */
+    .hero{position:relative;background:var(--black)}
+    .hero-media{height:clamp(390px,63vw,680px);position:relative;overflow:hidden}
+    .hero-media img{height:100%;object-fit:cover;object-position:center 42%}
+    .hero-media:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.06),rgba(0,0,0,.06) 55%,rgba(0,0,0,.52))}
+    .hero-title{position:absolute;left:50%;bottom:-128px;z-index:2;transform:translateX(-50%);width:min(960px,92vw);margin:0;color:#fff;text-align:center;font-size:clamp(48px,7.3vw,92px);line-height:.99;font-weight:500;letter-spacing:-.035em;text-transform:uppercase;text-shadow:0 4px 25px rgba(0,0,0,.22)}
+
+    .intro{padding:170px 0 90px;text-align:center}
+    .hero-actions{display:flex;justify-content:center;gap:42px;flex-wrap:wrap;margin-bottom:56px}
+    .big-btn{display:inline-flex;align-items:center;justify-content:center;min-height:88px;padding:18px 30px;border-radius:12px;font-size:clamp(23px,3.2vw,42px);font-weight:400;box-shadow:0 8px 20px rgba(16,33,67,.08);transition:.2s}
+    .big-btn:hover{transform:translateY(-3px)}
+    .big-btn.orange{background:var(--orange);color:#fff}
+    .big-btn.navy{background:var(--ink-2);color:#fff}
+    .intro h2,.section-title{margin:0;text-transform:uppercase;font-size:clamp(42px,6vw,72px);line-height:1;font-weight:500;letter-spacing:-.035em}
+    .intro .hello{font-size:clamp(24px,3vw,34px);margin:4px 0 0}
+    .lead{max-width:980px;margin:8px auto 32px;font-size:clamp(18px,2.1vw,25px);line-height:1.65}
+
+    .team-photo{max-width:760px;margin:0 auto;border-radius:18px 18px 0 0;overflow:hidden;box-shadow:0 18px 45px rgba(16,33,67,.17)}
+    .team-photo img{aspect-ratio:16/10;object-fit:cover}
+
+    section.content{padding:90px 0;border-top:1px solid var(--line)}
+    .section-head{text-align:center;margin-bottom:42px}
+    .section-head p{max-width:760px;margin:14px auto 0;font-size:19px;color:var(--muted)}
+
+    .services{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+    .service{position:relative;min-height:410px;border-radius:var(--radius);overflow:hidden;background:#ccc;box-shadow:0 18px 40px rgba(16,33,67,.12)}
+    .service img{height:100%;object-fit:cover;transition:.4s}
+    .service:hover img{transform:scale(1.035)}
+    .service:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(4,10,22,.88),rgba(4,10,22,.05) 68%)}
+    .service-copy{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:28px;color:#fff}
+    .service h3{margin:0 0 8px;font-size:34px;text-transform:uppercase;line-height:1}
+    .service p{margin:0 0 18px;max-width:38ch}
+    .small-btn{display:inline-flex;padding:12px 18px;border-radius:999px;background:var(--orange);color:#fff;font-weight:800}
+
+    .showcase{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center}
+    .showcase-image{border-radius:var(--radius);overflow:hidden;box-shadow:0 18px 42px rgba(16,33,67,.14)}
+    .showcase-image img{min-height:470px;object-fit:cover}
+    .showcase-copy h3{font-size:clamp(34px,4vw,56px);line-height:1;text-transform:uppercase;margin:0 0 18px}
+    .showcase-copy p{font-size:19px;color:var(--muted)}
+    .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:26px}
+    .fact{background:#fff;border-radius:14px;padding:18px;border:1px solid var(--line)}
+    .fact strong{display:block;font-size:26px;color:var(--orange)}
+
+    .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+    .step{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;min-height:210px}
+    .step-num{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--orange);color:#fff;font-size:22px;font-weight:900;margin-bottom:18px}
+    .step h3{margin:0 0 8px;font-size:20px}
+    .step p{margin:0;color:var(--muted)}
+
+    .quote{background:var(--ink-2);color:#fff;border-radius:24px;padding:54px;text-align:center}
+    .quote blockquote{margin:0 auto 18px;max-width:860px;font-size:clamp(26px,3vw,42px);line-height:1.3}
+    .quote cite{font-style:normal;color:#cbd4e7}
+
+    .contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:34px;align-items:start}
+    .contact-card,.form-card{background:#fff;border-radius:20px;padding:30px;border:1px solid var(--line);box-shadow:0 14px 34px rgba(16,33,67,.09)}
+    .contact-card h3,.form-card h3{margin:0 0 16px;font-size:32px;text-transform:uppercase}
+    .contact-card p{margin:8px 0;font-size:18px}
+    form{display:grid;gap:14px}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    label{font-weight:700}
+    input,textarea{width:100%;border:1px solid #ccd2de;border-radius:12px;padding:14px;background:#fafafa;color:var(--ink)}
+    textarea{min-height:150px;resize:vertical}
+    input:focus,textarea:focus{outline:3px solid rgba(255,159,8,.22);border-color:var(--orange)}
+    .submit{border:0;border-radius:12px;background:var(--orange);color:#fff;padding:16px 20px;font-weight:900;font-size:18px;cursor:pointer}
+
+    footer{background:var(--black);color:#fff;padding:42px 0}
+    .footer-inner{display:flex;justify-content:space-between;gap:24px;align-items:center;flex-wrap:wrap}
+    .footer-brand{font-size:28px;font-weight:700}
+    .footer-links{display:flex;gap:20px;flex-wrap:wrap;color:#d7d7d7}
+
+    @media(max-width:900px){
+      .main-nav{position:absolute;left:20px;right:20px;top:74px;display:none;flex-direction:column;background:#0a0a0a;padding:14px;border-radius:14px}
+      .main-nav.open{display:flex}.nav-link{width:100%}.menu-btn{display:block}
+      .hero-title{bottom:-92px}.intro{padding-top:132px}
+      .services,.showcase,.contact-grid{grid-template-columns:1fr}
+      .steps{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:620px){
+      .wrap{width:min(var(--max),calc(100% - 26px))}
+      .header-inner{min-height:70px}.brand-mark{width:42px;height:42px}.brand-name{font-size:24px}
+      .hero-media{height:430px}.hero-title{bottom:-78px;font-size:44px}
+      .intro{padding-top:112px}.hero-actions{gap:14px;margin-bottom:46px}.big-btn{width:100%;min-height:66px;font-size:26px}
+      section.content{padding:64px 0}.services{grid-template-columns:1fr}.service{min-height:330px}
+      .steps{grid-template-columns:1fr}.two{grid-template-columns:1fr}.quote{padding:34px 20px}
+    }
+  </style>
 </head>
 <body>
-  <main class="site-shell">
-    <header class="topbar">
-      <a class="brand" href="#alku" aria-label="Pintapojat etusivu">
-        <img src="assets/logo.png" alt="Pintapojat" />
-      </a>
-      <nav class="top-actions" aria-label="Päävalikko">
-        <a class="mini-btn" href="#meista">Katso kohteitamme</a>
-        <a class="mini-btn" href="#tarjous">Pyydä tarjous</a>
-      </nav>
-    </header>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#alku" aria-label="PintaPojat etusivu">
+      <span class="brand-mark">PP</span>
+      <span class="brand-name">PINTAPOJAT</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav">Valikko</button>
+    <nav class="main-nav" id="mainNav" aria-label="Päävalikko">
+      <a class="nav-link" href="#kohteet">KATSO KOHTEITAMME</a>
+      <a class="nav-link" href="#tarjous">PYYDÄ TARJOUS</a>
+    </nav>
+  </div>
+</header>
 
-    <section class="hero" id="alku">
-      <img class="hero-image" src="assets/hero.jpg" alt="Kaksi talomaalaria työn äärellä" />
-      <div class="hero-copy" aria-label="Nopea ja siisti talomaalaus Joensuussa">
-        <span>Nopea &amp; siisti</span>
-        <span>talomaalaus</span>
-        <span>Joensuussa</span>
+<main id="alku">
+  <section class="hero">
+    <div class="hero-media">
+      <img src="assets/hero-pintapojat.jpg" alt="PintaPojat työmaalla" onerror="this.src='red-after.jpg'">
+    </div>
+    <h1 class="hero-title">Nopea &amp; siisti<br>talomaalaus<br>Joensuussa</h1>
+  </section>
+
+  <section class="intro">
+    <div class="wrap">
+      <div class="hero-actions">
+        <a class="big-btn orange" href="#tarjous">Pyydä tarjous</a>
+        <a class="big-btn navy" href="#palaute">Asiakaspalautteet</a>
       </div>
-    </section>
-
-    <section class="intro" id="meista">
-      <div class="primary-actions">
-        <a class="cta cta-orange" href="#tarjous">Pyydä tarjous</a>
-        <a class="cta cta-blue" href="#arviot">Asiakaspalautteet</a>
-      </div>
-
-      <h1>Keitä olemme?</h1>
+      <h2>Keitä olemme?</h2>
       <p class="hello">Hei!</p>
-      <p class="about-text">
-        Olemme Vilho ja Ilmari, maalaamme kesätöiksemme omakotitaloja sekä muita
-        rakennuksia. Aloitimme Joensuulaisena maalausyrityksellä vuonna 2024, mutta jo
-        seuraavana vuonna päätimme ottaa riskin ja ryhtyä toimimaan yrittäjiksi. Päätös
-        kannatti ja olemme saaneet palvella kymmeniä tyytyväisiä talonomistajia pitkin
-        kesäkautta. Panostamme työn jäljessä pitkäkestoiseen ja siistiin lopputulokseen,
-        josta voi olla ylpeä.
-      </p>
+      <p class="lead">Olemme Vilho ja Ilmari, joensuulaiset maalausalan yrittäjät. Maalaamme omakotitaloja, mökkejä ja muita rakennuksia Joensuussa ja lähialueilla. Panostamme pitkäikäiseen, siistiin ja huolellisesti viimeisteltyyn lopputulokseen, josta voi olla ylpeä.</p>
+      <figure class="team-photo">
+        <img src="assets/pintapojat-tiimi.jpg" alt="Vilho ja Ilmari maalaustyömaalla" onerror="this.src='cream-house.jpg'">
+      </figure>
+    </div>
+  </section>
 
-      <div class="team-grid">
-        <article class="person-card">
-          <img src="assets/ilmar.jpg" alt="Ilmari Sippola" />
-          <h2>Ilmari Sippola</h2>
-          <p>040 7862 555</p>
-          <p>Y-tunnus 3398196-5</p>
-          <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a>
-        </article>
-        <article class="person-card">
-          <img src="assets/vilho.jpg" alt="Vilho Räisänen" />
-          <h2>Vilho Räisänen</h2>
-          <p>044 908 1084</p>
-          <p>Y-tunnus 3428389-6</p>
-          <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a>
-        </article>
+  <section class="content" id="palvelut">
+    <div class="wrap">
+      <header class="section-head"><h2 class="section-title">Palvelumme</h2><p>Talojen ulkopintojen maalaukset alusta loppuun – pesusta viimeiseen siveltimenvetoon.</p></header>
+      <div class="services">
+        <article class="service"><img src="assets/palvelu-julkisivu.jpg" alt="Julkisivumaalaus" onerror="this.src='red-house.jpg'"><div class="service-copy"><h3>Julkisivumaalaus</h3><p>Kestävä ja siisti maalaus omakotitaloihin, mökkeihin ja muihin rakennuksiin.</p><a class="small-btn" href="#tarjous">Pyydä arvio</a></div></article>
+        <article class="service"><img src="assets/palvelu-huoltomaalaus.jpg" alt="Huoltomaalaus" onerror="this.src='cream-house.jpg'"><div class="service-copy"><h3>Huoltomaalaus</h3><p>Vanhan maalipinnan kunnostus ennen kuin kuluminen etenee liian pitkälle.</p><a class="small-btn" href="#tarjous">Pyydä arvio</a></div></article>
+        <article class="service"><img src="assets/palvelu-sokkeli.jpg" alt="Sokkelimaalaus" onerror="this.src='sokkeli.jpg'"><div class="service-copy"><h3>Sokkelit</h3><p>Sokkelin kunnostus ja maalaus viimeistelee rakennuksen ulkoasun.</p><a class="small-btn" href="#tarjous">Pyydä arvio</a></div></article>
+        <article class="service"><img src="assets/palvelu-pintaremontti.jpg" alt="Pieni pintaremontti" onerror="this.src='red-after.jpg'"><div class="service-copy"><h3>Pintaremontit</h3><p>Pienet ulkopintojen korjaukset ja vaihdot maalaustyön yhteydessä.</p><a class="small-btn" href="#tarjous">Pyydä arvio</a></div></article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="rating" id="arviot">
-      <p>Asiakkaiden antama keskiarvo työllemme:</p>
-      <div class="stars" aria-label="Arvosana 4,73 viidestä">
-        <span>★</span><span>★</span><span>★</span><span>★</span><span class="partial">☆</span>
+  <section class="content" id="kohteet">
+    <div class="wrap showcase">
+      <div class="showcase-image"><img src="assets/referenssi-paakuva.jpg" alt="Valmis maalauskohde" onerror="this.src='red-after.jpg'"></div>
+      <div class="showcase-copy"><h3>Työnjälki ratkaisee</h3><p>Huolelliset pohjatyöt ja oikeat materiaalit tekevät maalipinnasta kestävän. Sovimme työn sisällön, aikataulun ja hinnan selkeästi ennen aloitusta.</p><div class="facts"><div class="fact"><strong>3–5 päivää</strong>Tyypillinen omakotitalo</div><div class="fact"><strong>Joensuu</strong>Ja lähialueet</div><div class="fact"><strong>Ilmainen</strong>Arviointikäynti</div><div class="fact"><strong>Siisti</strong>Työmaa ja viimeistely</div></div></div>
+    </div>
+  </section>
+
+  <section class="content" id="tyovaiheet">
+    <div class="wrap">
+      <header class="section-head"><h2 class="section-title">Näin työ etenee</h2></header>
+      <div class="steps">
+        <article class="step"><div class="step-num">1</div><h3>Arviointikäynti</h3><p>Tarkistamme pinnat, työn laajuuden ja korjaustarpeet.</p></article>
+        <article class="step"><div class="step-num">2</div><h3>Selkeä tarjous</h3><p>Saat kirjallisen tarjouksen sovitusta kokonaisuudesta.</p></article>
+        <article class="step"><div class="step-num">3</div><h3>Pohjatyöt</h3><p>Pesu, irtoavan maalin poisto ja tarvittavat korjaukset.</p></article>
+        <article class="step"><div class="step-num">4</div><h3>Maalaus</h3><p>Tasainen ja huolellinen pintakäsittely oikeassa säässä.</p></article>
+        <article class="step"><div class="step-num">5</div><h3>Luovutus</h3><p>Tarkistus asiakkaan kanssa ja työmaan siivous.</p></article>
       </div>
-      <strong>4,73 tähteä</strong>
-      <small>(Keskiarvo on laskettu asiakkaiden täyttämistä loppuarviolomakkeista)</small>
-    </section>
+    </div>
+  </section>
 
-    <section class="quote-section" id="tarjous">
-      <div class="form-heading">
-        <p>Pyydä maksuton tarjous</p>
-        <h2>Kerro kohteestasi</h2>
-        <span>Vastaamme mahdollisimman pian.</span>
+  <section class="content" id="palaute">
+    <div class="wrap"><div class="quote"><blockquote>“Työ valmistui nopeasti, jälki oli erittäin siisti ja yhteydenpito sujui koko urakan ajan.”</blockquote><cite>— PintaPoikien asiakas, Joensuu</cite></div></div>
+  </section>
+
+  <section class="content" id="tarjous">
+    <div class="wrap">
+      <header class="section-head"><h2 class="section-title">Pyydä ilmainen arvio</h2><p>Kerro kohteesta lyhyesti. Otamme yhteyttä ja sovimme arviointikäynnin.</p></header>
+      <div class="contact-grid">
+        <aside class="contact-card"><h3>Yhteystiedot</h3><p><strong>Vilho Räisänen</strong><br><a href="tel:+358449805844">044 980 5844</a></p><p><strong>Ilmari Sippola</strong><br><a href="tel:+3584578325502">045 7832 5502</a></p><p><strong>Sähköposti</strong><br><a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a></p><p><strong>Palvelualue</strong><br>Joensuu ja lähialueet</p></aside>
+        <div class="form-card"><h3>Tarjouspyyntö</h3><form action="https://formspree.io/f/xeerkbjz" method="POST"><input type="hidden" name="_subject" value="Uusi tarjouspyyntö - PintaPojat"><div class="two"><div><label for="nimi">Nimi</label><input id="nimi" name="Nimi" required autocomplete="name"></div><div><label for="puhelin">Puhelin</label><input id="puhelin" name="Puhelin" type="tel" required autocomplete="tel"></div></div><div><label for="email">Sähköposti</label><input id="email" name="Sähköposti" type="email" required autocomplete="email"></div><div><label for="osoite">Kohteen osoite</label><input id="osoite" name="Osoite" autocomplete="street-address"></div><div><label for="viesti">Mitä kohteessa pitäisi tehdä?</label><textarea id="viesti" name="Työn kuvaus" required></textarea></div><button class="submit" type="submit">Lähetä tarjouspyyntö</button></form></div>
       </div>
+    </div>
+  </section>
+</main>
 
-      <form class="quote-form" action="https://formsubmit.co/pintapojat@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="Uusi tarjouspyyntö Pintapojat-sivulta">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off">
-
-        <div class="field-row">
-          <label>
-            Nimi
-            <input type="text" name="Nimi" autocomplete="name" required />
-          </label>
-          <label>
-            Puhelinnumero
-            <input type="tel" name="Puhelinnumero" autocomplete="tel" required />
-          </label>
-        </div>
-
-        <label>
-          Sähköposti
-          <input type="email" name="Sähköposti" autocomplete="email" required />
-        </label>
-
-        <label>
-          Kohteen osoite / paikkakunta
-          <input type="text" name="Kohde" autocomplete="street-address" />
-        </label>
-
-        <label>
-          Kerro maalauskohteesta
-          <textarea name="Kuvaus" rows="6" placeholder="Esimerkiksi rakennuksen koko, nykyinen pintamateriaali, arvioitu ajankohta ja mahdolliset lisätiedot." required></textarea>
-        </label>
-
-        <label class="consent">
-          <input type="checkbox" required />
-          <span>Hyväksyn, että tietojani käytetään tarjouspyyntöön vastaamiseen.</span>
-        </label>
-
-        <button class="submit-btn" type="submit">Lähetä tarjouspyyntö</button>
-        <p class="form-note">Lomake käyttää FormSubmit-palvelua. Ensimmäisellä käyttökerralla sähköpostiosoite vahvistetaan.</p>
-      </form>
-    </section>
-
-    <footer>
-      <strong>Pintapojat</strong>
-      <span>Joensuu ja lähialueet</span>
-      <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a>
-    </footer>
-  </main>
-  <script src="script.js"></script>
+<footer><div class="wrap footer-inner"><div class="footer-brand">PINTAPOJAT</div><div class="footer-links"><a href="#palvelut">Palvelut</a><a href="#kohteet">Kohteet</a><a href="#tarjous">Tarjouspyyntö</a><a href="mailto:pintapojat@gmail.com">Sähköposti</a></div></div></footer>
+<script>
+  const btn=document.getElementById('menuBtn');
+  const nav=document.getElementById('mainNav');
+  btn.addEventListener('click',()=>{const open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',open)});
+  nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');btn.setAttribute('aria-expanded','false')}));
+</script>
 </body>
 </html>
