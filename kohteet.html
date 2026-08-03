@@ -27,9 +27,6 @@
       --max:1160px;
       --radius:10px;
       --section-space:clamp(88px,10vw,136px);
-      --image-y:0px;
-      --title-y:0px;
-      --hero-cover:0%;
     }
 
     *{box-sizing:border-box}
@@ -146,58 +143,43 @@
     .hero{
       position:relative;
       z-index:10;
-      height:clamp(560px,calc(100svh - 80px),840px);
-      overflow:visible;
+      height:clamp(340px,44vw,510px);
+      overflow:hidden;
       background:#1c1c1c;
     }
     .hero-clip{position:absolute;inset:0;overflow:hidden}
     .hero-image{
       position:absolute;
-      left:0;
-      top:-3%;
+      inset:0;
       width:100%;
-      height:112%;
+      height:100%;
       object-fit:cover;
-      object-position:center 18%;
-      transform:translate3d(0,var(--image-y),0) scale(1.025);
-      will-change:transform;
+      object-position:center 20%;
     }
     .hero-shade{
       position:absolute;
       inset:0;
-      background:linear-gradient(to bottom,rgba(0,0,0,.08),rgba(0,0,0,.16) 52%,rgba(0,0,0,.68));
-    }
-    .hero-grey-cover{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:0;
-      z-index:2;
-      height:var(--hero-cover);
-      background:var(--paper);
-      will-change:height;
-      pointer-events:none;
+      background:linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.12) 48%,rgba(0,0,0,.68));
     }
     .hero-title{
       position:absolute;
       z-index:5;
       left:50%;
-      bottom:clamp(-84px,-6vw,-56px);
+      bottom:clamp(24px,4vw,48px);
       width:min(1050px,94vw);
       margin:0;
       color:#fff;
       text-align:center;
-      font-size:clamp(50px,7vw,88px);
+      font-size:clamp(46px,6.5vw,80px);
       line-height:1.02;
       text-shadow:0 4px 22px rgba(0,0,0,.38);
-      transform:translate3d(-50%,var(--title-y),0);
-      will-change:transform;
+      transform:translateX(-50%);
     }
 
     .intro-section{
       position:relative;
       z-index:3;
-      padding:clamp(150px,17vw,220px) 0 clamp(74px,8vw,108px);
+      padding:clamp(60px,7vw,92px) 0 clamp(58px,7vw,88px);
       background:var(--paper);
     }
     .intro-content{
@@ -211,40 +193,10 @@
       line-height:1.75;
     }
     .intro-content p + p{margin-top:8px}
-    .intro-hint{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      margin-top:28px;
-      padding:10px 16px;
-      border-radius:var(--radius);
-      background:var(--orange);
-      color:#000;
-      font-weight:800;
-    }
-    .intro-hint svg{width:20px;height:20px;flex:none}
-
     .projects-section{
-      padding:var(--section-space) 0;
+      padding:clamp(68px,8vw,108px) 0 var(--section-space);
       background:var(--surface);
     }
-    .section-heading{
-      width:min(850px,100%);
-      margin:0 auto clamp(48px,6vw,76px);
-      text-align:center;
-    }
-    .section-heading h2{
-      color:var(--navy);
-      font-size:clamp(42px,5.7vw,70px);
-      line-height:1;
-    }
-    .section-heading p{
-      width:min(690px,100%);
-      margin:18px auto 0;
-      color:var(--muted);
-      font-size:clamp(16px,1.5vw,19px);
-    }
-
     .projects-grid{
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
@@ -331,41 +283,76 @@
     .project-open:focus-visible .project-icon{transform:translate(2px,-2px)}
     .project-open:focus-visible{outline:4px solid var(--orange);outline-offset:-4px}
 
-    .bottom-cta{
+    /* Sama arviointikäyntilomake kuin sivuston muilla sivuilla */
+    .section{
       padding:var(--section-space) 0;
       background:var(--paper);
+      scroll-margin-top:20px;
     }
-    .cta-panel{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) auto;
-      gap:32px;
-      align-items:center;
-      padding:clamp(32px,5vw,58px);
-      border-radius:var(--radius);
-      background:var(--navy);
-      color:#fff;
-    }
-    .cta-panel h2{
-      font-size:clamp(38px,5vw,62px);
+    .section-title{
+      margin:0;
+      color:var(--navy);
+      text-align:center;
+      text-transform:uppercase;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:clamp(40px,5.2vw,62px);
+      font-weight:400;
       line-height:1;
+      letter-spacing:.005em;
+      text-wrap:balance;
+      max-width:980px;
+      margin-inline:auto;
     }
-    .cta-panel p{margin-top:14px;color:#d8deea;font-size:17px}
-    .cta-button{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:56px;
-      padding:12px 26px;
+    .section-lead{
+      width:min(760px,100%);
+      margin:20px auto clamp(42px,6vw,66px);
+      text-align:center;
+      color:var(--navy);
+      font-size:17px;
+    }
+    .offer-card{
+      width:min(900px,100%);
+      margin:0 auto;
+      padding:clamp(30px,4vw,46px);
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:0 14px 30px rgba(20,33,61,.1);
+    }
+    .offer-card h3{
+      margin:0 0 20px;
+      text-transform:uppercase;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:31px;
+      font-weight:400;
+    }
+    form{display:grid;gap:18px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    label{display:block;margin-bottom:5px;font-weight:700}
+    input,textarea{
+      width:100%;
+      border:0;
+      border-radius:var(--radius);
+      padding:14px;
+      background:#f3f4f6;
+      color:var(--navy);
+      font-size:16px;
+    }
+    textarea{min-height:150px;resize:vertical}
+    input:focus,textarea:focus{outline:3px solid rgba(252,163,17,.32)}
+    .submit-button{
+      min-height:58px;
+      border:0;
       border-radius:var(--radius);
       background:var(--orange);
-      color:#000;
+      color:#fff;
       font-size:18px;
-      white-space:nowrap;
+      font-weight:400;
+      cursor:pointer;
       transition:transform .18s ease,filter .18s ease;
     }
-    .cta-button:hover,.cta-button:focus-visible{
+    .submit-button:hover,.submit-button:focus-visible{
       transform:translateY(-2px);
-      filter:brightness(1.03);
+      filter:brightness(1.02);
       outline:none;
     }
 
@@ -532,10 +519,12 @@
       }
       .main-nav.open{display:flex}
       .nav-pill{width:100%;min-height:46px}
-      .hero{height:clamp(470px,76svh,650px)}
-      .hero-image{object-position:center 16%}
-      .hero-title{bottom:-56px;font-size:clamp(43px,13vw,65px)}
-      .intro-section{padding-top:120px}
+      .hero{height:clamp(300px,50vw,390px)}
+      .hero-image{object-position:center 18%}
+      .hero-title{bottom:24px;font-size:clamp(40px,11vw,60px)}
+      .intro-section{padding-top:58px}
+      .form-row{grid-template-columns:1fr}
+      .offer-card{padding:24px 18px}
       .project-overlay{padding:18px}
       .lightbox{padding:8px}
       .lightbox-dialog{max-height:calc(100svh - 16px)}
@@ -547,9 +536,9 @@
 
     @media(max-width:560px){
       body{font-size:15px}
-      .hero{height:450px}
-      .hero-title{bottom:-42px;font-size:42px}
-      .intro-section{padding-top:105px}
+      .hero{height:270px}
+      .hero-title{bottom:20px;font-size:38px}
+      .intro-section{padding-top:48px}
       .projects-grid{grid-template-columns:1fr;gap:18px}
       .project-image-wrap{aspect-ratio:16/11}
       .cta-panel{padding:28px 22px}
@@ -559,8 +548,6 @@
 
     @media(prefers-reduced-motion:reduce){
       html{scroll-behavior:auto}
-      .hero-image,.hero-title{transform:none!important}
-      .hero-grey-cover{display:none}
       *,*::before,*::after{
         animation-duration:.01ms!important;
         animation-iteration-count:1!important;
@@ -591,7 +578,7 @@
         <a class="nav-pill" href="index.html">ETUSIVU</a>
         <a class="nav-pill" href="maalaustavat.html">MITEN MAALAAMME?</a>
         <a class="nav-pill" href="#kohteet">KOHTEET</a>
-        <a class="nav-pill" href="index.html#arviointi">PYYDÄ TARJOUS</a>
+        <a class="nav-pill" href="#tarjous">PYYDÄ TARJOUS</a>
       </nav>
     </div>
   </header>
@@ -601,7 +588,6 @@
       <div class="hero-clip">
         <img class="hero-image" src="assets/Pintapojat_tiimikuva1.jpg" alt="PintaPojat maalauskohteella" fetchpriority="high">
         <div class="hero-shade" aria-hidden="true"></div>
-        <div class="hero-grey-cover" aria-hidden="true"></div>
       </div>
       <h1 class="hero-title" id="sivun-otsikko">Maalaamiamme kohteita</h1>
     </section>
@@ -611,25 +597,12 @@
         <div class="intro-content">
           <p>Tänne olemme keränneet kuvia kesien 2025 ja 2026 kohteistamme.</p>
           <p>Klikkaa kuvaa saadaksesi lisätietoja</p>
-          <div class="intro-hint" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="7"></circle>
-              <path d="m20 20-3.5-3.5"></path>
-              <path d="M11 8v6M8 11h6"></path>
-            </svg>
-            AVAA KOHDE KLIKKAAMALLA
-          </div>
         </div>
       </div>
     </section>
 
-    <section class="projects-section" id="kohteet" aria-labelledby="kohteet-otsikko">
+    <section class="projects-section" id="kohteet" aria-label="Maalaamiamme kohteita">
       <div class="wrap">
-        <div class="section-heading">
-          <h2 id="kohteet-otsikko">18 maalattua kohdetta</h2>
-          <p>Avaa kohde suureksi ja selaa kuvia nuolipainikkeilla, näppäimistöllä tai mobiilissa pyyhkäisemällä.</p>
-        </div>
-
         <div class="projects-grid">
           <!--
             Kohteen tietojen muokkaaminen:
@@ -749,14 +722,41 @@
       </div>
     </section>
 
-    <section class="bottom-cta" aria-labelledby="cta-otsikko">
+    <section class="section" id="tarjous" aria-labelledby="tarjous-otsikko">
       <div class="wrap">
-        <div class="cta-panel">
-          <div>
-            <h2 id="cta-otsikko">Haluatko talollesi uuden ilmeen?</h2>
-            <p>Pyydä maksuton arviointikäynti, niin kartoitamme kohteen ja työn laajuuden.</p>
-          </div>
-          <a class="cta-button" href="index.html#arviointi">PYYDÄ ILMAINEN ARVIO</a>
+        <h2 class="section-title" id="tarjous-otsikko">Pyydä ilmainen arvio</h2>
+        <p class="section-lead">Kerro kohteesta lyhyesti. Otamme yhteyttä ja sovimme maksuttoman arviointikäynnin.</p>
+
+        <div class="offer-card">
+          <h3>Tarjouspyyntö</h3>
+          <form action="https://formspree.io/f/xeerkbjz" method="POST">
+            <input type="hidden" name="_subject" value="Uusi tarjouspyyntö - PintaPojat">
+            <div class="form-row">
+              <div>
+                <label for="nimi">Nimi</label>
+                <input id="nimi" name="Nimi" type="text" autocomplete="name" required>
+              </div>
+              <div>
+                <label for="puhelin">Puhelinnumero</label>
+                <input id="puhelin" name="Puhelinnumero" type="tel" autocomplete="tel" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <label for="sahkoposti">Sähköposti</label>
+                <input id="sahkoposti" name="Sähköposti" type="email" autocomplete="email" required>
+              </div>
+              <div>
+                <label for="osoite">Kohteen osoite</label>
+                <input id="osoite" name="Osoite" type="text" autocomplete="street-address">
+              </div>
+            </div>
+            <div>
+              <label for="kuvaus">Mitä kohteessa pitäisi tehdä?</label>
+              <textarea id="kuvaus" name="Työn kuvaus" required></textarea>
+            </div>
+            <button class="submit-button" type="submit">Lähetä tarjouspyyntö</button>
+          </form>
         </div>
       </div>
     </section>
@@ -769,7 +769,7 @@
         <a href="index.html">Etusivu</a>
         <a href="maalaustavat.html">Miten maalaamme?</a>
         <a href="#kohteet">Kohteet</a>
-        <a href="index.html#arviointi">Pyydä tarjous</a>
+        <a href="#tarjous">Pyydä tarjous</a>
       </nav>
     </div>
   </footer>
@@ -807,53 +807,6 @@
         menuToggle.setAttribute('aria-expanded', 'false');
       });
     });
-
-    const hero = document.querySelector('.hero');
-    const heroTitle = document.querySelector('.hero-title');
-    const intro = document.querySelector('.intro-section');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let heroFramePending = false;
-
-    function getMaximumTitleTravel() {
-      const titleNaturalBottom = hero.offsetTop + heroTitle.offsetTop + heroTitle.offsetHeight;
-      const introTop = intro.getBoundingClientRect().top + window.scrollY;
-      const safetyGap = window.innerWidth <= 650 ? 26 : 40;
-      return Math.max(0, introTop - safetyGap - titleNaturalBottom);
-    }
-
-    function updateParallax() {
-      if (reduceMotion.matches) {
-        document.documentElement.style.setProperty('--image-y', '0px');
-        document.documentElement.style.setProperty('--title-y', '0px');
-        document.documentElement.style.setProperty('--hero-cover', '0%');
-        heroFramePending = false;
-        return;
-      }
-
-      const rect = hero.getBoundingClientRect();
-      const scrolled = Math.max(0, -rect.top);
-      const imageTravel = Math.min(rect.height * .16, scrolled * .18);
-      const maximumTitleTravel = getMaximumTitleTravel();
-      const titleTravel = Math.min(maximumTitleTravel, scrolled * .30);
-      const coverStart = rect.height * .10;
-      const coverProgress = Math.max(0, Math.min(1, (scrolled - coverStart) / (rect.height * .72)));
-
-      document.documentElement.style.setProperty('--image-y', `${imageTravel}px`);
-      document.documentElement.style.setProperty('--title-y', `${titleTravel}px`);
-      document.documentElement.style.setProperty('--hero-cover', `${coverProgress * 100}%`);
-      heroFramePending = false;
-    }
-
-    function requestParallaxUpdate() {
-      if (heroFramePending) return;
-      heroFramePending = true;
-      window.requestAnimationFrame(updateParallax);
-    }
-
-    window.addEventListener('scroll', requestParallaxUpdate, { passive:true });
-    window.addEventListener('resize', requestParallaxUpdate);
-    reduceMotion.addEventListener?.('change', requestParallaxUpdate);
-    updateParallax();
 
     const projectButtons = Array.from(document.querySelectorAll('.project-open'));
     const lightbox = document.getElementById('lightbox');
