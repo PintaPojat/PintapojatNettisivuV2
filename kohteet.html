@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+
+  <title>Maalaamiamme kohteita | PintaPojat</title>
+  <meta name="description" content="Tutustu PintaPoikien kesien 2025 ja 2026 aikana maalaamiin kohteisiin. Avaa kuvat nähdäksesi kohteiden lisätiedot.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --navy:#14213d;
+      --navy-hover:#1d2e52;
+      --orange:#fca311;
+      --paper:#e5e5e5;
+      --surface:#f4f4f2;
+      --white:#ffffff;
+      --black:#000000;
+      --text:#17213a;
+      --muted:#5e6573;
+      --max:1160px;
+      --radius:10px;
+      --section-space:clamp(88px,10vw,136px);
+      --image-y:0px;
+      --title-y:0px;
+      --hero-cover:0%;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;overflow-x:hidden}
+    body{
+      margin:0;
+      overflow-x:hidden;
+      background:var(--paper);
+      color:var(--text);
+      font-family:Inter,"Segoe UI",Arial,sans-serif;
+      font-size:16px;
+      line-height:1.65;
+      text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased;
+    }
+    body.modal-open{overflow:hidden}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%;height:auto}
+    button,input,textarea{font:inherit}
+    button,.nav-pill,.cta-button,.project-open{
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-weight:400;
+      letter-spacing:.015em;
+    }
+    h1,h2,h3,.impact{
+      margin:0;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-weight:400;
+      text-transform:uppercase;
+      letter-spacing:.005em;
+    }
+    p{margin:0}
+    .wrap{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
+
+    .skip-link{
+      position:absolute;
+      left:-9999px;
+      top:12px;
+      z-index:2000;
+      padding:12px 16px;
+      background:#fff;
+      color:#000;
+      border-radius:var(--radius);
+    }
+    .skip-link:focus{left:12px}
+
+    .site-header{
+      position:relative;
+      z-index:80;
+      width:100%;
+      background:var(--black);
+      color:#fff;
+    }
+    .header-inner{
+      min-height:80px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:28px;
+      padding:10px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:15px;
+      min-width:max-content;
+    }
+    .brand-logo{
+      display:block;
+      width:64px;
+      height:54px;
+      flex:none;
+      overflow:hidden;
+      background:transparent;
+      pointer-events:none;
+    }
+    .brand-name{
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:clamp(27px,3vw,38px);
+      line-height:1;
+      letter-spacing:.025em;
+      white-space:nowrap;
+    }
+    .main-nav{display:flex;align-items:center;gap:14px}
+    .nav-pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:9px 24px;
+      border-radius:var(--radius);
+      background:var(--navy);
+      color:#fff;
+      font-size:clamp(13px,1.35vw,17px);
+      line-height:1;
+      white-space:nowrap;
+      transition:transform .18s ease,background .18s ease;
+    }
+    .nav-pill:hover,.nav-pill:focus-visible{
+      background:var(--navy-hover);
+      transform:translateY(-2px);
+      outline:none;
+    }
+    .menu-toggle{
+      display:none;
+      border:0;
+      border-radius:var(--radius);
+      background:var(--orange);
+      color:#000;
+      padding:11px 14px;
+      cursor:pointer;
+    }
+
+    .hero{
+      position:relative;
+      z-index:10;
+      height:clamp(560px,calc(100svh - 80px),840px);
+      overflow:visible;
+      background:#1c1c1c;
+    }
+    .hero-clip{position:absolute;inset:0;overflow:hidden}
+    .hero-image{
+      position:absolute;
+      left:0;
+      top:-3%;
+      width:100%;
+      height:112%;
+      object-fit:cover;
+      object-position:center 18%;
+      transform:translate3d(0,var(--image-y),0) scale(1.025);
+      will-change:transform;
+    }
+    .hero-shade{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to bottom,rgba(0,0,0,.08),rgba(0,0,0,.16) 52%,rgba(0,0,0,.68));
+    }
+    .hero-grey-cover{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:2;
+      height:var(--hero-cover);
+      background:var(--paper);
+      will-change:height;
+      pointer-events:none;
+    }
+    .hero-title{
+      position:absolute;
+      z-index:5;
+      left:50%;
+      bottom:clamp(-84px,-6vw,-56px);
+      width:min(1050px,94vw);
+      margin:0;
+      color:#fff;
+      text-align:center;
+      font-size:clamp(50px,7vw,88px);
+      line-height:1.02;
+      text-shadow:0 4px 22px rgba(0,0,0,.38);
+      transform:translate3d(-50%,var(--title-y),0);
+      will-change:transform;
+    }
+
+    .intro-section{
+      position:relative;
+      z-index:3;
+      padding:clamp(150px,17vw,220px) 0 clamp(74px,8vw,108px);
+      background:var(--paper);
+    }
+    .intro-content{
+      width:min(860px,100%);
+      margin:0 auto;
+      text-align:center;
+    }
+    .intro-content p{
+      color:#29334a;
+      font-size:clamp(17px,1.7vw,20px);
+      line-height:1.75;
+    }
+    .intro-content p + p{margin-top:8px}
+    .intro-hint{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-top:28px;
+      padding:10px 16px;
+      border-radius:var(--radius);
+      background:var(--orange);
+      color:#000;
+      font-weight:800;
+    }
+    .intro-hint svg{width:20px;height:20px;flex:none}
+
+    .projects-section{
+      padding:var(--section-space) 0;
+      background:var(--surface);
+    }
+    .section-heading{
+      width:min(850px,100%);
+      margin:0 auto clamp(48px,6vw,76px);
+      text-align:center;
+    }
+    .section-heading h2{
+      color:var(--navy);
+      font-size:clamp(42px,5.7vw,70px);
+      line-height:1;
+    }
+    .section-heading p{
+      width:min(690px,100%);
+      margin:18px auto 0;
+      color:var(--muted);
+      font-size:clamp(16px,1.5vw,19px);
+    }
+
+    .projects-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:clamp(18px,2.6vw,30px);
+    }
+    .project-card{
+      position:relative;
+      min-width:0;
+      overflow:hidden;
+      border-radius:var(--radius);
+      background:#d8d9dc;
+      box-shadow:0 16px 38px rgba(20,33,61,.11);
+      isolation:isolate;
+    }
+    .project-open{
+      position:relative;
+      display:block;
+      width:100%;
+      padding:0;
+      border:0;
+      background:transparent;
+      color:#fff;
+      text-align:left;
+      cursor:pointer;
+    }
+    .project-image-wrap{
+      position:relative;
+      aspect-ratio:4/3;
+      overflow:hidden;
+      background:linear-gradient(135deg,#d8d9dc,#ececea);
+    }
+    .project-image{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .38s ease,filter .38s ease;
+    }
+    .project-image-wrap.is-placeholder::after{
+      content:"Lisää kohteen kuva";
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      color:#697080;
+      text-align:center;
+      font-size:23px;
+      text-transform:uppercase;
+      letter-spacing:.02em;
+    }
+    .project-overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      padding:22px;
+      background:linear-gradient(to top,rgba(0,0,0,.82),rgba(0,0,0,.06) 66%);
+    }
+    .project-title{
+      font-size:clamp(24px,2.7vw,34px);
+      line-height:1;
+      text-shadow:0 2px 12px rgba(0,0,0,.35);
+    }
+    .project-icon{
+      display:grid;
+      place-items:center;
+      width:42px;
+      height:42px;
+      flex:none;
+      border-radius:var(--radius);
+      background:var(--orange);
+      color:#000;
+      transition:transform .18s ease;
+    }
+    .project-icon svg{width:21px;height:21px}
+    .project-open:hover .project-image,
+    .project-open:focus-visible .project-image{
+      transform:scale(1.045);
+      filter:brightness(.92);
+    }
+    .project-open:hover .project-icon,
+    .project-open:focus-visible .project-icon{transform:translate(2px,-2px)}
+    .project-open:focus-visible{outline:4px solid var(--orange);outline-offset:-4px}
+
+    .bottom-cta{
+      padding:var(--section-space) 0;
+      background:var(--paper);
+    }
+    .cta-panel{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:32px;
+      align-items:center;
+      padding:clamp(32px,5vw,58px);
+      border-radius:var(--radius);
+      background:var(--navy);
+      color:#fff;
+    }
+    .cta-panel h2{
+      font-size:clamp(38px,5vw,62px);
+      line-height:1;
+    }
+    .cta-panel p{margin-top:14px;color:#d8deea;font-size:17px}
+    .cta-button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:56px;
+      padding:12px 26px;
+      border-radius:var(--radius);
+      background:var(--orange);
+      color:#000;
+      font-size:18px;
+      white-space:nowrap;
+      transition:transform .18s ease,filter .18s ease;
+    }
+    .cta-button:hover,.cta-button:focus-visible{
+      transform:translateY(-2px);
+      filter:brightness(1.03);
+      outline:none;
+    }
+
+    footer{
+      padding:48px 0;
+      background:#000;
+      color:#fff;
+    }
+    .footer-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      flex-wrap:wrap;
+    }
+    .footer-brand{
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:30px;
+      letter-spacing:.02em;
+    }
+    .footer-links{display:flex;gap:20px;flex-wrap:wrap;color:#d8d8d8}
+    .footer-links a:hover{text-decoration:underline}
+
+    .lightbox{
+      position:fixed;
+      inset:0;
+      z-index:3000;
+      display:none;
+      padding:clamp(14px,3vw,34px);
+      background:rgba(0,0,0,.88);
+      backdrop-filter:blur(9px);
+    }
+    .lightbox.open{display:grid;place-items:center}
+    .lightbox-dialog{
+      position:relative;
+      display:grid;
+      grid-template-columns:minmax(0,1.55fr) minmax(280px,.65fr);
+      width:min(1240px,100%);
+      max-height:calc(100svh - 40px);
+      overflow:hidden;
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:0 30px 90px rgba(0,0,0,.45);
+    }
+    .lightbox-media{
+      position:relative;
+      min-height:560px;
+      background:#111;
+      overflow:hidden;
+    }
+    .lightbox-image{
+      width:100%;
+      height:100%;
+      min-height:560px;
+      object-fit:contain;
+      background:#111;
+    }
+    .lightbox-image-placeholder{
+      display:none;
+      position:absolute;
+      inset:0;
+      place-items:center;
+      padding:30px;
+      background:linear-gradient(135deg,#34383f,#191b20);
+      color:#fff;
+      text-align:center;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:clamp(28px,4vw,52px);
+      text-transform:uppercase;
+    }
+    .lightbox-image-placeholder.visible{display:grid}
+    .lightbox-details{
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+      padding:clamp(30px,4vw,52px);
+      overflow-y:auto;
+    }
+    .lightbox-count{
+      color:var(--orange);
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:18px;
+      text-transform:uppercase;
+    }
+    .lightbox-title{
+      margin-top:12px;
+      color:var(--navy);
+      font-size:clamp(36px,4.5vw,58px);
+      line-height:1;
+    }
+    .lightbox-description{
+      margin-top:24px;
+      color:#3c4558;
+      font-size:16px;
+      line-height:1.7;
+    }
+    .lightbox-tip{
+      margin-top:auto;
+      padding-top:30px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .lightbox-close,
+    .lightbox-arrow{
+      position:absolute;
+      z-index:4;
+      display:grid;
+      place-items:center;
+      border:0;
+      border-radius:var(--radius);
+      background:var(--orange);
+      color:#000;
+      cursor:pointer;
+      box-shadow:0 10px 26px rgba(0,0,0,.25);
+      transition:transform .18s ease,filter .18s ease;
+    }
+    .lightbox-close:hover,.lightbox-close:focus-visible,
+    .lightbox-arrow:hover,.lightbox-arrow:focus-visible{
+      transform:scale(1.04);
+      filter:brightness(1.03);
+      outline:none;
+    }
+    .lightbox-close{
+      top:16px;
+      right:16px;
+      width:46px;
+      height:46px;
+      font-size:27px;
+      line-height:1;
+    }
+    .lightbox-arrow{
+      top:50%;
+      width:52px;
+      height:58px;
+      transform:translateY(-50%);
+      font-size:31px;
+    }
+    .lightbox-arrow:hover,.lightbox-arrow:focus-visible{transform:translateY(-50%) scale(1.04)}
+    .lightbox-prev{left:16px}
+    .lightbox-next{right:16px}
+
+    @media(max-width:980px){
+      .projects-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .cta-panel{grid-template-columns:1fr}
+      .cta-button{justify-self:start}
+      .lightbox-dialog{grid-template-columns:1fr;overflow-y:auto}
+      .lightbox-media{min-height:min(58svh,570px)}
+      .lightbox-image{min-height:min(58svh,570px)}
+      .lightbox-details{min-height:270px}
+    }
+
+    @media(max-width:780px){
+      .wrap{width:min(var(--max),calc(100% - 28px))}
+      .header-inner{min-height:70px;flex-wrap:wrap}
+      .brand-logo{width:54px;height:46px}
+      .brand-name{font-size:27px}
+      .menu-toggle{display:inline-flex}
+      .main-nav{
+        display:none;
+        width:100%;
+        padding:2px 0 10px;
+        flex-direction:column;
+        align-items:stretch;
+      }
+      .main-nav.open{display:flex}
+      .nav-pill{width:100%;min-height:46px}
+      .hero{height:clamp(470px,76svh,650px)}
+      .hero-image{object-position:center 16%}
+      .hero-title{bottom:-56px;font-size:clamp(43px,13vw,65px)}
+      .intro-section{padding-top:120px}
+      .project-overlay{padding:18px}
+      .lightbox{padding:8px}
+      .lightbox-dialog{max-height:calc(100svh - 16px)}
+      .lightbox-close{top:10px;right:10px}
+      .lightbox-arrow{top:45%;width:46px;height:52px}
+      .lightbox-prev{left:10px}
+      .lightbox-next{right:10px}
+    }
+
+    @media(max-width:560px){
+      body{font-size:15px}
+      .hero{height:450px}
+      .hero-title{bottom:-42px;font-size:42px}
+      .intro-section{padding-top:105px}
+      .projects-grid{grid-template-columns:1fr;gap:18px}
+      .project-image-wrap{aspect-ratio:16/11}
+      .cta-panel{padding:28px 22px}
+      .lightbox-details{padding:28px 22px}
+      .lightbox-media,.lightbox-image{min-height:48svh}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      .hero-image,.hero-title{transform:none!important}
+      .hero-grey-cover{display:none}
+      *,*::before,*::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        transition-duration:.01ms!important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#sisalto">Siirry sisältöön</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="PintaPojat etusivu">
+        <object
+          class="brand-logo"
+          data="assets/LogoKuva.pdf#page=1&toolbar=0&navpanes=0&scrollbar=0&view=Fit"
+          type="application/pdf"
+          aria-label="PintaPojat-logo">
+          <span aria-hidden="true">PP</span>
+        </object>
+        <span class="brand-name">PINTAPOJAT</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">Valikko</button>
+
+      <nav class="main-nav" id="mainNav" aria-label="Päävalikko">
+        <a class="nav-pill" href="index.html">ETUSIVU</a>
+        <a class="nav-pill" href="maalaustavat.html">MITEN MAALAAMME?</a>
+        <a class="nav-pill" href="#kohteet">KOHTEET</a>
+        <a class="nav-pill" href="index.html#arviointi">PYYDÄ TARJOUS</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="sisalto">
+    <section class="hero" id="alku" aria-labelledby="sivun-otsikko">
+      <div class="hero-clip">
+        <img class="hero-image" src="assets/Pintapojat_tiimikuva1.jpg" alt="PintaPojat maalauskohteella" fetchpriority="high">
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-grey-cover" aria-hidden="true"></div>
+      </div>
+      <h1 class="hero-title" id="sivun-otsikko">Maalaamiamme kohteita</h1>
+    </section>
+
+    <section class="intro-section" aria-label="Kohteiden esittely">
+      <div class="wrap">
+        <div class="intro-content">
+          <p>Tänne olemme keränneet kuvia kesien 2025 ja 2026 kohteistamme.</p>
+          <p>Klikkaa kuvaa saadaksesi lisätietoja</p>
+          <div class="intro-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+              <path d="M11 8v6M8 11h6"></path>
+            </svg>
+            AVAA KOHDE KLIKKAAMALLA
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects-section" id="kohteet" aria-labelledby="kohteet-otsikko">
+      <div class="wrap">
+        <div class="section-heading">
+          <h2 id="kohteet-otsikko">18 maalattua kohdetta</h2>
+          <p>Avaa kohde suureksi ja selaa kuvia nuolipainikkeilla, näppäimistöllä tai mobiilissa pyyhkäisemällä.</p>
+        </div>
+
+        <div class="projects-grid">
+          <!--
+            Kohteen tietojen muokkaaminen:
+            1. Vaihda kuvatiedosto src-arvoon.
+            2. Vaihda data-title ja data-description haluamiksesi.
+            3. Säilytä tiedostonimet GitHubissa täsmälleen samassa kirjainkoossa.
+          -->
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="0" data-title="Kohde 01" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_01.jpg" alt="Maalattu kohde 1" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 01</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="1" data-title="Kohde 02" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_02.jpg" alt="Maalattu kohde 2" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 02</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="2" data-title="Kohde 03" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_03.jpg" alt="Maalattu kohde 3" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 03</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="3" data-title="Kohde 04" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_04.jpg" alt="Maalattu kohde 4" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 04</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="4" data-title="Kohde 05" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_05.jpg" alt="Maalattu kohde 5" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 05</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="5" data-title="Kohde 06" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_06.jpg" alt="Maalattu kohde 6" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 06</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="6" data-title="Kohde 07" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_07.jpg" alt="Maalattu kohde 7" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 07</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="7" data-title="Kohde 08" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_08.jpg" alt="Maalattu kohde 8" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 08</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="8" data-title="Kohde 09" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_09.jpg" alt="Maalattu kohde 9" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 09</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="9" data-title="Kohde 10" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_10.jpg" alt="Maalattu kohde 10" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 10</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="10" data-title="Kohde 11" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_11.jpg" alt="Maalattu kohde 11" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 11</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="11" data-title="Kohde 12" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_12.jpg" alt="Maalattu kohde 12" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 12</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="12" data-title="Kohde 13" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_13.jpg" alt="Maalattu kohde 13" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 13</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="13" data-title="Kohde 14" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_14.jpg" alt="Maalattu kohde 14" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 14</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="14" data-title="Kohde 15" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_15.jpg" alt="Maalattu kohde 15" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 15</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="15" data-title="Kohde 16" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_16.jpg" alt="Maalattu kohde 16" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 16</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="16" data-title="Kohde 17" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_17.jpg" alt="Maalattu kohde 17" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 17</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+          <article class="project-card">
+            <button class="project-open" type="button" data-index="17" data-title="Kohde 18" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_18.jpg" alt="Maalattu kohde 18" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-overlay"><span class="project-title">Kohde 18</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+            </button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom-cta" aria-labelledby="cta-otsikko">
+      <div class="wrap">
+        <div class="cta-panel">
+          <div>
+            <h2 id="cta-otsikko">Haluatko talollesi uuden ilmeen?</h2>
+            <p>Pyydä maksuton arviointikäynti, niin kartoitamme kohteen ja työn laajuuden.</p>
+          </div>
+          <a class="cta-button" href="index.html#arviointi">PYYDÄ ILMAINEN ARVIO</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="footer-brand">PINTAPOJAT</div>
+      <nav class="footer-links" aria-label="Alatunnisteen linkit">
+        <a href="index.html">Etusivu</a>
+        <a href="maalaustavat.html">Miten maalaamme?</a>
+        <a href="#kohteet">Kohteet</a>
+        <a href="index.html#arviointi">Pyydä tarjous</a>
+      </nav>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" aria-hidden="true">
+    <div class="lightbox-dialog">
+      <div class="lightbox-media" id="lightboxMedia">
+        <img class="lightbox-image" id="lightboxImage" src="" alt="">
+        <div class="lightbox-image-placeholder" id="lightboxPlaceholder">Lisää kohteen kuva</div>
+        <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" type="button" aria-label="Edellinen kohde">‹</button>
+        <button class="lightbox-arrow lightbox-next" id="lightboxNext" type="button" aria-label="Seuraava kohde">›</button>
+      </div>
+      <div class="lightbox-details">
+        <div class="lightbox-count" id="lightboxCount" aria-live="polite"></div>
+        <h2 class="lightbox-title" id="lightboxTitle"></h2>
+        <p class="lightbox-description" id="lightboxDescription"></p>
+        <p class="lightbox-tip">Selaa kohteita nuolipainikkeilla tai näppäimistön vasemmalla ja oikealla nuolella. Sulje näkymä Esc-näppäimellä.</p>
+      </div>
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Sulje kohteen tiedot">×</button>
+    </div>
+  </div>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mainNav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    mainNav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    const hero = document.querySelector('.hero');
+    const heroTitle = document.querySelector('.hero-title');
+    const intro = document.querySelector('.intro-section');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let heroFramePending = false;
+
+    function getMaximumTitleTravel() {
+      const titleNaturalBottom = hero.offsetTop + heroTitle.offsetTop + heroTitle.offsetHeight;
+      const introTop = intro.getBoundingClientRect().top + window.scrollY;
+      const safetyGap = window.innerWidth <= 650 ? 26 : 40;
+      return Math.max(0, introTop - safetyGap - titleNaturalBottom);
+    }
+
+    function updateParallax() {
+      if (reduceMotion.matches) {
+        document.documentElement.style.setProperty('--image-y', '0px');
+        document.documentElement.style.setProperty('--title-y', '0px');
+        document.documentElement.style.setProperty('--hero-cover', '0%');
+        heroFramePending = false;
+        return;
+      }
+
+      const rect = hero.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const imageTravel = Math.min(rect.height * .16, scrolled * .18);
+      const maximumTitleTravel = getMaximumTitleTravel();
+      const titleTravel = Math.min(maximumTitleTravel, scrolled * .30);
+      const coverStart = rect.height * .10;
+      const coverProgress = Math.max(0, Math.min(1, (scrolled - coverStart) / (rect.height * .72)));
+
+      document.documentElement.style.setProperty('--image-y', `${imageTravel}px`);
+      document.documentElement.style.setProperty('--title-y', `${titleTravel}px`);
+      document.documentElement.style.setProperty('--hero-cover', `${coverProgress * 100}%`);
+      heroFramePending = false;
+    }
+
+    function requestParallaxUpdate() {
+      if (heroFramePending) return;
+      heroFramePending = true;
+      window.requestAnimationFrame(updateParallax);
+    }
+
+    window.addEventListener('scroll', requestParallaxUpdate, { passive:true });
+    window.addEventListener('resize', requestParallaxUpdate);
+    reduceMotion.addEventListener?.('change', requestParallaxUpdate);
+    updateParallax();
+
+    const projectButtons = Array.from(document.querySelectorAll('.project-open'));
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxPlaceholder = document.getElementById('lightboxPlaceholder');
+    const lightboxCount = document.getElementById('lightboxCount');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxDescription = document.getElementById('lightboxDescription');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+    const lightboxMedia = document.getElementById('lightboxMedia');
+    let activeProjectIndex = 0;
+    let lastFocusedElement = null;
+    let touchStartX = 0;
+
+    function getProjectData(index) {
+      const button = projectButtons[index];
+      const thumbnail = button.querySelector('.project-image');
+      return {
+        title: button.dataset.title,
+        description: button.dataset.description,
+        src: thumbnail.getAttribute('src'),
+        alt: thumbnail.getAttribute('alt'),
+        missing: thumbnail.hidden || button.querySelector('.project-image-wrap').classList.contains('is-placeholder')
+      };
+    }
+
+    function renderProject(index) {
+      activeProjectIndex = (index + projectButtons.length) % projectButtons.length;
+      const project = getProjectData(activeProjectIndex);
+
+      lightboxCount.textContent = `${activeProjectIndex + 1} / ${projectButtons.length}`;
+      lightboxTitle.textContent = project.title;
+      lightboxDescription.textContent = project.description;
+      lightboxImage.alt = project.alt;
+      lightboxImage.hidden = project.missing;
+      lightboxPlaceholder.classList.toggle('visible', project.missing);
+
+      if (!project.missing) {
+        lightboxImage.src = project.src;
+      } else {
+        lightboxImage.removeAttribute('src');
+      }
+    }
+
+    function openLightbox(index) {
+      lastFocusedElement = document.activeElement;
+      renderProject(index);
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      lightboxImage.removeAttribute('src');
+      lastFocusedElement?.focus();
+    }
+
+    function showPreviousProject() {
+      renderProject(activeProjectIndex - 1);
+    }
+
+    function showNextProject() {
+      renderProject(activeProjectIndex + 1);
+    }
+
+    projectButtons.forEach((button, index) => {
+      button.addEventListener('click', () => openLightbox(index));
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', showPreviousProject);
+    lightboxNext.addEventListener('click', showNextProject);
+
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (!lightbox.classList.contains('open')) return;
+
+      if (event.key === 'Escape') closeLightbox();
+      if (event.key === 'ArrowLeft') showPreviousProject();
+      if (event.key === 'ArrowRight') showNextProject();
+
+      if (event.key === 'Tab') {
+        const focusable = Array.from(lightbox.querySelectorAll('button:not([disabled])'));
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    lightboxImage.addEventListener('error', () => {
+      lightboxImage.hidden = true;
+      lightboxPlaceholder.classList.add('visible');
+    });
+
+    lightboxMedia.addEventListener('touchstart', (event) => {
+      touchStartX = event.changedTouches[0].clientX;
+    }, { passive:true });
+
+    lightboxMedia.addEventListener('touchend', (event) => {
+      const touchEndX = event.changedTouches[0].clientX;
+      const distance = touchEndX - touchStartX;
+      if (Math.abs(distance) < 50) return;
+      if (distance > 0) showPreviousProject();
+      else showNextProject();
+    }, { passive:true });
+  </script>
+</body>
+</html>
