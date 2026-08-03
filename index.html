@@ -18,9 +18,10 @@
       --paper:#e5e5e5;
       --black:#000;
       --white:#fff;
-      --max:1120px;
-      --section-space:clamp(72px,9vw,104px);
-      --content-gap:clamp(28px,4vw,44px);
+      --max:1160px;
+      --section-space:clamp(92px,11vw,144px);
+      --content-gap:clamp(38px,5vw,64px);
+      --radius-ui:10px;
       --image-y:0px;
       --title-y:0px;
       --hero-cover:0%;
@@ -52,7 +53,7 @@
 
     .skip-link{
       position:absolute;left:-9999px;top:12px;z-index:1000;
-      padding:12px 16px;background:#fff;color:#000;border-radius:10px;
+      padding:12px 16px;background:#fff;color:#000;border-radius:var(--radius-ui);
     }
     .skip-link:focus{left:12px}
 
@@ -81,7 +82,7 @@
     .brand-logo{width:52px;height:52px;flex:none}
     .brand-name{
       font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:clamp(29px,3.2vw,42px);
+      font-size:clamp(27px,3vw,38px);
       line-height:1;
       letter-spacing:.025em;
       white-space:nowrap;
@@ -93,10 +94,10 @@
       justify-content:center;
       min-height:48px;
       padding:9px 24px;
-      border-radius:999px;
+      border-radius:var(--radius-ui);
       background:var(--navy);
       color:#fff;
-      font-size:clamp(14px,1.65vw,20px);
+      font-size:clamp(13px,1.35vw,17px);
       font-weight:400;
       line-height:1;
       white-space:nowrap;
@@ -106,7 +107,7 @@
     .menu-toggle{
       display:none;
       border:0;
-      border-radius:12px;
+      border-radius:var(--radius-ui);
       background:var(--orange);
       color:#000;
       padding:11px 14px;
@@ -118,7 +119,7 @@
     .hero{
       position:relative;
       z-index:10;
-      height:clamp(345px,43vw,620px);
+      height:clamp(560px,calc(100svh - 80px),840px);
       overflow:visible;
       background:#1c1c1c;
     }
@@ -154,14 +155,14 @@
       position:absolute;
       z-index:5;
       left:50%;
-      bottom:clamp(-132px,-9.5vw,-88px);
+      bottom:clamp(-118px,-8vw,-82px);
       width:min(920px,94vw);
       margin:0;
       color:#fff;
       text-align:center;
       text-transform:uppercase;
       font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:clamp(50px,7.55vw,94px);
+      font-size:clamp(46px,6.6vw,80px);
       font-weight:400;
       letter-spacing:.005em;
       line-height:1.04;
@@ -173,7 +174,7 @@
     .intro{
       position:relative;
       z-index:2;
-      padding:clamp(160px,17vw,215px) 0 var(--section-space);
+      padding:clamp(170px,18vw,230px) 0 var(--section-space);
       background:var(--paper);
       text-align:center;
     }
@@ -182,19 +183,19 @@
       align-items:stretch;
       justify-content:center;
       flex-wrap:wrap;
-      gap:clamp(18px,4vw,44px);
+      gap:clamp(18px,3vw,34px);
       margin:0 auto var(--content-gap);
     }
     .hero-action{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      width:min(312px,100%);
-      min-height:88px;
+      width:min(292px,100%);
+      min-height:76px;
       padding:15px 26px;
-      border-radius:12px;
+      border-radius:var(--radius-ui);
       color:#fff;
-      font-size:clamp(27px,3.2vw,42px);
+      font-size:clamp(23px,2.7vw,34px);
       font-weight:400;
       line-height:1.1;
       transition:transform .18s ease,filter .18s ease;
@@ -207,32 +208,32 @@
       margin:0;
       color:var(--navy);
       text-transform:uppercase;
-      font-size:clamp(46px,6.2vw,72px);
+      font-size:clamp(40px,5.2vw,62px);
       line-height:1;
       letter-spacing:.005em;
     }
-    .hello{margin:1px 0 0;font-size:clamp(24px,3vw,34px)}
+    .hello{margin:8px 0 0;font-size:clamp(21px,2.4vw,29px)}
     .about-text{
       width:min(980px,100%);
-      margin:12px auto 0;
-      font-size:clamp(18px,2vw,22px);
+      margin:20px auto 0;
+      font-size:clamp(17px,1.7vw,20px);
       line-height:1.5;
       text-align:center;
     }
 
-    /* Kaarevat henkilökortit mallikuvan visuaalista linjaa mukaillen */
+    /* Selkeät henkilökortit samalla maltillisella pyöristyksellä kuin painikkeissa */
     .people-grid{
-      width:min(860px,100%);
+      width:min(900px,100%);
       margin:var(--content-gap) auto 0;
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:clamp(20px,3vw,32px);
+      gap:clamp(24px,4vw,42px);
       align-items:start;
     }
     .person-card{
       min-width:0;
       overflow:hidden;
-      border-radius:48% 48% 26px 26px / 30% 30% 26px 26px;
+      border-radius:var(--radius-ui);
       background:#fff;
       box-shadow:0 18px 38px rgba(20,33,61,.14);
     }
@@ -257,8 +258,8 @@
       object-position:center 14%;
     }
     .person-content{
-      min-height:238px;
-      padding:26px clamp(20px,3vw,30px) 28px;
+      min-height:224px;
+      padding:28px clamp(22px,3vw,32px) 32px;
       background:var(--navy);
       color:#fff;
       text-align:left;
@@ -268,15 +269,15 @@
       text-align:center;
       text-transform:uppercase;
       font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:clamp(28px,3.6vw,40px);
+      font-size:clamp(25px,3vw,34px);
       font-weight:400;
       line-height:1;
       letter-spacing:.01em;
     }
     .person-details{
       display:grid;
-      gap:12px;
-      margin:22px 0 0;
+      gap:14px;
+      margin:26px 0 0;
       padding:0;
       list-style:none;
     }
@@ -285,7 +286,7 @@
       grid-template-columns:90px minmax(0,1fr);
       gap:12px;
       align-items:start;
-      font-size:15px;
+      font-size:14px;
       line-height:1.45;
     }
     .person-detail strong{color:var(--orange)}
@@ -303,7 +304,7 @@
       text-align:center;
       text-transform:uppercase;
       font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:clamp(45px,6vw,72px);
+      font-size:clamp(40px,5.2vw,62px);
       font-weight:400;
       line-height:1;
       letter-spacing:.005em;
@@ -313,21 +314,23 @@
     }
     .section-lead{
       width:min(760px,100%);
-      margin:14px auto var(--content-gap);
+      margin:20px auto var(--content-gap);
       text-align:center;
       color:var(--navy);
-      font-size:18px;
+      font-size:17px;
     }
 
     /* Asiakaspalautteet: viisi vaakasuunnassa selattavaa korttia */
-    .rating{display:grid;justify-items:center;gap:6px;margin:20px 0 var(--content-gap);text-align:center}
-    .stars{color:var(--orange);font-size:clamp(39px,5vw,62px);line-height:1;letter-spacing:.08em}
-    .rating strong{font-size:27px}
+    #palaute{background:var(--orange)}
+    #palaute .section-title{max-width:900px}
+    .rating{display:grid;justify-items:center;gap:8px;margin:24px 0 var(--content-gap);text-align:center}
+    .stars{color:var(--navy);font-size:clamp(34px,4.2vw,52px);line-height:1;letter-spacing:.08em}
+    .rating strong{font-size:23px}
     .rating small{
       width:min(760px,100%);
-      font-size:15px;
+      font-size:14px;
       line-height:1.45;
-      color:#4f596e;
+      color:var(--navy);
     }
 
     .feedback-shell{position:relative;width:min(920px,100%);margin-inline:auto;padding:0 68px}
@@ -337,22 +340,22 @@
       scroll-snap-type:x mandatory;
       scroll-behavior:smooth;
       scrollbar-width:none;
-      border-radius:18px;
+      border-radius:var(--radius-ui);
       outline:none;
     }
     .feedback-viewport::-webkit-scrollbar{display:none}
-    .feedback-viewport:focus-visible{outline:3px solid rgba(252,163,17,.55);outline-offset:5px}
+    .feedback-viewport:focus-visible{outline:3px solid rgba(20,33,61,.48);outline-offset:5px}
     .feedback-track{display:flex;gap:18px}
     .feedback-card{
       flex:0 0 100%;
-      min-height:310px;
+      min-height:300px;
       scroll-snap-align:start;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
       padding:48px clamp(26px,6vw,70px);
-      border-radius:18px;
+      border-radius:var(--radius-ui);
       background:var(--navy);
       color:#fff;
       text-align:center;
@@ -361,7 +364,7 @@
     .feedback-card blockquote{
       max-width:720px;
       margin:18px 0 20px;
-      font-size:clamp(22px,3vw,34px);
+      font-size:clamp(20px,2.5vw,29px);
       line-height:1.33;
     }
     .feedback-card cite{font-style:normal;color:#d7dfef;font-size:16px}
@@ -369,7 +372,7 @@
       display:inline-flex;
       margin-top:9px;
       padding:5px 10px;
-      border-radius:999px;
+      border-radius:var(--radius-ui);
       background:rgba(255,255,255,.1);
       color:#eef2fa;
       font-size:12px;
@@ -382,7 +385,7 @@
       width:52px;
       height:52px;
       border:0;
-      border-radius:50%;
+      border-radius:var(--radius-ui);
       display:grid;
       place-items:center;
       transform:translateY(-50%);
@@ -399,15 +402,15 @@
     .carousel-arrow.prev{left:0}
     .carousel-arrow.next{right:0}
     .carousel-dots{display:flex;justify-content:center;gap:9px;margin-top:18px}
-    .carousel-dot{width:10px;height:10px;padding:0;border:0;border-radius:50%;background:#9ba3b1;cursor:pointer}
-    .carousel-dot[aria-current="true"]{background:var(--orange);transform:scale(1.25)}
+    .carousel-dot{width:10px;height:10px;padding:0;border:0;border-radius:50%;background:rgba(20,33,61,.34);cursor:pointer}
+    .carousel-dot[aria-current="true"]{background:var(--navy);transform:scale(1.25)}
 
     /* Tarjouslomake */
     .offer-card{
-      width:min(860px,100%);
+      width:min(900px,100%);
       margin:0 auto;
-      padding:32px;
-      border-radius:18px;
+      padding:clamp(30px,4vw,46px);
+      border-radius:var(--radius-ui);
       background:#fff;
       box-shadow:0 14px 30px rgba(20,33,61,.1);
     }
@@ -415,16 +418,16 @@
       margin:0 0 20px;
       text-transform:uppercase;
       font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:35px;
+      font-size:31px;
       font-weight:400;
     }
-    form{display:grid;gap:15px}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+    form{display:grid;gap:18px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
     label{display:block;margin-bottom:5px;font-weight:700}
     input,textarea{
       width:100%;
       border:0;
-      border-radius:10px;
+      border-radius:var(--radius-ui);
       padding:14px;
       background:#f3f4f6;
       color:var(--navy);
@@ -435,17 +438,17 @@
     .submit-button{
       min-height:58px;
       border:0;
-      border-radius:10px;
+      border-radius:var(--radius-ui);
       background:var(--orange);
       color:#fff;
-      font-size:20px;
+      font-size:18px;
       font-weight:400;
       cursor:pointer;
       transition:transform .18s ease,filter .18s ease;
     }
     .submit-button:hover,.submit-button:focus-visible{transform:translateY(-2px);filter:brightness(1.02);outline:none}
 
-    footer{padding:38px 0;background:#000;color:#fff}
+    footer{padding:50px 0;background:#000;color:#fff}
     .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
     .footer-brand{font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-size:30px;letter-spacing:.02em}
     .footer-links{display:flex;gap:20px;flex-wrap:wrap;color:#d8d8d8}
@@ -462,7 +465,7 @@
         display:none;
         flex-direction:column;
         padding:14px;
-        border-radius:14px;
+        border-radius:var(--radius-ui);
         background:#080808;
       }
       .main-nav.open{display:flex}
@@ -473,16 +476,16 @@
     @media(max-width:650px){
       .wrap{width:min(var(--max),calc(100% - 26px))}
       .brand-name{font-size:25px}
-      .hero{height:400px}
+      .hero{height:clamp(520px,78svh,660px)}
       .hero-image{object-position:center 45%}
-      .hero-title{bottom:-91px;font-size:44px;line-height:1.05}
-      .intro{padding-top:128px;padding-bottom:var(--section-space)}
+      .hero-title{bottom:-82px;font-size:40px;line-height:1.05}
+      .intro{padding-top:144px;padding-bottom:var(--section-space)}
       .hero-actions{gap:13px;margin-bottom:var(--content-gap)}
-      .hero-action{width:100%;min-height:66px;font-size:28px}
-      .about-title,.section-title{font-size:45px}
-      .about-text{font-size:17px;line-height:1.55}
+      .hero-action{width:100%;min-height:62px;font-size:25px}
+      .about-title,.section-title{font-size:40px}
+      .about-text{font-size:16px;line-height:1.65}
       .people-grid{grid-template-columns:1fr;width:min(410px,100%)}
-      .person-card{border-radius:48% 48% 22px 22px / 25% 25% 22px 22px}
+      .person-card{border-radius:var(--radius-ui)}
       .person-content{min-height:0}
       .person-detail{grid-template-columns:82px minmax(0,1fr);font-size:14px}
       .feedback-shell{padding:0 0 72px}
@@ -713,10 +716,19 @@
       });
     });
 
-    /* Parallax: kuva, otsikko ja harmaa peitto liikkuvat eri tahtiin. */
+    /* Parallax: kuva liikkuu rauhallisesti, harmaa pinta peittää sen ja otsikko pysähtyy ennen nappeja. */
     const hero = document.querySelector('.hero');
+    const heroTitle = document.querySelector('.hero-title');
+    const heroActions = document.querySelector('.hero-actions');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let heroFramePending = false;
+
+    function getMaximumTitleTravel() {
+      const titleNaturalBottom = hero.offsetTop + heroTitle.offsetTop + heroTitle.offsetHeight;
+      const actionsTop = heroActions.getBoundingClientRect().top + window.scrollY;
+      const safetyGap = window.innerWidth <= 650 ? 24 : 34;
+      return Math.max(0, actionsTop - safetyGap - titleNaturalBottom);
+    }
 
     function updateParallax() {
       if (reduceMotion.matches) {
@@ -729,11 +741,14 @@
 
       const rect = hero.getBoundingClientRect();
       const scrolled = Math.max(0, -rect.top);
-      const progress = Math.min(1, scrolled / Math.max(1, rect.height * 0.9));
+      const coverStart = rect.height * 0.08;
+      const coverDistance = Math.max(1, rect.height * 0.78);
+      const coverProgress = Math.min(1, Math.max(0, (scrolled - coverStart) / coverDistance));
+      const titleTravel = Math.min(scrolled * 0.30, getMaximumTitleTravel());
 
-      document.documentElement.style.setProperty('--image-y', `${scrolled * 0.16}px`);
-      document.documentElement.style.setProperty('--title-y', `${scrolled * 0.38}px`);
-      document.documentElement.style.setProperty('--hero-cover', `${progress * 100}%`);
+      document.documentElement.style.setProperty('--image-y', `${scrolled * 0.13}px`);
+      document.documentElement.style.setProperty('--title-y', `${titleTravel}px`);
+      document.documentElement.style.setProperty('--hero-cover', `${coverProgress * 100}%`);
       heroFramePending = false;
     }
 
