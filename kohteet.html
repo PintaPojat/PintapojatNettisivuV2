@@ -27,6 +27,7 @@
       --max:1160px;
       --radius:10px;
       --section-space:clamp(88px,10vw,136px);
+      --header-height:80px;
     }
 
     *{box-sizing:border-box}
@@ -549,6 +550,105 @@
         transition-duration:.01ms!important;
       }
     }
+  
+
+    /* Yhtenäinen ylä- ja alapalkki sekä typografia muiden sivujen kanssa */
+    body{padding-top:var(--header-height)}
+    .site-header{
+      position:fixed;
+      inset:0 0 auto 0;
+      z-index:10000;
+    }
+    .brand-logo{
+      width:64px;
+      height:54px;
+      border:0;
+      object-fit:contain;
+      overflow:visible;
+    }
+    .brand-name{font-size:clamp(25px,2.4vw,32px)}
+    .nav-pill.offer{background:var(--orange);color:#000}
+    .nav-pill.offer:hover,.nav-pill.offer:focus-visible{background:#ffb532}
+
+    .hero-title{font-size:clamp(42px,5.4vw,64px)}
+    .intro-content p{font-size:clamp(16px,1.2vw,18px)}
+    .section-title{font-size:clamp(36px,4.6vw,54px)}
+    .section-lead{font-size:clamp(16px,1.1vw,18px)}
+    .offer-card h3{font-size:28px}
+    .project-image-wrap.is-placeholder::after{font-size:20px}
+    .lightbox-title{font-size:clamp(25px,2.4vw,32px)}
+    .lightbox-description{font-size:16px}
+
+    footer{padding:42px 0;background:#000;color:#fff}
+    .footer-inner{display:grid;gap:24px}
+    .footer-top{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+    .footer-brand{
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:28px;
+      letter-spacing:.02em;
+    }
+    .footer-page-links{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+    .footer-page-link{
+      color:#fff;
+      font-size:14px;
+      font-weight:600;
+      letter-spacing:.02em;
+      text-decoration:none;
+      transition:color .18s ease,opacity .18s ease;
+    }
+    .footer-page-link:hover,.footer-page-link:focus-visible{color:var(--orange);outline:none}
+    .footer-contacts{
+      display:flex;
+      align-items:flex-start;
+      gap:34px;
+      flex-wrap:wrap;
+      padding-top:20px;
+    }
+    .footer-contact{min-width:220px}
+    .footer-contact h3{
+      margin:0 0 6px;
+      color:#fff;
+      text-transform:uppercase;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:17px;
+      font-weight:400;
+      letter-spacing:.01em;
+    }
+    .footer-contact p{margin:2px 0;color:#cfcfcf;font-size:12.5px;line-height:1.45}
+    .footer-contact a{color:#fff}
+    .footer-contact a:hover,.footer-contact a:focus-visible{color:var(--orange);outline:none}
+
+    @media(max-width:780px){
+      :root{--header-height:72px}
+      .header-inner{min-height:72px;flex-wrap:nowrap}
+      .brand-logo{width:54px;height:46px}
+      .brand-name{font-size:27px}
+      .main-nav{
+        position:absolute;
+        top:var(--header-height);
+        left:16px;
+        right:16px;
+        width:auto;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        padding:14px;
+        border-radius:var(--radius);
+        background:#080808;
+      }
+      .main-nav.open{display:flex}
+      .nav-pill{width:100%;min-height:48px}
+      .hero-title{bottom:22px;font-size:clamp(36px,9vw,50px)}
+      footer{padding:34px 0}
+      .footer-top{align-items:flex-start}
+      .footer-page-links{width:100%;gap:14px 20px}
+      .footer-contacts{display:grid;grid-template-columns:1fr;gap:16px;padding-top:16px}
+      .footer-contact{min-width:0}
+    }
+    @media(max-width:560px){
+      .hero-title{bottom:18px;font-size:36px}
+    }
+
   </style>
 </head>
 <body>
@@ -557,13 +657,7 @@
   <header class="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="index.html" aria-label="PintaPojat etusivu">
-        <object
-          class="brand-logo"
-          data="assets/LogoKuva.pdf#page=1&toolbar=0&navpanes=0&scrollbar=0&view=Fit"
-          type="application/pdf"
-          aria-label="PintaPojat-logo">
-          <span aria-hidden="true">PP</span>
-        </object>
+        <img class="brand-logo" src="assets/LogoValkoinen.png" alt="PintaPojat-logo">
         <span class="brand-name">PINTAPOJAT</span>
       </a>
 
@@ -572,8 +666,7 @@
       <nav class="main-nav" id="mainNav" aria-label="Päävalikko">
         <a class="nav-pill" href="index.html">ETUSIVU</a>
         <a class="nav-pill" href="maalaustavat.html">MITEN MAALAAMME?</a>
-        <a class="nav-pill" href="#kohteet">REFERENSSIT</a>
-        <a class="nav-pill" href="#tarjous">PYYDÄ TARJOUS</a>
+        <a class="nav-pill offer" href="#tarjous">PYYDÄ TARJOUS</a>
       </nav>
     </div>
   </header>
@@ -759,13 +852,30 @@
 
   <footer>
     <div class="wrap footer-inner">
-      <div class="footer-brand">PINTAPOJAT</div>
-      <nav class="footer-links" aria-label="Alatunnisteen linkit">
-        <a href="index.html">Etusivu</a>
-        <a href="maalaustavat.html">Miten maalaamme?</a>
-        <a href="#kohteet">Kohteet</a>
-        <a href="#tarjous">Pyydä tarjous</a>
-      </nav>
+      <div class="footer-top">
+        <div class="footer-brand">PINTAPOJAT</div>
+        <nav class="footer-page-links" aria-label="Alatunnisteen sivulinkit">
+          <a class="footer-page-link" href="index.html">ETUSIVU</a>
+          <a class="footer-page-link" href="maalaustavat.html">MITEN MAALAAMME?</a>
+          <a class="footer-page-link" href="kohteet.html">REFERENSSIT</a>
+        </nav>
+      </div>
+
+      <div class="footer-contacts" aria-label="PintaPoikien yhteystiedot">
+        <section class="footer-contact">
+          <h3>Vilho Räisänen</h3>
+          <p><strong>Puhelin:</strong> <a href="tel:+358449805844">044 980 5844</a></p>
+          <p><strong>Sähköposti:</strong> <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a></p>
+          <p><strong>Y-tunnus:</strong> 3453360-6</p>
+        </section>
+
+        <section class="footer-contact">
+          <h3>Ilmari Sippola</h3>
+          <p><strong>Puhelin:</strong> <a href="tel:+3584578325502">045 7832 5502</a></p>
+          <p><strong>Sähköposti:</strong> <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a></p>
+          <p><strong>Y-tunnus:</strong> 3586169-5</p>
+        </section>
+      </div>
     </div>
   </footer>
 
