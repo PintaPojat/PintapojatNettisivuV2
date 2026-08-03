@@ -84,7 +84,7 @@
       min-height:80px;
       display:flex;
       align-items:center;
-      justify-content:space-between;
+      justify-content:flex-end;
       gap:28px;
       padding:10px 0;
     }
@@ -252,15 +252,10 @@
       inset:0;
       display:flex;
       align-items:flex-end;
-      justify-content:space-between;
+      justify-content:flex-end;
       gap:16px;
       padding:22px;
       background:linear-gradient(to top,rgba(0,0,0,.82),rgba(0,0,0,.06) 66%);
-    }
-    .project-title{
-      font-size:clamp(24px,2.7vw,34px);
-      line-height:1;
-      text-shadow:0 2px 12px rgba(0,0,0,.35);
     }
     .project-icon{
       display:grid;
@@ -577,7 +572,7 @@
       <nav class="main-nav" id="mainNav" aria-label="Päävalikko">
         <a class="nav-pill" href="index.html">ETUSIVU</a>
         <a class="nav-pill" href="maalaustavat.html">MITEN MAALAAMME?</a>
-        <a class="nav-pill" href="#kohteet">KOHTEET</a>
+        <a class="nav-pill" href="#kohteet">REFERENSSIT</a>
         <a class="nav-pill" href="#tarjous">PYYDÄ TARJOUS</a>
       </nav>
     </div>
@@ -613,109 +608,109 @@
           <article class="project-card">
             <button class="project-open" type="button" data-index="0" data-title="Kohde 01" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_01.jpg" alt="Maalattu kohde 1" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 01</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="1" data-title="Kohde 02" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_02.jpg" alt="Maalattu kohde 2" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 02</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="2" data-title="Kohde 03" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_03.jpg" alt="Maalattu kohde 3" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 03</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="3" data-title="Kohde 04" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_04.jpg" alt="Maalattu kohde 4" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 04</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="4" data-title="Kohde 05" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_05.jpg" alt="Maalattu kohde 5" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 05</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="5" data-title="Kohde 06" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_06.jpg" alt="Maalattu kohde 6" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 06</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="6" data-title="Kohde 07" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_07.jpg" alt="Maalattu kohde 7" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 07</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="7" data-title="Kohde 08" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_08.jpg" alt="Maalattu kohde 8" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 08</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="8" data-title="Kohde 09" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_09.jpg" alt="Maalattu kohde 9" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 09</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="9" data-title="Kohde 10" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_10.jpg" alt="Maalattu kohde 10" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 10</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="10" data-title="Kohde 11" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_11.jpg" alt="Maalattu kohde 11" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 11</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="11" data-title="Kohde 12" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_12.jpg" alt="Maalattu kohde 12" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 12</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="12" data-title="Kohde 13" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_13.jpg" alt="Maalattu kohde 13" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 13</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="13" data-title="Kohde 14" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_14.jpg" alt="Maalattu kohde 14" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 14</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="14" data-title="Kohde 15" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_15.jpg" alt="Maalattu kohde 15" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 15</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="15" data-title="Kohde 16" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_16.jpg" alt="Maalattu kohde 16" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 16</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="16" data-title="Kohde 17" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_17.jpg" alt="Maalattu kohde 17" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 17</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="17" data-title="Kohde 18" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
               <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_18.jpg" alt="Maalattu kohde 18" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
-              <span class="project-overlay"><span class="project-title">Kohde 18</span><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
         </div>
