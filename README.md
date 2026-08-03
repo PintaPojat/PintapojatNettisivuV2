@@ -1,30 +1,46 @@
-# Pintapojat – staattinen nettisivu
+# PintaPojat – Julkisivumaalaus Joensuussa
 
-Tämä projekti toimii suoraan GitHub Pagesissa ilman käännösvaihetta.
+PintaPojat tekee julkisivumaalauksia, huoltomaalauksia ja pieniä pintaremontteja Joensuussa sekä Joensuun seudulla.
 
-## Käyttöönotto GitHubissa
+Sivusto:  
+https://www.pintapojat.fi
 
-1. Luo uusi GitHub-repositorio.
-2. Lataa kaikki tämän kansion tiedostot repositorion juureen.
-3. Avaa **Settings → Pages**.
-4. Valitse **Deploy from a branch**.
-5. Valitse branchiksi `main` ja kansioksi `/ (root)`.
-6. Tallenna. Sivusto julkaistaan GitHub Pages -osoitteeseen.
+## Palvelut
+- Maalaus
+- Talonmaalaus
+- Julkisivumaalaus
+- Huoltomaalaus
+- Hirsipintojen käsittely
+- Sokkelimaalaus
+- Pienet pintaremontit
 
-## Tarjouspyyntölomake
+## Toiminta-alue
 
-Lomake lähettää tiedot FormSubmit-palvelun kautta osoitteeseen `pintapojat@gmail.com`.
-Ensimmäisen lähetyksen yhteydessä sähköpostiin tulee vahvistusviesti. Vahvistamisen jälkeen lomake toimii normaalisti.
+- Joensuu
+- Pohjois-Karjala
+- lähialueet
 
-Sähköpostiosoitteen voi vaihtaa tiedostossa `index.html` kohdassa:
+## Arviointikäynti
 
-```html
-<form action="https://formsubmit.co/pintapojat@gmail.com" method="POST">
-```
+Voit pyytää ilmaisen arviointikäynnin sivun lomakkeella:
 
-## Tiedostot
+https://www.pintapojat.fi/#arviointi
 
-- `index.html` – sivun sisältö
-- `styles.css` – ulkoasu ja responsiivisuus
-- `script.js` – pehmeä vieritys
-- `assets/` – kuvat
+## Yhteystiedot
+
+**Vilho Räisänen**  
+Puhelin: 044 980 5844  
+
+**Ilmari Sippola**  
+Puhelin: 045 7832 5502  
+
+Sähköposti:  
+pintapojat@gmail.com
+
+## Sivuston teknologia
+
+- HTML
+- CSS
+- JavaScript
+
+Sivusto on rakennettu kevyeksi ja toimii ilman erillisiä kirjastoja tai frameworkeja.
