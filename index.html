@@ -929,151 +929,159 @@
     reduceMotion.addEventListener?.('change', requestParallaxUpdate);
     updateParallax();
 
-    /* Talogalleria: jatkuva automaattinen liike sekä pyyhkäisy, hiirellä veto ja näppäimistön nuolinäppäimet. */
+    /* Talogalleria: jatkuva automaattinen liike, pyyhkäisy ja näppäimistön nuolinäppäimet. */
     const projectsViewport = document.getElementById('projectsMarquee');
     const projectsTrack = document.getElementById('projectsTrack');
-    const originalProjectsGroup = projectsTrack.querySelector('.projects-group');
 
-    /* Kolme identtistä ryhmää tekevät kierrosta saumattoman molempiin suuntiin. */
-    projectsTrack.querySelectorAll('.projects-group').forEach((group, index) => {
-      if (index > 0) group.remove();
-    });
+    if (projectsViewport && projectsTrack) {
+      const projectGroups = Array.from(projectsTrack.querySelectorAll('.projects-group'));
+      const originalProjectsGroup = projectGroups[0];
 
-    const projectsBefore = originalProjectsGroup.cloneNode(true);
-    const projectsAfter = originalProjectsGroup.cloneNode(true);
-    [projectsBefore, projectsAfter].forEach((group) => {
-      group.setAttribute('aria-hidden', 'true');
-      group.querySelectorAll('img').forEach((image) => image.alt = '');
-    });
-    projectsTrack.insertBefore(projectsBefore, originalProjectsGroup);
-    projectsTrack.appendChild(projectsAfter);
-
-    let projectsDragging = false;
-    let projectsStartX = 0;
-    let projectsStartScroll = 0;
-    let projectsResumeAt = 0;
-    let projectsLastFrame = performance.now();
-    let projectsGroupWidth = 0;
-    let projectsAutoPosition = 0;
-
-    function measureProjects() {
-      projectsGroupWidth = originalProjectsGroup.getBoundingClientRect().width;
-      if (!projectsGroupWidth) return;
-      projectsViewport.scrollLeft = projectsGroupWidth;
-      projectsAutoPosition = projectsGroupWidth;
-    }
-
-    function normalizeProjectsPosition() {
-      if (!projectsGroupWidth) return;
-
-      let position = projectsViewport.scrollLeft;
-      while (position < projectsGroupWidth * 0.5) position += projectsGroupWidth;
-      while (position > projectsGroupWidth * 1.5) position -= projectsGroupWidth;
-
-      projectsViewport.scrollLeft = position;
-      projectsAutoPosition = position;
-    }
-
-    function pauseProjects(milliseconds = 1800) {
-      projectsResumeAt = performance.now() + milliseconds;
-    }
-
-    function projectCardStep() {
-      const card = originalProjectsGroup.querySelector('.project-card');
-      const gap = parseFloat(getComputedStyle(originalProjectsGroup).gap) || 0;
-      return card.getBoundingClientRect().width + gap;
-    }
-
-    function moveProjects(direction) {
-      pauseProjects(2200);
-      projectsViewport.scrollBy({
-        left: direction * projectCardStep(),
-        behavior: reduceMotion.matches ? 'auto' : 'smooth'
+      /* Varmistetaan, että radalla on aina kaksi täysin samanlaista kuvasarjaa. */
+      projectGroups.slice(1).forEach((group) => group.remove());
+      const projectsClone = originalProjectsGroup.cloneNode(true);
+      projectsClone.setAttribute('aria-hidden', 'true');
+      projectsClone.querySelectorAll('img').forEach((image) => {
+        image.alt = '';
       });
-      window.setTimeout(normalizeProjectsPosition, reduceMotion.matches ? 0 : 550);
-    }
+      projectsTrack.appendChild(projectsClone);
 
-    projectsViewport.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault();
-        moveProjects(-1);
-      } else if (event.key === 'ArrowRight') {
-        event.preventDefault();
-        moveProjects(1);
+      let projectsGroupWidth = 0;
+      let projectsDragging = false;
+      let projectsPointerId = null;
+      let projectsStartX = 0;
+      let projectsStartScroll = 0;
+      let projectsLastFrame = performance.now();
+      let projectsResumeAt = 0;
+      const projectsSpeed = 42; // pikseliä sekunnissa
+
+      function measureProjects() {
+        projectsGroupWidth = originalProjectsGroup.getBoundingClientRect().width;
+        if (!projectsGroupWidth) return;
+
+        /* Pidetään nykyinen kohta vastaavassa paikassa myös ikkunan koon muuttuessa. */
+        projectsViewport.scrollLeft = ((projectsViewport.scrollLeft % projectsGroupWidth) + projectsGroupWidth) % projectsGroupWidth;
       }
-    });
 
-    projectsViewport.addEventListener('pointerdown', (event) => {
-      if (event.pointerType === 'mouse' && event.button !== 0) return;
-      projectsDragging = true;
-      projectsStartX = event.clientX;
-      projectsStartScroll = projectsViewport.scrollLeft;
-      projectsViewport.classList.add('dragging');
-      projectsViewport.setPointerCapture(event.pointerId);
-      pauseProjects(2200);
-    });
+      function normalizeProjectsScroll() {
+        if (!projectsGroupWidth) return;
 
-    projectsViewport.addEventListener('pointermove', (event) => {
-      if (!projectsDragging) return;
-      const distance = event.clientX - projectsStartX;
-      projectsViewport.scrollLeft = projectsStartScroll - distance;
-      projectsAutoPosition = projectsViewport.scrollLeft;
-    });
-
-    function finishProjectsDrag(event) {
-      if (!projectsDragging) return;
-      projectsDragging = false;
-      projectsViewport.classList.remove('dragging');
-      if (event?.pointerId !== undefined && projectsViewport.hasPointerCapture(event.pointerId)) {
-        projectsViewport.releasePointerCapture(event.pointerId);
+        if (projectsViewport.scrollLeft >= projectsGroupWidth) {
+          projectsViewport.scrollLeft -= projectsGroupWidth;
+        } else if (projectsViewport.scrollLeft < 0) {
+          projectsViewport.scrollLeft += projectsGroupWidth;
+        }
       }
-      normalizeProjectsPosition();
-      pauseProjects(1200);
-    }
 
-    projectsViewport.addEventListener('pointerup', finishProjectsDrag);
-    projectsViewport.addEventListener('pointercancel', finishProjectsDrag);
-    projectsViewport.addEventListener('wheel', () => {
-      projectsAutoPosition = projectsViewport.scrollLeft;
-      pauseProjects(1800);
-      window.setTimeout(normalizeProjectsPosition, 100);
-    }, { passive: true });
-    projectsViewport.addEventListener('scroll', () => {
-      if (projectsDragging || performance.now() < projectsResumeAt) {
-        projectsAutoPosition = projectsViewport.scrollLeft;
+      function pauseProjects(milliseconds = 1000) {
+        projectsResumeAt = performance.now() + milliseconds;
       }
-    }, { passive: true });
 
-    function animateProjects(now) {
-      const elapsed = Math.min(50, now - projectsLastFrame);
-      projectsLastFrame = now;
+      function projectCardStep() {
+        const card = originalProjectsGroup.querySelector('.project-card');
+        if (!card) return Math.max(280, projectsViewport.clientWidth * 0.8);
+        const gap = parseFloat(getComputedStyle(originalProjectsGroup).gap) || 0;
+        return card.getBoundingClientRect().width + gap;
+      }
 
-      if (!reduceMotion.matches && !projectsDragging && now >= projectsResumeAt && projectsGroupWidth) {
-        projectsAutoPosition += elapsed * 0.045;
+      function moveProjects(direction) {
+        pauseProjects(1200);
+        projectsViewport.scrollBy({
+          left: direction * projectCardStep(),
+          behavior: 'smooth'
+        });
 
-        if (projectsAutoPosition > projectsGroupWidth * 1.5) {
-          projectsAutoPosition -= projectsGroupWidth;
+        window.setTimeout(normalizeProjectsScroll, 500);
+      }
+
+      projectsViewport.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          if (projectsGroupWidth && projectsViewport.scrollLeft <= 1) {
+            projectsViewport.scrollLeft += projectsGroupWidth;
+          }
+          moveProjects(-1);
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          moveProjects(1);
+        }
+      });
+
+      projectsViewport.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+        projectsDragging = true;
+        projectsPointerId = event.pointerId;
+        projectsStartX = event.clientX;
+        projectsStartScroll = projectsViewport.scrollLeft;
+        projectsViewport.classList.add('dragging');
+        projectsViewport.setPointerCapture?.(event.pointerId);
+        pauseProjects(1200);
+      });
+
+      projectsViewport.addEventListener('pointermove', (event) => {
+        if (!projectsDragging || event.pointerId !== projectsPointerId) return;
+
+        const distance = event.clientX - projectsStartX;
+        projectsViewport.scrollLeft = projectsStartScroll - distance;
+
+        if (projectsGroupWidth) {
+          if (projectsViewport.scrollLeft >= projectsGroupWidth) {
+            projectsStartScroll -= projectsGroupWidth;
+            projectsViewport.scrollLeft -= projectsGroupWidth;
+          } else if (projectsViewport.scrollLeft <= 0 && distance > 0) {
+            projectsStartScroll += projectsGroupWidth;
+            projectsViewport.scrollLeft += projectsGroupWidth;
+          }
+        }
+      });
+
+      function finishProjectsDrag(event) {
+        if (!projectsDragging) return;
+        if (event?.pointerId !== undefined && event.pointerId !== projectsPointerId) return;
+
+        projectsDragging = false;
+        projectsViewport.classList.remove('dragging');
+
+        if (projectsPointerId !== null && projectsViewport.hasPointerCapture?.(projectsPointerId)) {
+          projectsViewport.releasePointerCapture(projectsPointerId);
         }
 
-        projectsViewport.scrollLeft = projectsAutoPosition;
+        projectsPointerId = null;
+        normalizeProjectsScroll();
+        pauseProjects(800);
       }
 
-      requestAnimationFrame(animateProjects);
+      projectsViewport.addEventListener('pointerup', finishProjectsDrag);
+      projectsViewport.addEventListener('pointercancel', finishProjectsDrag);
+      projectsViewport.addEventListener('lostpointercapture', finishProjectsDrag);
+
+      function animateProjects(now) {
+        const elapsedSeconds = Math.min(0.08, Math.max(0, (now - projectsLastFrame) / 1000));
+        projectsLastFrame = now;
+
+        if (!projectsDragging && now >= projectsResumeAt && projectsGroupWidth) {
+          projectsViewport.scrollLeft += projectsSpeed * elapsedSeconds;
+          normalizeProjectsScroll();
+        }
+
+        requestAnimationFrame(animateProjects);
+      }
+
+      const projectsResizeObserver = 'ResizeObserver' in window
+        ? new ResizeObserver(measureProjects)
+        : null;
+
+      projectsResizeObserver?.observe(originalProjectsGroup);
+      window.addEventListener('resize', measureProjects);
+
+      /* Käynnistetään vasta kun selain on ehtinyt laskea korttien leveydet. */
+      requestAnimationFrame(() => {
+        measureProjects();
+        projectsLastFrame = performance.now();
+        requestAnimationFrame(animateProjects);
+      });
     }
-
-    window.addEventListener('resize', () => {
-      const relativePosition = projectsGroupWidth ? projectsViewport.scrollLeft / projectsGroupWidth : 1;
-      projectsGroupWidth = originalProjectsGroup.getBoundingClientRect().width;
-      if (!projectsGroupWidth) return;
-      projectsAutoPosition = projectsGroupWidth * Math.min(1.45, Math.max(0.55, relativePosition));
-      projectsViewport.scrollLeft = projectsAutoPosition;
-      normalizeProjectsPosition();
-    });
-
-    requestAnimationFrame(() => {
-      measureProjects();
-      requestAnimationFrame(animateProjects);
-    });
 
     /* Palautekaruselli: painikkeet, pyyhkäisy, vieritys ja nuolinäppäimet. */
     const viewport = document.getElementById('feedbackViewport');
