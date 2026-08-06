@@ -384,35 +384,6 @@
       background:linear-gradient(to top,rgba(0,0,0,.34),transparent);
       pointer-events:none;
     }
-    .projects-arrow{
-      position:absolute;
-      top:50%;
-      z-index:4;
-      width:52px;
-      height:52px;
-      display:grid;
-      place-items:center;
-      padding:0;
-      border:0;
-      border-radius:var(--radius-ui);
-      background:var(--navy);
-      color:#fff;
-      font-family:Arial,sans-serif;
-      font-size:38px;
-      line-height:1;
-      cursor:pointer;
-      box-shadow:0 12px 26px rgba(20,33,61,.28);
-      transform:translateY(-50%);
-      transition:transform .18s ease,background .18s ease;
-    }
-    .projects-arrow:hover,.projects-arrow:focus-visible{
-      background:var(--orange);
-      color:var(--navy);
-      outline:none;
-      transform:translateY(-50%) scale(1.06);
-    }
-    .projects-arrow.prev{left:18px}
-    .projects-arrow.next{right:18px}
 
     .section{
       padding:var(--section-space) 0;
@@ -445,7 +416,27 @@
     #palaute{background:var(--orange)}
     #palaute .section-title{max-width:900px}
     .rating{display:grid;justify-items:center;gap:8px;margin:24px 0 var(--content-gap);text-align:center}
-    .stars{color:var(--navy);font-size:clamp(32px,3.6vw,46px);line-height:1;letter-spacing:.08em}
+    .stars{font-size:clamp(32px,3.6vw,46px);line-height:1;letter-spacing:.08em}
+    .star-rating{
+      --rating-width:100%;
+      --empty-color:rgba(20,33,61,.25);
+      --fill-color:var(--navy);
+      position:relative;
+      display:inline-block;
+      width:max-content;
+      color:var(--empty-color);
+      white-space:nowrap;
+    }
+    .star-rating::before{content:"★★★★★"}
+    .star-rating::after{
+      content:"★★★★★";
+      position:absolute;
+      inset:0 auto 0 0;
+      width:var(--rating-width);
+      overflow:hidden;
+      color:var(--fill-color);
+      white-space:nowrap;
+    }
     .rating strong{font-size:20px}
     .rating small{
       width:min(760px,100%);
@@ -481,7 +472,12 @@
       color:#fff;
       text-align:center;
     }
-    .feedback-card .mini-stars{color:var(--orange);font-size:24px;letter-spacing:.07em}
+    .feedback-card .mini-stars{
+      --empty-color:rgba(255,255,255,.22);
+      --fill-color:var(--orange);
+      font-size:24px;
+      letter-spacing:.07em;
+    }
     .feedback-card blockquote{
       max-width:720px;
       margin:18px 0 20px;
@@ -629,9 +625,6 @@
       .projects-heading p{font-size:16px}
       .projects-group{gap:14px;padding-right:14px}
       .project-card{width:78vw;max-width:340px}
-      .projects-arrow{width:46px;height:46px;font-size:34px}
-      .projects-arrow.prev{left:10px}
-      .projects-arrow.next{right:10px}
       .feedback-shell{padding:0 0 72px}
       .carousel-arrow{top:auto;bottom:0;transform:none}
       .carousel-arrow:hover,.carousel-arrow:focus-visible{transform:scale(1.06)}
@@ -744,13 +737,11 @@
     <section class="projects-showcase" id="kohteet" aria-labelledby="kohteet-otsikko">
       <div class="projects-heading">
         <h2 class="section-title" id="kohteet-otsikko">Maalaamiamme taloja</h2>
-        <p>Tässä muutamia toteuttamiamme maalauskohteita. Galleria liikkuu automaattisesti, mutta voit selata kuvia myös pyyhkäisemällä, hiirellä vetämällä tai nuolipainikkeilla. <a href="kohteet.html">Näet lisää kohteita painamalla tästä</a>.</p>
+        <p>Tässä muutamia toteuttamiamme maalauskohteita. Galleria liikkuu automaattisesti, mutta voit selata kuvia myös pyyhkäisemällä tai nuolipainikkeilla. <a href="kohteet.html">Näet lisää kohteita painamalla tästä</a>.</p>
       </div>
 
       <div class="projects-shell">
-        <button class="projects-arrow prev" id="projectsPrev" type="button" aria-label="Edellinen talokuva">‹</button>
-
-        <div class="projects-marquee" id="projectsMarquee" tabindex="0" aria-label="Kuvagalleria maalaamistamme taloista. Pyyhkäise, vedä tai käytä nuolipainikkeita.">
+        <div class="projects-marquee" id="projectsMarquee" tabindex="0" aria-label="Kuvagalleria maalaamistamme taloista. Pyyhkäise tai käytä näppäimistön nuolinäppäimiä.">
           <div class="projects-track" id="projectsTrack">
           <div class="projects-group">
             <figure class="project-card"><img src="assets/Talo_01.jpg" alt="PintaPoikien maalaama talo" loading="lazy" decoding="async"></figure>
@@ -775,16 +766,15 @@
           </div>
         </div>
 
-        <button class="projects-arrow next" id="projectsNext" type="button" aria-label="Seuraava talokuva">›</button>
       </div>
     </section>
 
     <section class="section" id="palaute">
       <div class="wrap">
         <h2 class="section-title">Asiakkaiden antama keskiarvo työllemme</h2>
-        <div class="rating" aria-label="Viiden tähden tähtiarvio">
-          <div class="stars" aria-hidden="true">★★★★★</div>
-          <strong>5,0 / 5</strong>
+        <div class="rating" aria-label="Asiakkaiden antama keskiarvo 4,70 tähteä viidestä">
+          <div class="stars star-rating" style="--rating-width:94%" aria-hidden="true"></div>
+          <strong>4,70 / 5</strong>
           <small>(Keskiarvo on laskettu asiakkaiden täyttämistä loppuarviolomakkeista)</small>
         </div>
 
@@ -794,33 +784,33 @@
           <div class="feedback-viewport" id="feedbackViewport" tabindex="0" aria-label="Asiakaspalautteet. Selaa vasemmalla ja oikealla nuolinäppäimellä.">
             <div class="feedback-track">
               <article class="feedback-card">
-                <div class="mini-stars" aria-hidden="true">★★★★★</div>
-                <blockquote>“Työ eteni sovitussa aikataulussa ja lopputulos oli erittäin siisti. Piha jäi työn jälkeen hyvään kuntoon.”</blockquote>
-                <cite>— Esimerkkiasiakas, Joensuu</cite>
+                <div class="mini-stars star-rating" style="--rating-width:95%" role="img" aria-label="4,75 tähteä viidestä"></div>
+                <blockquote>“Mukava ja kohtelias henkilökunta. Asiat hoituivat sovitusti ajallaan.”</blockquote>
+                <cite>Sokkelin maalaus, Karhunmäki · 4,75 / 5</cite>
               </article>
 
               <article class="feedback-card">
-                <div class="mini-stars" aria-hidden="true">★★★★★</div>
-                <blockquote>“Yhteydenpito oli helppoa ja kaikki työvaiheet kerrottiin selkeästi etukäteen. Talon ilme muuttui täysin.”</blockquote>
-                <cite>— Esimerkkiasiakas, Kontiolahti</cite>
+                <div class="mini-stars star-rating" style="--rating-width:90%" role="img" aria-label="4,5 tähteä viidestä"></div>
+                <blockquote>“Ystävällinen palvelu ja hyvä yhteydenpito. Siisti työn jälki.”</blockquote>
+                <cite>Paritalon maalaus, Lehmo · 4,5 / 5</cite>
               </article>
 
               <article class="feedback-card">
-                <div class="mini-stars" aria-hidden="true">★★★★★</div>
-                <blockquote>“Pohjatyöt tehtiin huolella ja maalipinnasta tuli tasainen. Reipas ja luotettava kaksikko.”</blockquote>
-                <cite>— Esimerkkiasiakas, Liperi</cite>
+                <div class="mini-stars star-rating" style="--rating-width:95%" role="img" aria-label="4,75 tähteä viidestä"></div>
+                <blockquote>“Kiitos, hyvin sujui kaikki, voin suositella myös muille. Mukava tukea nuoria yrittäjiä.”</blockquote>
+                <cite>Omakotitalon maalaus, Karhunmäki · 4,75 / 5</cite>
               </article>
 
               <article class="feedback-card">
-                <div class="mini-stars" aria-hidden="true">★★★★★</div>
-                <blockquote>“Tarjous oli selkeä, aikataulu piti ja työnjälki vastasi odotuksia. Voin suositella lämpimästi.”</blockquote>
-                <cite>— Esimerkkiasiakas, Joensuu</cite>
+                <div class="mini-stars star-rating" style="--rating-width:97.5%" role="img" aria-label="4,875 tähteä viidestä"></div>
+                <blockquote>“Hyvin hoidettu OKT:n maalausurakka.”</blockquote>
+                <cite>Omakotitalon maalaus, Reijola · 4,875 / 5</cite>
               </article>
 
               <article class="feedback-card">
-                <div class="mini-stars" aria-hidden="true">★★★★★</div>
-                <blockquote>“Nopea toteutus ilman turhaa kiireen tuntua. Suojaukset ja loppusiivous hoidettiin erityisen hyvin.”</blockquote>
-                <cite>— Esimerkkiasiakas, Outokumpu</cite>
+                <div class="mini-stars star-rating" style="--rating-width:100%" role="img" aria-label="5 tähteä viidestä"></div>
+                <blockquote>“Palvelu huolehtivaa ja kohteliasta. Kiitos hyvästä työstä!”</blockquote>
+                <cite>Piharakennuksen maalaus, Karhunmäki · 5 / 5</cite>
               </article>
             </div>
           </div>
@@ -964,140 +954,160 @@
     reduceMotion.addEventListener?.('change', requestParallaxUpdate);
     updateParallax();
 
-    /* Talogalleria: automaattinen liike, loputon kierto, pyyhkäisy, hiirellä veto ja nuolipainikkeet. */
+    /* Talogalleria: jatkuva automaattinen liike, pyyhkäisy ja näppäimistön nuolinäppäimet. */
     const projectsViewport = document.getElementById('projectsMarquee');
     const projectsTrack = document.getElementById('projectsTrack');
-    const projectsPrev = document.getElementById('projectsPrev');
-    const projectsNext = document.getElementById('projectsNext');
-    const originalProjectsGroup = projectsTrack.querySelector('.projects-group');
 
-    /* Luodaan kolme samanlaista ryhmää, jotta kuvia voi selata kumpaankin suuntaan loputtomasti. */
-    projectsTrack.querySelectorAll('.projects-group').forEach((group, index) => {
-      if (index > 0) group.remove();
-    });
+    if (projectsViewport && projectsTrack) {
+      const projectGroups = Array.from(projectsTrack.querySelectorAll('.projects-group'));
+      const originalProjectsGroup = projectGroups[0];
 
-    const projectsBefore = originalProjectsGroup.cloneNode(true);
-    const projectsAfter = originalProjectsGroup.cloneNode(true);
-    [projectsBefore, projectsAfter].forEach((group) => {
-      group.setAttribute('aria-hidden', 'true');
-      group.querySelectorAll('img').forEach((image) => image.alt = '');
-    });
-    projectsTrack.insertBefore(projectsBefore, originalProjectsGroup);
-    projectsTrack.appendChild(projectsAfter);
-
-    let projectsDragging = false;
-    let projectsHovering = false;
-    let projectsStartX = 0;
-    let projectsStartScroll = 0;
-    let projectsResumeAt = 0;
-    let projectsLastFrame = performance.now();
-    let projectsGroupWidth = 0;
-
-    function measureProjects() {
-      projectsGroupWidth = originalProjectsGroup.getBoundingClientRect().width;
-      if (projectsGroupWidth > 0 && projectsViewport.scrollLeft < projectsGroupWidth * 0.5) {
-        projectsViewport.scrollLeft = projectsGroupWidth;
-      }
-    }
-
-    function normalizeProjectsPosition() {
-      if (!projectsGroupWidth) return;
-      if (projectsViewport.scrollLeft < projectsGroupWidth * 0.5) {
-        projectsViewport.scrollLeft += projectsGroupWidth;
-      } else if (projectsViewport.scrollLeft > projectsGroupWidth * 1.5) {
-        projectsViewport.scrollLeft -= projectsGroupWidth;
-      }
-    }
-
-    function pauseProjects(milliseconds = 2600) {
-      projectsResumeAt = performance.now() + milliseconds;
-    }
-
-    function projectCardStep() {
-      const card = originalProjectsGroup.querySelector('.project-card');
-      const gap = parseFloat(getComputedStyle(originalProjectsGroup).gap) || 0;
-      return card.getBoundingClientRect().width + gap;
-    }
-
-    function moveProjects(direction) {
-      pauseProjects();
-      projectsViewport.scrollBy({
-        left: direction * projectCardStep(),
-        behavior: reduceMotion.matches ? 'auto' : 'smooth'
+      /* Radalla pidetään täsmälleen kaksi samanlaista kuvasarjaa jatkuvaa kiertoa varten. */
+      projectGroups.slice(1).forEach((group) => group.remove());
+      const projectsClone = originalProjectsGroup.cloneNode(true);
+      projectsClone.setAttribute('aria-hidden', 'true');
+      projectsClone.querySelectorAll('img').forEach((image) => {
+        image.alt = '';
       });
-      window.setTimeout(normalizeProjectsPosition, reduceMotion.matches ? 0 : 500);
-    }
+      projectsTrack.appendChild(projectsClone);
 
-    projectsPrev.addEventListener('click', () => moveProjects(-1));
-    projectsNext.addEventListener('click', () => moveProjects(1));
+      let projectsGroupWidth = 0;
+      let projectsPosition = 0;
+      let projectsDragging = false;
+      let projectsPointerId = null;
+      let projectsStartX = 0;
+      let projectsStartPosition = 0;
+      let projectsLastFrame = performance.now();
+      let projectsResumeAt = 0;
+      let projectsWheelTimer = 0;
+      const projectsSpeed = 46; // pikseliä sekunnissa
 
-    projectsViewport.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault();
-        moveProjects(-1);
-      } else if (event.key === 'ArrowRight') {
-        event.preventDefault();
-        moveProjects(1);
+      function wrapProjectsPosition(value) {
+        if (!projectsGroupWidth) return Math.max(0, value);
+        return ((value % projectsGroupWidth) + projectsGroupWidth) % projectsGroupWidth;
       }
-    });
 
-    projectsViewport.addEventListener('pointerdown', (event) => {
-      if (event.pointerType === 'mouse' && event.button !== 0) return;
-      projectsDragging = true;
-      projectsStartX = event.clientX;
-      projectsStartScroll = projectsViewport.scrollLeft;
-      projectsViewport.classList.add('dragging');
-      projectsViewport.setPointerCapture(event.pointerId);
-      pauseProjects(3200);
-    });
-
-    projectsViewport.addEventListener('pointermove', (event) => {
-      if (!projectsDragging) return;
-      const distance = event.clientX - projectsStartX;
-      projectsViewport.scrollLeft = projectsStartScroll - distance;
-    });
-
-    function finishProjectsDrag(event) {
-      if (!projectsDragging) return;
-      projectsDragging = false;
-      projectsViewport.classList.remove('dragging');
-      if (event?.pointerId !== undefined && projectsViewport.hasPointerCapture(event.pointerId)) {
-        projectsViewport.releasePointerCapture(event.pointerId);
+      function renderProjectsPosition() {
+        projectsViewport.scrollLeft = projectsPosition;
       }
-      normalizeProjectsPosition();
-    }
 
-    projectsViewport.addEventListener('pointerup', finishProjectsDrag);
-    projectsViewport.addEventListener('pointercancel', finishProjectsDrag);
-    projectsViewport.addEventListener('wheel', () => pauseProjects(3200), { passive: true });
-    projectsViewport.addEventListener('mouseenter', () => { projectsHovering = true; });
-    projectsViewport.addEventListener('mouseleave', () => {
-      projectsHovering = false;
-      pauseProjects(500);
-    });
+      function measureProjects() {
+        const measuredWidth = originalProjectsGroup.getBoundingClientRect().width;
+        if (!measuredWidth) return;
 
-    function animateProjects(now) {
-      const elapsed = Math.min(50, now - projectsLastFrame);
-      projectsLastFrame = now;
-
-      if (!reduceMotion.matches && !projectsDragging && !projectsHovering && now >= projectsResumeAt && projectsGroupWidth) {
-        projectsViewport.scrollLeft += elapsed * 0.035;
-        normalizeProjectsPosition();
+        projectsGroupWidth = measuredWidth;
+        projectsPosition = wrapProjectsPosition(projectsPosition || projectsViewport.scrollLeft);
+        renderProjectsPosition();
       }
-      requestAnimationFrame(animateProjects);
-    }
 
-    window.addEventListener('resize', () => {
-      const relativePosition = projectsGroupWidth ? projectsViewport.scrollLeft / projectsGroupWidth : 1;
-      projectsGroupWidth = originalProjectsGroup.getBoundingClientRect().width;
-      projectsViewport.scrollLeft = projectsGroupWidth * Math.min(1.45, Math.max(0.55, relativePosition));
-      normalizeProjectsPosition();
-    });
+      function pauseProjects(milliseconds = 900) {
+        projectsResumeAt = performance.now() + milliseconds;
+      }
 
-    requestAnimationFrame(() => {
+      function projectCardStep() {
+        const card = originalProjectsGroup.querySelector('.project-card');
+        if (!card) return Math.max(280, projectsViewport.clientWidth * 0.8);
+        const gap = parseFloat(getComputedStyle(originalProjectsGroup).gap) || 0;
+        return card.getBoundingClientRect().width + gap;
+      }
+
+      function moveProjects(direction) {
+        pauseProjects(1100);
+        projectsPosition = wrapProjectsPosition(projectsPosition + direction * projectCardStep());
+        projectsViewport.scrollTo({
+          left: projectsPosition,
+          behavior: reduceMotion.matches ? 'auto' : 'smooth'
+        });
+      }
+
+      projectsViewport.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          moveProjects(-1);
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          moveProjects(1);
+        }
+      });
+
+      projectsViewport.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+        projectsDragging = true;
+        projectsPointerId = event.pointerId;
+        projectsStartX = event.clientX;
+        projectsPosition = wrapProjectsPosition(projectsViewport.scrollLeft);
+        projectsStartPosition = projectsPosition;
+        projectsViewport.classList.add('dragging');
+        projectsViewport.setPointerCapture?.(event.pointerId);
+        pauseProjects(1400);
+      });
+
+      projectsViewport.addEventListener('pointermove', (event) => {
+        if (!projectsDragging || event.pointerId !== projectsPointerId) return;
+
+        const distance = event.clientX - projectsStartX;
+        projectsPosition = wrapProjectsPosition(projectsStartPosition - distance);
+        renderProjectsPosition();
+      });
+
+      function finishProjectsDrag(event) {
+        if (!projectsDragging) return;
+        if (event?.pointerId !== undefined && event.pointerId !== projectsPointerId) return;
+
+        projectsDragging = false;
+        projectsViewport.classList.remove('dragging');
+
+        if (projectsPointerId !== null && projectsViewport.hasPointerCapture?.(projectsPointerId)) {
+          projectsViewport.releasePointerCapture(projectsPointerId);
+        }
+
+        projectsPointerId = null;
+        projectsPosition = wrapProjectsPosition(projectsViewport.scrollLeft);
+        renderProjectsPosition();
+        pauseProjects(900);
+      }
+
+      projectsViewport.addEventListener('pointerup', finishProjectsDrag);
+      projectsViewport.addEventListener('pointercancel', finishProjectsDrag);
+      projectsViewport.addEventListener('lostpointercapture', finishProjectsDrag);
+
+      /* Ohjauslevyn vaakavieritys synkronoidaan sisäiseen sijaintiarvoon. */
+      projectsViewport.addEventListener('wheel', (event) => {
+        if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+        pauseProjects(1000);
+        window.clearTimeout(projectsWheelTimer);
+        projectsWheelTimer = window.setTimeout(() => {
+          projectsPosition = wrapProjectsPosition(projectsViewport.scrollLeft);
+          renderProjectsPosition();
+        }, 60);
+      }, { passive: true });
+
+      function animateProjects(now) {
+        const elapsedSeconds = Math.min(0.1, Math.max(0, (now - projectsLastFrame) / 1000));
+        projectsLastFrame = now;
+
+        if (!projectsDragging && now >= projectsResumeAt && projectsGroupWidth > 0) {
+          /* Sisäinen desimaaliluku estää alle yhden pikselin liikkeen pyöristymisen nollaksi. */
+          projectsPosition = wrapProjectsPosition(projectsPosition + projectsSpeed * elapsedSeconds);
+          renderProjectsPosition();
+        }
+
+        window.requestAnimationFrame(animateProjects);
+      }
+
+      const projectsResizeObserver = 'ResizeObserver' in window
+        ? new ResizeObserver(measureProjects)
+        : null;
+
+      projectsResizeObserver?.observe(originalProjectsGroup);
+      window.addEventListener('resize', measureProjects);
+      window.addEventListener('load', measureProjects, { once: true });
+
       measureProjects();
-      requestAnimationFrame(animateProjects);
-    });
+      projectsLastFrame = performance.now();
+      window.requestAnimationFrame(animateProjects);
+    }
 
     /* Palautekaruselli: painikkeet, pyyhkäisy, vieritys ja nuolinäppäimet. */
     const viewport = document.getElementById('feedbackViewport');
