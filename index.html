@@ -384,6 +384,35 @@
       background:linear-gradient(to top,rgba(0,0,0,.34),transparent);
       pointer-events:none;
     }
+    .projects-arrow{
+      position:absolute;
+      top:50%;
+      z-index:4;
+      width:52px;
+      height:52px;
+      display:grid;
+      place-items:center;
+      padding:0;
+      border:0;
+      border-radius:var(--radius-ui);
+      background:var(--navy);
+      color:#fff;
+      font-family:Arial,sans-serif;
+      font-size:38px;
+      line-height:1;
+      cursor:pointer;
+      box-shadow:0 12px 26px rgba(20,33,61,.28);
+      transform:translateY(-50%);
+      transition:transform .18s ease,background .18s ease;
+    }
+    .projects-arrow:hover,.projects-arrow:focus-visible{
+      background:var(--orange);
+      color:var(--navy);
+      outline:none;
+      transform:translateY(-50%) scale(1.06);
+    }
+    .projects-arrow.prev{left:18px}
+    .projects-arrow.next{right:18px}
 
     .section{
       padding:var(--section-space) 0;
@@ -600,6 +629,9 @@
       .projects-heading p{font-size:16px}
       .projects-group{gap:14px;padding-right:14px}
       .project-card{width:78vw;max-width:340px}
+      .projects-arrow{width:46px;height:46px;font-size:34px}
+      .projects-arrow.prev{left:10px}
+      .projects-arrow.next{right:10px}
       .feedback-shell{padding:0 0 72px}
       .carousel-arrow{top:auto;bottom:0;transform:none}
       .carousel-arrow:hover,.carousel-arrow:focus-visible{transform:scale(1.06)}
@@ -712,11 +744,13 @@
     <section class="projects-showcase" id="kohteet" aria-labelledby="kohteet-otsikko">
       <div class="projects-heading">
         <h2 class="section-title" id="kohteet-otsikko">Maalaamiamme taloja</h2>
-        <p>Tässä muutamia toteuttamiamme maalauskohteita. Galleria liikkuu automaattisesti, mutta voit selata kuvia myös pyyhkäisemällä tai nuolipainikkeilla. <a href="kohteet.html">Näet lisää kohteita painamalla tästä</a>.</p>
+        <p>Tässä muutamia toteuttamiamme maalauskohteita. Galleria liikkuu automaattisesti, mutta voit selata kuvia myös pyyhkäisemällä, hiirellä vetämällä tai nuolipainikkeilla. <a href="kohteet.html">Näet lisää kohteita painamalla tästä</a>.</p>
       </div>
 
       <div class="projects-shell">
-        <div class="projects-marquee" id="projectsMarquee" tabindex="0" aria-label="Kuvagalleria maalaamistamme taloista. Pyyhkäise tai käytä näppäimistön nuolinäppäimiä.">
+        <button class="projects-arrow prev" id="projectsPrev" type="button" aria-label="Edellinen talokuva">‹</button>
+
+        <div class="projects-marquee" id="projectsMarquee" tabindex="0" aria-label="Kuvagalleria maalaamistamme taloista. Pyyhkäise, vedä tai käytä nuolipainikkeita.">
           <div class="projects-track" id="projectsTrack">
           <div class="projects-group">
             <figure class="project-card"><img src="assets/Talo_01.jpg" alt="PintaPoikien maalaama talo" loading="lazy" decoding="async"></figure>
@@ -741,6 +775,7 @@
           </div>
         </div>
 
+        <button class="projects-arrow next" id="projectsNext" type="button" aria-label="Seuraava talokuva">›</button>
       </div>
     </section>
 
@@ -929,160 +964,140 @@
     reduceMotion.addEventListener?.('change', requestParallaxUpdate);
     updateParallax();
 
-    /* Talogalleria: jatkuva automaattinen liike, pyyhkäisy ja näppäimistön nuolinäppäimet. */
+    /* Talogalleria: automaattinen liike, loputon kierto, pyyhkäisy, hiirellä veto ja nuolipainikkeet. */
     const projectsViewport = document.getElementById('projectsMarquee');
     const projectsTrack = document.getElementById('projectsTrack');
+    const projectsPrev = document.getElementById('projectsPrev');
+    const projectsNext = document.getElementById('projectsNext');
+    const originalProjectsGroup = projectsTrack.querySelector('.projects-group');
 
-    if (projectsViewport && projectsTrack) {
-      const projectGroups = Array.from(projectsTrack.querySelectorAll('.projects-group'));
-      const originalProjectsGroup = projectGroups[0];
+    /* Luodaan kolme samanlaista ryhmää, jotta kuvia voi selata kumpaankin suuntaan loputtomasti. */
+    projectsTrack.querySelectorAll('.projects-group').forEach((group, index) => {
+      if (index > 0) group.remove();
+    });
 
-      /* Radalla pidetään täsmälleen kaksi samanlaista kuvasarjaa jatkuvaa kiertoa varten. */
-      projectGroups.slice(1).forEach((group) => group.remove());
-      const projectsClone = originalProjectsGroup.cloneNode(true);
-      projectsClone.setAttribute('aria-hidden', 'true');
-      projectsClone.querySelectorAll('img').forEach((image) => {
-        image.alt = '';
-      });
-      projectsTrack.appendChild(projectsClone);
+    const projectsBefore = originalProjectsGroup.cloneNode(true);
+    const projectsAfter = originalProjectsGroup.cloneNode(true);
+    [projectsBefore, projectsAfter].forEach((group) => {
+      group.setAttribute('aria-hidden', 'true');
+      group.querySelectorAll('img').forEach((image) => image.alt = '');
+    });
+    projectsTrack.insertBefore(projectsBefore, originalProjectsGroup);
+    projectsTrack.appendChild(projectsAfter);
 
-      let projectsGroupWidth = 0;
-      let projectsPosition = 0;
-      let projectsDragging = false;
-      let projectsPointerId = null;
-      let projectsStartX = 0;
-      let projectsStartPosition = 0;
-      let projectsLastFrame = performance.now();
-      let projectsResumeAt = 0;
-      let projectsWheelTimer = 0;
-      const projectsSpeed = 46; // pikseliä sekunnissa
+    let projectsDragging = false;
+    let projectsHovering = false;
+    let projectsStartX = 0;
+    let projectsStartScroll = 0;
+    let projectsResumeAt = 0;
+    let projectsLastFrame = performance.now();
+    let projectsGroupWidth = 0;
 
-      function wrapProjectsPosition(value) {
-        if (!projectsGroupWidth) return Math.max(0, value);
-        return ((value % projectsGroupWidth) + projectsGroupWidth) % projectsGroupWidth;
+    function measureProjects() {
+      projectsGroupWidth = originalProjectsGroup.getBoundingClientRect().width;
+      if (projectsGroupWidth > 0 && projectsViewport.scrollLeft < projectsGroupWidth * 0.5) {
+        projectsViewport.scrollLeft = projectsGroupWidth;
       }
-
-      function renderProjectsPosition() {
-        projectsViewport.scrollLeft = projectsPosition;
-      }
-
-      function measureProjects() {
-        const measuredWidth = originalProjectsGroup.getBoundingClientRect().width;
-        if (!measuredWidth) return;
-
-        projectsGroupWidth = measuredWidth;
-        projectsPosition = wrapProjectsPosition(projectsPosition || projectsViewport.scrollLeft);
-        renderProjectsPosition();
-      }
-
-      function pauseProjects(milliseconds = 900) {
-        projectsResumeAt = performance.now() + milliseconds;
-      }
-
-      function projectCardStep() {
-        const card = originalProjectsGroup.querySelector('.project-card');
-        if (!card) return Math.max(280, projectsViewport.clientWidth * 0.8);
-        const gap = parseFloat(getComputedStyle(originalProjectsGroup).gap) || 0;
-        return card.getBoundingClientRect().width + gap;
-      }
-
-      function moveProjects(direction) {
-        pauseProjects(1100);
-        projectsPosition = wrapProjectsPosition(projectsPosition + direction * projectCardStep());
-        projectsViewport.scrollTo({
-          left: projectsPosition,
-          behavior: reduceMotion.matches ? 'auto' : 'smooth'
-        });
-      }
-
-      projectsViewport.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowLeft') {
-          event.preventDefault();
-          moveProjects(-1);
-        } else if (event.key === 'ArrowRight') {
-          event.preventDefault();
-          moveProjects(1);
-        }
-      });
-
-      projectsViewport.addEventListener('pointerdown', (event) => {
-        if (event.pointerType === 'mouse' && event.button !== 0) return;
-
-        projectsDragging = true;
-        projectsPointerId = event.pointerId;
-        projectsStartX = event.clientX;
-        projectsPosition = wrapProjectsPosition(projectsViewport.scrollLeft);
-        projectsStartPosition = projectsPosition;
-        projectsViewport.classList.add('dragging');
-        projectsViewport.setPointerCapture?.(event.pointerId);
-        pauseProjects(1400);
-      });
-
-      projectsViewport.addEventListener('pointermove', (event) => {
-        if (!projectsDragging || event.pointerId !== projectsPointerId) return;
-
-        const distance = event.clientX - projectsStartX;
-        projectsPosition = wrapProjectsPosition(projectsStartPosition - distance);
-        renderProjectsPosition();
-      });
-
-      function finishProjectsDrag(event) {
-        if (!projectsDragging) return;
-        if (event?.pointerId !== undefined && event.pointerId !== projectsPointerId) return;
-
-        projectsDragging = false;
-        projectsViewport.classList.remove('dragging');
-
-        if (projectsPointerId !== null && projectsViewport.hasPointerCapture?.(projectsPointerId)) {
-          projectsViewport.releasePointerCapture(projectsPointerId);
-        }
-
-        projectsPointerId = null;
-        projectsPosition = wrapProjectsPosition(projectsViewport.scrollLeft);
-        renderProjectsPosition();
-        pauseProjects(900);
-      }
-
-      projectsViewport.addEventListener('pointerup', finishProjectsDrag);
-      projectsViewport.addEventListener('pointercancel', finishProjectsDrag);
-      projectsViewport.addEventListener('lostpointercapture', finishProjectsDrag);
-
-      /* Ohjauslevyn vaakavieritys synkronoidaan sisäiseen sijaintiarvoon. */
-      projectsViewport.addEventListener('wheel', (event) => {
-        if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
-        pauseProjects(1000);
-        window.clearTimeout(projectsWheelTimer);
-        projectsWheelTimer = window.setTimeout(() => {
-          projectsPosition = wrapProjectsPosition(projectsViewport.scrollLeft);
-          renderProjectsPosition();
-        }, 60);
-      }, { passive: true });
-
-      function animateProjects(now) {
-        const elapsedSeconds = Math.min(0.1, Math.max(0, (now - projectsLastFrame) / 1000));
-        projectsLastFrame = now;
-
-        if (!projectsDragging && now >= projectsResumeAt && projectsGroupWidth > 0) {
-          /* Sisäinen desimaaliluku estää alle yhden pikselin liikkeen pyöristymisen nollaksi. */
-          projectsPosition = wrapProjectsPosition(projectsPosition + projectsSpeed * elapsedSeconds);
-          renderProjectsPosition();
-        }
-
-        window.requestAnimationFrame(animateProjects);
-      }
-
-      const projectsResizeObserver = 'ResizeObserver' in window
-        ? new ResizeObserver(measureProjects)
-        : null;
-
-      projectsResizeObserver?.observe(originalProjectsGroup);
-      window.addEventListener('resize', measureProjects);
-      window.addEventListener('load', measureProjects, { once: true });
-
-      measureProjects();
-      projectsLastFrame = performance.now();
-      window.requestAnimationFrame(animateProjects);
     }
+
+    function normalizeProjectsPosition() {
+      if (!projectsGroupWidth) return;
+      if (projectsViewport.scrollLeft < projectsGroupWidth * 0.5) {
+        projectsViewport.scrollLeft += projectsGroupWidth;
+      } else if (projectsViewport.scrollLeft > projectsGroupWidth * 1.5) {
+        projectsViewport.scrollLeft -= projectsGroupWidth;
+      }
+    }
+
+    function pauseProjects(milliseconds = 2600) {
+      projectsResumeAt = performance.now() + milliseconds;
+    }
+
+    function projectCardStep() {
+      const card = originalProjectsGroup.querySelector('.project-card');
+      const gap = parseFloat(getComputedStyle(originalProjectsGroup).gap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function moveProjects(direction) {
+      pauseProjects();
+      projectsViewport.scrollBy({
+        left: direction * projectCardStep(),
+        behavior: reduceMotion.matches ? 'auto' : 'smooth'
+      });
+      window.setTimeout(normalizeProjectsPosition, reduceMotion.matches ? 0 : 500);
+    }
+
+    projectsPrev.addEventListener('click', () => moveProjects(-1));
+    projectsNext.addEventListener('click', () => moveProjects(1));
+
+    projectsViewport.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        moveProjects(-1);
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        moveProjects(1);
+      }
+    });
+
+    projectsViewport.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      projectsDragging = true;
+      projectsStartX = event.clientX;
+      projectsStartScroll = projectsViewport.scrollLeft;
+      projectsViewport.classList.add('dragging');
+      projectsViewport.setPointerCapture(event.pointerId);
+      pauseProjects(3200);
+    });
+
+    projectsViewport.addEventListener('pointermove', (event) => {
+      if (!projectsDragging) return;
+      const distance = event.clientX - projectsStartX;
+      projectsViewport.scrollLeft = projectsStartScroll - distance;
+    });
+
+    function finishProjectsDrag(event) {
+      if (!projectsDragging) return;
+      projectsDragging = false;
+      projectsViewport.classList.remove('dragging');
+      if (event?.pointerId !== undefined && projectsViewport.hasPointerCapture(event.pointerId)) {
+        projectsViewport.releasePointerCapture(event.pointerId);
+      }
+      normalizeProjectsPosition();
+    }
+
+    projectsViewport.addEventListener('pointerup', finishProjectsDrag);
+    projectsViewport.addEventListener('pointercancel', finishProjectsDrag);
+    projectsViewport.addEventListener('wheel', () => pauseProjects(3200), { passive: true });
+    projectsViewport.addEventListener('mouseenter', () => { projectsHovering = true; });
+    projectsViewport.addEventListener('mouseleave', () => {
+      projectsHovering = false;
+      pauseProjects(500);
+    });
+
+    function animateProjects(now) {
+      const elapsed = Math.min(50, now - projectsLastFrame);
+      projectsLastFrame = now;
+
+      if (!reduceMotion.matches && !projectsDragging && !projectsHovering && now >= projectsResumeAt && projectsGroupWidth) {
+        projectsViewport.scrollLeft += elapsed * 0.035;
+        normalizeProjectsPosition();
+      }
+      requestAnimationFrame(animateProjects);
+    }
+
+    window.addEventListener('resize', () => {
+      const relativePosition = projectsGroupWidth ? projectsViewport.scrollLeft / projectsGroupWidth : 1;
+      projectsGroupWidth = originalProjectsGroup.getBoundingClientRect().width;
+      projectsViewport.scrollLeft = projectsGroupWidth * Math.min(1.45, Math.max(0.55, relativePosition));
+      normalizeProjectsPosition();
+    });
+
+    requestAnimationFrame(() => {
+      measureProjects();
+      requestAnimationFrame(animateProjects);
+    });
 
     /* Palautekaruselli: painikkeet, pyyhkäisy, vieritys ja nuolinäppäimet. */
     const viewport = document.getElementById('feedbackViewport');
