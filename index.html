@@ -60,7 +60,7 @@
     }
     .skip-link:focus{left:12px}
 
-    /* Musta yläpalkki kutenmallikuvassa */
+    /* Musta yläpalkki kuten mallikuvassa */
     .site-header{
       position:fixed;
       inset:0 0 auto 0;
@@ -337,6 +337,8 @@
       cursor:grab;
       user-select:none;
       touch-action:pan-y;
+      -webkit-user-select:none;
+      user-select:none;
       overscroll-behavior-inline:contain;
       -webkit-mask-image:linear-gradient(to right,transparent 0,#000 4%,#000 96%,transparent 100%);
       mask-image:linear-gradient(to right,transparent 0,#000 4%,#000 96%,transparent 100%);
@@ -1071,6 +1073,57 @@
       projectsViewport.addEventListener('pointerup', finishProjectsDrag);
       projectsViewport.addEventListener('pointercancel', finishProjectsDrag);
       projectsViewport.addEventListener('lostpointercapture', finishProjectsDrag);
+
+      /* iOS/Safari-varmistus: käsitellään kosketuspyyhkäisy myös Touch Events -rajapinnalla. */
+      let projectsTouchActive = false;
+      let projectsTouchStartX = 0;
+      let projectsTouchStartY = 0;
+      let projectsTouchStartPosition = 0;
+      let projectsTouchHorizontal = false;
+
+      projectsViewport.addEventListener('touchstart', (event) => {
+        if (!event.touches.length) return;
+        const touch = event.touches[0];
+        projectsTouchActive = true;
+        projectsTouchHorizontal = false;
+        projectsTouchStartX = touch.clientX;
+        projectsTouchStartY = touch.clientY;
+        projectsTouchStartPosition = wrapProjectsPosition(projectsViewport.scrollLeft);
+        projectsPosition = projectsTouchStartPosition;
+        pauseProjects(1400);
+      }, { passive: true });
+
+      projectsViewport.addEventListener('touchmove', (event) => {
+        if (!projectsTouchActive || !event.touches.length) return;
+
+        const touch = event.touches[0];
+        const dx = touch.clientX - projectsTouchStartX;
+        const dy = touch.clientY - projectsTouchStartY;
+
+        if (!projectsTouchHorizontal) {
+          if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+          projectsTouchHorizontal = Math.abs(dx) > Math.abs(dy);
+        }
+
+        if (!projectsTouchHorizontal) return;
+
+        /* Estetään sivun pystysuuntainen vieritys vasta kun käyttäjä on selvästi pyyhkäisemässä vaakasuunnassa. */
+        event.preventDefault();
+        projectsPosition = wrapProjectsPosition(projectsTouchStartPosition - dx);
+        renderProjectsPosition();
+      }, { passive: false });
+
+      function finishProjectsTouch() {
+        if (!projectsTouchActive) return;
+        projectsTouchActive = false;
+        projectsTouchHorizontal = false;
+        projectsPosition = wrapProjectsPosition(projectsViewport.scrollLeft);
+        renderProjectsPosition();
+        pauseProjects(900);
+      }
+
+      projectsViewport.addEventListener('touchend', finishProjectsTouch, { passive: true });
+      projectsViewport.addEventListener('touchcancel', finishProjectsTouch, { passive: true });
 
       /* Ohjauslevyn vaakavieritys synkronoidaan sisäiseen sijaintiarvoon. */
       projectsViewport.addEventListener('wheel', (event) => {
