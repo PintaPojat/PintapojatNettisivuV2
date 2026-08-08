@@ -219,15 +219,18 @@
       position:relative;
       aspect-ratio:4/3;
       overflow:hidden;
-      background:#d9dce2;
+      background:#111;
+      display:grid;
+      place-items:center;
     }
     .project-image{
       position:absolute;
       inset:0;
       width:100%;
       height:100%;
-      object-fit:cover;
+      object-fit:contain;
       object-position:center;
+      background:#111;
       transition:transform .28s ease,filter .28s ease;
     }
     .project-button:hover .project-image,
@@ -244,8 +247,8 @@
       inset:0;
       display:none;
       place-items:center;
-      background:#d8dae0;
-      color:#666d79;
+      background:#111;
+      color:#d7d7d7;
       font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
       font-size:22px;
     }
@@ -396,12 +399,13 @@
     .single-view[hidden]{display:none}
     .single-view img{
       display:block;
-      width:auto;
-      height:auto;
+      width:100%;
+      height:100%;
       max-width:100%;
       max-height:100%;
       object-fit:contain;
       object-position:center;
+      background:#0d0d0d;
     }
 
     /* Ennen-jälkeen slideri */
@@ -1008,9 +1012,8 @@
 
       requestAnimationFrame(() => {
         const rect = compareShell.getBoundingClientRect();
-        const handleRadius = compareHandle.offsetWidth / 2;
-        sliderMinX = handleRadius;
-        sliderMaxX = Math.max(handleRadius, rect.width - handleRadius);
+        sliderMinX = 0;
+        sliderMaxX = rect.width;
         setSliderPosition(rect.width / 2);
       });
     }
@@ -1019,12 +1022,22 @@
       const rect = compareShell.getBoundingClientRect();
       if (!rect.width) return;
 
-      const safeX = Math.max(sliderMinX, Math.min(sliderMaxX, x));
+      // The image split itself can travel from the exact left edge (0%)
+      // to the exact right edge (100%).
+      const safeX = Math.max(0, Math.min(rect.width, x));
       const percent = (safeX / rect.width) * 100;
 
       compareAfter.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
       compareLine.style.left = `${safeX}px`;
-      compareHandle.style.left = `${safeX}px`;
+
+      // Keep the circular handle visually inside the picture even when
+      // the split line reaches the exact image edge.
+      const handleRadius = compareHandle.offsetWidth / 2;
+      const handleX = Math.max(
+        handleRadius,
+        Math.min(rect.width - handleRadius, safeX)
+      );
+      compareHandle.style.left = `${handleX}px`;
     }
 
     function updateSliderFromClientX(clientX) {
