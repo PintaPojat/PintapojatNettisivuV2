@@ -154,7 +154,7 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      object-position:center 20%;
+      object-position:center 60%;
     }
     .hero-shade{
       position:absolute;
@@ -429,8 +429,9 @@
       overflow:hidden;
       background:#111;
       user-select:none;
+      -webkit-user-select:none;
       touch-action:none;
-      border-radius:0;
+      cursor:ew-resize;
     }
 
     .before-after[hidden]{display:none}
@@ -440,18 +441,23 @@
       inset:0;
       width:100%;
       height:100%;
-      object-fit:contain;
+      object-fit:cover;
+      object-position:center;
       pointer-events:none;
       user-select:none;
+      -webkit-user-select:none;
       -webkit-user-drag:none;
       background:#111;
     }
 
-    .before-after-before{ z-index:1; }
+    .before-after-before{
+      z-index:1;
+    }
 
     .before-after-after{
       z-index:2;
-      clip-path:inset(0 100% 0 0);
+      clip-path:inset(0 50% 0 0);
+      will-change:clip-path;
     }
 
     .before-after-line{
@@ -460,9 +466,10 @@
       bottom:0;
       left:50%;
       width:4px;
-      background:var(--white);
+      background:#fff;
+      transform:translateX(-50%);
       z-index:3;
-      box-shadow:0 0 0 1px rgba(0,0,0,0.08);
+      box-shadow:0 0 0 1px rgba(0,0,0,.10);
       pointer-events:none;
     }
 
@@ -473,9 +480,9 @@
       width:58px;
       height:58px;
       border-radius:50%;
-      background:#ffffff;
+      background:#fff;
       border:4px solid var(--yellow);
-      transform:translate(-50%, -50%);
+      transform:translate(-50%,-50%);
       z-index:4;
       display:grid;
       place-items:center;
@@ -486,6 +493,7 @@
     .before-after-handle::before{
       content:"⟷";
       font-size:21px;
+      line-height:1;
       font-weight:900;
       color:var(--black);
     }
@@ -495,7 +503,7 @@
       z-index:5;
       top:18px;
       padding:8px 11px;
-      border-radius:12px;
+      border-radius:10px;
       background:rgba(0,0,0,.72);
       color:#fff;
       font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
@@ -605,7 +613,7 @@
       .main-nav.open{display:flex}
       .nav-pill{width:100%;min-height:46px}
       .hero{height:clamp(300px,50vw,390px)}
-      .hero-image{object-position:center 18%}
+      .hero-image{object-position:center 60%}
       .hero-title{bottom:24px;font-size:clamp(40px,11vw,60px)}
       .intro-section{padding-top:58px}
       .form-row{grid-template-columns:1fr}
@@ -1031,41 +1039,58 @@ aspect-ratio:16/11}
       handle.style.left = safeValue + '%';
     }
 
-    function updateBeforeAfterFromPointer(clientX) {
+    function updateBeforeAfterFromClientX(clientX) {
       const rect = beforeAfter.getBoundingClientRect();
-      const x = clientX - rect.left;
+      if (!rect.width) return;
+
+      const x = Math.max(0, Math.min(rect.width, clientX - rect.left));
       const percent = (x / rect.width) * 100;
       setBeforeAfter(beforeAfter, percent);
     }
 
     let beforeAfterDragging = false;
+    let beforeAfterPointerId = null;
 
-    beforeAfter.addEventListener('mousedown', (event) => {
+    beforeAfter.addEventListener('pointerdown', (event) => {
       beforeAfterDragging = true;
-      updateBeforeAfterFromPointer(event.clientX);
+      beforeAfterPointerId = event.pointerId;
+
+      if (beforeAfter.setPointerCapture) {
+        beforeAfter.setPointerCapture(event.pointerId);
+      }
+
+      updateBeforeAfterFromClientX(event.clientX);
+      event.preventDefault();
     });
 
-    window.addEventListener('mousemove', (event) => {
+    beforeAfter.addEventListener('pointermove', (event) => {
+      if (!beforeAfterDragging || event.pointerId !== beforeAfterPointerId) return;
+      updateBeforeAfterFromClientX(event.clientX);
+      event.preventDefault();
+    });
+
+    function stopBeforeAfterDrag(event) {
       if (!beforeAfterDragging) return;
-      updateBeforeAfterFromPointer(event.clientX);
-    });
+      if (beforeAfterPointerId !== null && event.pointerId !== beforeAfterPointerId) return;
 
-    window.addEventListener('mouseup', () => {
       beforeAfterDragging = false;
-    });
 
-    beforeAfter.addEventListener('touchstart', (event) => {
-      beforeAfterDragging = true;
-      updateBeforeAfterFromPointer(event.touches[0].clientX);
-    }, { passive:true });
+      if (
+        beforeAfterPointerId !== null &&
+        beforeAfter.releasePointerCapture &&
+        beforeAfter.hasPointerCapture?.(beforeAfterPointerId)
+      ) {
+        beforeAfter.releasePointerCapture(beforeAfterPointerId);
+      }
 
-    window.addEventListener('touchmove', (event) => {
-      if (!beforeAfterDragging) return;
-      updateBeforeAfterFromPointer(event.touches[0].clientX);
-    }, { passive:true });
+      beforeAfterPointerId = null;
+    }
 
-    window.addEventListener('touchend', () => {
+    beforeAfter.addEventListener('pointerup', stopBeforeAfterDrag);
+    beforeAfter.addEventListener('pointercancel', stopBeforeAfterDrag);
+    beforeAfter.addEventListener('lostpointercapture', () => {
       beforeAfterDragging = false;
+      beforeAfterPointerId = null;
     });
 
     setBeforeAfter(beforeAfter, 50);
@@ -1177,16 +1202,24 @@ aspect-ratio:16/11}
       lightboxPlaceholder.classList.add('visible');
     });
 
+    let lightboxSwipeStartedOnSlider = false;
+
     lightboxMedia.addEventListener('touchstart', (event) => {
+      lightboxSwipeStartedOnSlider = Boolean(event.target.closest?.('#beforeAfter'));
+
+      if (lightboxSwipeStartedOnSlider) return;
       touchStartX = event.changedTouches[0].clientX;
     }, { passive:true });
 
     lightboxMedia.addEventListener('touchend', (event) => {
-      // Do not switch projects when the user was dragging the before/after slider.
-      if (beforeAfterDragging) return;
+      if (lightboxSwipeStartedOnSlider || beforeAfterDragging) {
+        lightboxSwipeStartedOnSlider = false;
+        return;
+      }
 
       const touchEndX = event.changedTouches[0].clientX;
       const distance = touchEndX - touchStartX;
+
       if (Math.abs(distance) < 50) return;
       if (distance > 0) showPreviousProject();
       else showNextProject();
