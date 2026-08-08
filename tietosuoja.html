@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="assets/LogoValkoinen.png">
+  <link rel="apple-touch-icon" href="assets/LogoValkoinen.png">
+
+  <title>Tietosuoja | PintaPojat</title>
+  <meta name="description" content="PintaPoikien tietosuojaseloste: miten käsittelemme tarjouspyyntöihin, yhteydenottoihin ja verkkosivuston käyttöön liittyviä henkilötietoja.">
+  <meta name="robots" content="noindex,follow">
+  <link rel="canonical" href="https://www.pintapojat.fi/tietosuoja.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fi_FI">
+  <meta property="og:site_name" content="PintaPojat">
+  <meta property="og:title" content="Tietosuoja | PintaPojat">
+  <meta property="og:description" content="Tietoa PintaPoikien verkkosivustolla käsiteltävistä henkilötiedoista.">
+  <meta property="og:url" content="https://www.pintapojat.fi/tietosuoja.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --navy:#14213d;
+      --orange:#fca311;
+      --paper:#e5e5e5;
+      --white:#fff;
+      --black:#000;
+      --text:#17213a;
+      --muted:#5e6573;
+      --max:1160px;
+      --radius:10px;
+      --header-height:80px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      padding-top:var(--header-height);
+      background:var(--paper);
+      color:var(--text);
+      font-family:Inter,"Segoe UI",Arial,sans-serif;
+      line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit}
+    .wrap{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
+    .site-header{
+      position:fixed;inset:0 0 auto 0;z-index:1000;
+      background:#000;color:#fff;
+    }
+    .header-inner{
+      min-height:80px;display:flex;align-items:center;
+      justify-content:space-between;gap:28px;padding:10px 0;
+    }
+    .brand{display:flex;align-items:center;gap:15px;text-decoration:none;min-width:max-content}
+    .brand-logo{width:64px;height:54px;object-fit:contain}
+    .brand-name,.nav-pill,h1,h2,h3,.footer-brand{
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-weight:400;
+    }
+    .brand-name{font-size:clamp(25px,2.4vw,32px);letter-spacing:.025em}
+    .main-nav{display:flex;align-items:center;gap:14px}
+    .nav-pill{
+      display:inline-flex;align-items:center;justify-content:center;
+      min-height:48px;padding:9px 24px;border-radius:var(--radius);
+      background:var(--navy);color:#fff;text-decoration:none;
+      font-size:clamp(13px,1.35vw,17px);
+    }
+    .nav-pill.offer{background:var(--orange);color:#000}
+    .menu-toggle{display:none;border:0;border-radius:var(--radius);background:var(--orange);padding:11px 14px}
+    main{padding:clamp(60px,7vw,92px) 0 clamp(90px,10vw,130px)}
+    .privacy-hero{max-width:820px;margin:0 auto 48px;text-align:center}
+    h1{margin:0;color:var(--navy);font-size:clamp(40px,5vw,60px);text-transform:uppercase;line-height:1}
+    .privacy-hero p{margin:18px auto 0;color:var(--muted);max-width:680px}
+    .privacy-card{
+      max-width:880px;margin:0 auto;padding:clamp(28px,5vw,58px);
+      background:#fff;border-radius:var(--radius);
+      box-shadow:0 14px 34px rgba(20,33,61,.09);
+    }
+    .privacy-card section+section{margin-top:38px}
+    h2{margin:0 0 12px;color:var(--navy);font-size:clamp(24px,3vw,32px);text-transform:uppercase;line-height:1.1}
+    h3{margin:20px 0 8px;font-size:18px;text-transform:uppercase}
+    p,li{font-size:15.5px}
+    ul{padding-left:22px}
+    .meta{color:var(--muted);font-size:13px}
+    .notice{
+      margin-top:28px;padding:18px;border-left:5px solid var(--orange);
+      background:#f6f6f6;
+    }
+    footer{padding:42px 0;background:#000;color:#fff}
+    .footer-inner{display:grid;gap:24px}
+    .footer-top{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+    .footer-brand{font-size:28px;letter-spacing:.02em}
+    .footer-page-links{display:flex;gap:24px;flex-wrap:wrap}
+    .footer-page-link{color:#fff;text-decoration:none;font-size:14px;font-weight:600}
+    .footer-page-link:hover{color:var(--orange)}
+    .footer-contacts{display:flex;gap:34px;flex-wrap:wrap;padding-top:20px}
+    .footer-contact{min-width:220px}
+    .footer-contact h3{margin:0 0 6px;color:#fff;font-size:17px}
+    .footer-contact p{margin:2px 0;color:#cfcfcf;font-size:12.5px;line-height:1.45}
+    .footer-contact a{color:#fff}
+    @media(max-width:760px){
+      :root{--header-height:72px}
+      .wrap{width:min(var(--max),calc(100% - 28px))}
+      .header-inner{min-height:72px;padding:8px 0;gap:12px}
+      .brand{gap:10px}.brand-logo{width:52px;height:46px}.brand-name{font-size:24px}
+      .menu-toggle{display:inline-flex}
+      .main-nav{
+        position:absolute;top:100%;left:0;right:0;display:none;
+        flex-direction:column;align-items:stretch;gap:8px;
+        padding:12px 14px 16px;background:#000;
+      }
+      .main-nav.open{display:flex}
+      .nav-pill{width:100%;min-height:44px}
+      main{padding-top:48px}
+      .privacy-card{padding:26px 20px}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="PintaPojat etusivu">
+        <img class="brand-logo" src="assets/LogoValkoinen.png" alt="PintaPojat-logo">
+        <span class="brand-name">PINTAPOJAT</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">Valikko</button>
+      <nav class="main-nav" id="mainNav" aria-label="Päävalikko">
+        <a class="nav-pill" href="index.html">ETUSIVU</a>
+        <a class="nav-pill" href="maalaustavat.html">MITEN MAALAAMME?</a>
+        <a class="nav-pill" href="kohteet.html">REFERENSSIT</a>
+        <a class="nav-pill offer" href="index.html#tarjous">PYYDÄ TARJOUS</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <header class="privacy-hero">
+        <h1>Tietosuojaseloste</h1>
+        <p>Tässä selosteessa kerromme, miten PintaPojat käsittelee verkkosivuston tarjouspyyntöihin, yhteydenottoihin ja käyttöön liittyviä henkilötietoja.</p>
+        <p class="meta">Päivitetty 8.8.2026</p>
+      </header>
+
+      <article class="privacy-card">
+        <section>
+          <h2>1. Rekisterinpitäjä ja yhteystiedot</h2>
+          <p>PintaPojat-toiminnan yhteydessä henkilötietojen käsittelystä vastaavat:</p>
+          <ul>
+            <li>Vilho Räisänen, Y-tunnus 3453360-6, puh. 044 980 5844</li>
+            <li>Ilmari Sippola, Y-tunnus 3586169-5, puh. 045 7832 5502</li>
+          </ul>
+          <p>Tietosuojaa koskevat yhteydenotot: <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a>.</p>
+        </section>
+
+        <section>
+          <h2>2. Mitä henkilötietoja käsittelemme?</h2>
+          <p>Tarjouspyyntö- ja yhteydenottolomakkeella voidaan käsitellä asiakkaan antamia tietoja, kuten nimeä, puhelinnumeroa, sähköpostiosoitetta, kohteen osoitetta sekä vapaamuotoista kuvausta maalaus- tai remonttitarpeesta.</p>
+          <p>Lisäksi sivuston teknisessä käytössä hosting-palvelu voi käsitellä esimerkiksi IP-osoitetta, selaimen ja laitteen teknisiä tietoja sekä tietoturvalokeja.</p>
+        </section>
+
+        <section>
+          <h2>3. Miksi tietoja käsitellään ja millä perusteella?</h2>
+          <h3>Tarjouspyynnöt ja yhteydenotot</h3>
+          <p>Tietoja käytetään asiakkaan yhteydenottoon vastaamiseen, kohteen arviointiin, arviointikäynnin sopimiseen, tarjouksen laatimiseen ja mahdollisen sopimuksen valmisteluun. Käsittely perustuu asiakkaan pyynnöstä tehtäviin toimenpiteisiin ennen sopimuksen tekemistä sekä mahdollisen sopimuksen täytäntöönpanoon.</p>
+          <h3>Asiakassuhde ja lakisääteiset velvoitteet</h3>
+          <p>Jos tarjous johtaa asiakassuhteeseen, tarpeellisia tietoja voidaan käsitellä sopimuksen hoitamiseksi sekä esimerkiksi kirjanpitoon ja muuhun lainsäädäntöön perustuvien velvoitteiden täyttämiseksi.</p>
+          <h3>Sivuston turvallisuus</h3>
+          <p>Teknisiä tietoja voidaan käsitellä sivuston toiminnan, väärinkäytösten ehkäisyn ja tietoturvan varmistamiseksi oikeutetun edun perusteella.</p>
+        </section>
+
+        <section>
+          <h2>4. Mistä tiedot saadaan?</h2>
+          <p>Yhteydenottoihin liittyvät tiedot saadaan pääasiassa suoraan henkilöltä itseltään verkkolomakkeella, sähköpostitse, puhelimitse tai arviointikäynnin yhteydessä. Tekniset tiedot syntyvät sivuston käytön yhteydessä.</p>
+        </section>
+
+        <section>
+          <h2>5. Kenelle tietoja voidaan luovuttaa tai siirtää?</h2>
+          <p>Henkilötietoja käsittelevät vain ne PintaPoikien toimintaan osallistuvat henkilöt, jotka tarvitsevat tietoja yhteydenoton tai asiakassuhteen hoitamiseen.</p>
+          <p>Verkkolomakkeiden välityksessä käytetään Formspree-palvelua. Sivusto on julkaistu GitHub Pages -palvelussa, ja sivusto käyttää Google Fonts -verkkofontteja. Nämä palveluntarjoajat voivat käsitellä teknisiä tietoja tai lomakkeen kautta lähetettyjä tietoja omien sopimusehtojensa ja tietosuojakäytäntöjensä mukaisesti.</p>
+          <p>Palveluntarjoajien käyttö voi merkitä henkilötietojen käsittelyä Euroopan talousalueen ulkopuolella. Tällöin siirroissa käytetään soveltuvia tietosuojalainsäädännön mukaisia suojatoimia, kuten Euroopan komission vakiosopimuslausekkeita, silloin kun niitä edellytetään.</p>
+        </section>
+
+        <section>
+          <h2>6. Kuinka kauan tietoja säilytetään?</h2>
+          <p>Tarjouspyyntöihin ja yhteydenottoihin liittyviä tietoja säilytetään vain niin kauan kuin se on tarpeen pyynnön käsittelemiseksi, tarjouksen laatimiseksi ja mahdollisen jatkokeskustelun hoitamiseksi.</p>
+          <p>Jos yhteydenotto johtaa asiakassuhteeseen, tarpeellisia tietoja voidaan säilyttää asiakassuhteen ajan ja sen jälkeen niin kauan kuin sopimusvastuut, kirjanpito tai muu sovellettava lainsäädäntö sitä edellyttää. Säilytysaika määräytyy tietojen käyttötarkoituksen ja lakisääteisten velvoitteiden perusteella.</p>
+        </section>
+
+        <section>
+          <h2>7. Rekisteröidyn oikeudet</h2>
+          <p>Soveltuvan tietosuojalainsäädännön edellytysten täyttyessä henkilöllä on oikeus:</p>
+          <ul>
+            <li>saada tietoa henkilötietojensa käsittelystä ja tarkastaa itseään koskevat tiedot</li>
+            <li>pyytää virheellisten tai puutteellisten tietojen oikaisua</li>
+            <li>pyytää tietojen poistamista</li>
+            <li>pyytää käsittelyn rajoittamista</li>
+            <li>vastustaa käsittelyä silloin, kun käsittely perustuu oikeutettuun etuun</li>
+            <li>saada itse antamansa tiedot siirrettyä järjestelmästä toiseen silloin, kun oikeuden edellytykset täyttyvät</li>
+            <li>tehdä valitus Tietosuojavaltuutetun toimistolle.</li>
+          </ul>
+          <p>Oikeuksia koskevan pyynnön voi lähettää osoitteeseen <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a>. Henkilöllisyyden varmistamiseksi voimme tarvittaessa pyytää lisätietoja.</p>
+        </section>
+
+        <section>
+          <h2>8. Onko tietojen antaminen pakollista?</h2>
+          <p>Tarjouspyyntölomakkeen pakolliset kentät tarvitaan, jotta voimme käsitellä yhteydenoton ja olla asiakkaaseen yhteydessä. Ilman pakollisia tietoja verkkolomakkeella tehtyä tarjouspyyntöä ei voida käsitellä normaalisti. Muut tiedot ovat vapaaehtoisia.</p>
+        </section>
+
+        <section>
+          <h2>9. Automaattinen päätöksenteko ja profilointi</h2>
+          <p>PintaPojat ei tee verkkosivuston kautta kerättyjen tietojen perusteella automaattisia yksittäispäätöksiä eikä profilointia.</p>
+        </section>
+
+        <section>
+          <h2>10. Evästeet ja analytiikka</h2>
+          <p>Nykyinen sivustokoodi ei sisällä PintaPoikien omaa kävijäanalytiikkaa tai markkinointipikseleitä. Hosting- ja fonttipalvelut voivat kuitenkin käsitellä teknisiä tietoja palvelujensa toimittamiseksi ja turvallisuuden varmistamiseksi.</p>
+          <p>Jos sivustolle myöhemmin lisätään esimerkiksi Google Analytics, Meta Pixel, mainonnan seurantaa tai muita vastaavia palveluita, tämä seloste ja mahdollinen evästeiden suostumusratkaisu on päivitettävä ennen käyttöönottoa.</p>
+        </section>
+
+        <section>
+          <h2>11. Tietoturva</h2>
+          <p>Henkilötietojen käsittelyssä pyritään käyttämään asianmukaisia teknisiä ja organisatorisia suojatoimia. Pääsy henkilötietoihin rajataan henkilöihin, jotka tarvitsevat niitä työtehtäviensä hoitamiseen. Verkkoliikenne suojataan HTTPS-yhteydellä silloin, kun sivusto julkaistaan sitä tukevassa ympäristössä.</p>
+        </section>
+
+        <section>
+          <h2>12. Selosteen muuttaminen</h2>
+          <p>Tätä tietosuojaselostetta päivitetään, jos henkilötietojen käsittely, käytetyt palvelut tai lainsäädännön vaatimukset muuttuvat.</p>
+        </section>
+</article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">PINTAPOJAT</div>
+        <nav class="footer-page-links" aria-label="Alatunnisteen sivulinkit">
+          <a class="footer-page-link" href="index.html">ETUSIVU</a>
+          <a class="footer-page-link" href="maalaustavat.html">MITEN MAALAAMME?</a>
+          <a class="footer-page-link" href="kohteet.html">REFERENSSIT</a>
+          <a class="footer-page-link" href="tietosuoja.html">TIETOSUOJA</a>
+        </nav>
+      </div>
+      <div class="footer-contacts">
+        <section class="footer-contact">
+          <h3>Vilho Räisänen</h3>
+          <p>044 980 5844</p>
+          <p><a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a></p>
+          <p>Y-tunnus 3453360-6</p>
+        </section>
+        <section class="footer-contact">
+          <h3>Ilmari Sippola</h3>
+          <p>045 7832 5502</p>
+          <p><a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a></p>
+          <p>Y-tunnus 3586169-5</p>
+        </section>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    menuToggle.addEventListener('click', () => {
+      const open = mainNav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+    });
+  </script>
+</body>
+</html>
