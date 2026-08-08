@@ -1,1231 +1,543 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fi">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#000000">
-
-  <title>Maalaamiamme kohteita | PintaPojat</title>
-  <meta name="description" content="Tutustu PintaPoikien kesien 2025 ja 2026 aikana maalaamiin kohteisiin. Avaa kuvat nähdäksesi kohteiden lisätiedot.">
-  <meta name="robots" content="index,follow,max-image-preview:large">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101010" />
+  <title>Referenssit | PintaPojat</title>
+  <meta name="description" content="Tutustu PintaPoikien maalaamiin kohteisiin Joensuussa ja lähialueilla." />
 
   <style>
     :root{
-      --navy:#14213d;
-      --navy-hover:#1d2e52;
-      --orange:#fca311;
-      --paper:#e5e5e5;
-      --surface:#f4f4f2;
-      --white:#ffffff;
-      --black:#000000;
-      --text:#17213a;
-      --muted:#5e6573;
-      --max:1160px;
+      --orange:#f3a500;
+      --blue:#163a63;
+      --black:#101010;
+      --white:#fff;
+      --bg:#ececec;
+      --text:#171717;
+      --muted:#646464;
       --radius:10px;
-      --section-space:clamp(88px,10vw,136px);
+      --max:1180px;
+      --shadow:0 14px 34px rgba(0,0,0,.12);
+      --font:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --impact:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth;overflow-x:hidden}
-    body{
-      margin:0;
-      overflow-x:hidden;
-      background:var(--paper);
-      color:var(--text);
-      font-family:Inter,"Segoe UI",Arial,sans-serif;
-      font-size:16px;
-      line-height:1.65;
-      text-rendering:optimizeLegibility;
-      -webkit-font-smoothing:antialiased;
-    }
+    body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;overflow-x:hidden}
     body.modal-open{overflow:hidden}
+    img{display:block;max-width:100%}
     a{color:inherit;text-decoration:none}
-    img{display:block;max-width:100%;height:auto}
     button,input,textarea{font:inherit}
-    button,.nav-pill,.cta-button,.project-open{
-      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-weight:400;
-      letter-spacing:.015em;
-    }
-    h1,h2,h3,.impact{
-      margin:0;
-      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-weight:400;
-      text-transform:uppercase;
-      letter-spacing:.005em;
-    }
-    p{margin:0}
-    .wrap{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
+    h1,h2,h3{font-family:var(--impact);text-transform:uppercase;letter-spacing:.3px;margin:0;line-height:1}
 
-    .skip-link{
-      position:absolute;
-      left:-9999px;
-      top:12px;
-      z-index:2000;
-      padding:12px 16px;
-      background:#fff;
-      color:#000;
-      border-radius:var(--radius);
+    .topbar{
+      position:fixed;inset:0 0 auto 0;z-index:1000;background:#101010;
+      min-height:74px;display:flex;align-items:center;
     }
-    .skip-link:focus{left:12px}
+    .topbar-inner{width:min(var(--max),calc(100% - 40px));margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;flex:0 0 auto}
+    .brand img{width:155px;height:44px;object-fit:contain;object-position:left center}
+    .nav{display:flex;align-items:center;gap:10px}
+    .nav a,.menu-toggle{
+      font-family:var(--impact);text-transform:uppercase;letter-spacing:.35px;font-size:15px;
+      padding:11px 17px;border-radius:var(--radius);border:0;cursor:pointer;
+    }
+    .nav a{background:var(--blue);color:#fff}
+    .nav a.cta{background:var(--orange);color:#101010}
+    .menu-toggle{display:none;background:var(--orange);color:#101010}
 
-    .site-header{
-      position:relative;
-      z-index:80;
-      width:100%;
-      background:var(--black);
-      color:#fff;
-    }
-    .header-inner{
-      min-height:80px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:28px;
-      padding:10px 0;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:15px;
-      min-width:max-content;
-    }
-    .brand-logo{
-      display:block;
-      width:64px;
-      height:54px;
-      flex:none;
-      overflow:hidden;
-      background:transparent;
-      pointer-events:none;
-    }
-    .brand-name{
-      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:clamp(27px,3vw,38px);
-      line-height:1;
-      letter-spacing:.025em;
-      white-space:nowrap;
-    }
-    .main-nav{display:flex;align-items:center;gap:14px}
-    .nav-pill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:48px;
-      padding:9px 24px;
-      border-radius:var(--radius);
-      background:var(--navy);
-      color:#fff;
-      font-size:clamp(13px,1.35vw,17px);
-      line-height:1;
-      white-space:nowrap;
-      transition:transform .18s ease,background .18s ease;
-    }
-    .nav-pill:hover,.nav-pill:focus-visible{
-      background:var(--navy-hover);
-      transform:translateY(-2px);
-      outline:none;
-    }
-    .menu-toggle{
-      display:none;
-      border:0;
-      border-radius:var(--radius);
-      background:var(--orange);
-      color:#000;
-      padding:11px 14px;
-      cursor:pointer;
-    }
+    main{padding-top:74px}
+    .hero{position:relative;height:clamp(280px,34vw,430px);overflow:hidden;background:#222}
+    .hero img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.50),rgba(0,0,0,.03) 55%)}
+    .hero h1{position:absolute;z-index:2;left:max(22px,calc((100vw - var(--max))/2));bottom:28px;color:#fff;font-size:clamp(42px,6vw,76px)}
 
-    .hero{
-      position:relative;
-      z-index:10;
-      height:clamp(340px,44vw,510px);
-      overflow:hidden;
-      background:#1c1c1c;
-    }
-    .hero-clip{position:absolute;inset:0;overflow:hidden}
-    .hero-image{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center 60%;
-    }
-    .hero-shade{
-      position:absolute;
-      inset:0;
-      background:linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.12) 48%,rgba(0,0,0,.68));
-    }
-    .hero-title{
-      position:absolute;
-      z-index:5;
-      left:50%;
-      bottom:clamp(24px,4vw,48px);
-      width:min(1050px,94vw);
-      margin:0;
-      color:#fff;
-      text-align:center;
-      font-size:clamp(46px,6.5vw,80px);
-      line-height:1.02;
-      text-shadow:0 4px 22px rgba(0,0,0,.38);
-      transform:translateX(-50%);
-    }
+    .intro{width:min(860px,calc(100% - 40px));margin:0 auto;padding:58px 0 42px}
+    .intro h2{font-size:clamp(34px,4.5vw,52px);margin-bottom:14px}
+    .intro p{font-size:17px;margin:0;color:#242424}
 
-    .intro-section{
-      position:relative;
-      z-index:3;
-      padding:clamp(60px,7vw,92px) 0 clamp(58px,7vw,88px);
-      background:var(--paper);
-    }
-    .intro-content{
-      width:min(860px,100%);
-      margin:0 auto;
-      text-align:center;
-    }
-    .intro-content p{
-      color:#29334a;
-      font-size:clamp(17px,1.7vw,20px);
-      line-height:1.75;
-    }
-    .intro-content p + p{margin-top:8px}
-    .projects-section{
-      padding:clamp(68px,8vw,108px) 0 var(--section-space);
-      background:var(--surface);
-    }
-    .projects-grid{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:clamp(18px,2.6vw,30px);
-    }
-    .project-card{
-      position:relative;
-      min-width:0;
-      overflow:hidden;
-      border-radius:var(--radius);
-      background:#d8d9dc;
-      box-shadow:0 16px 38px rgba(20,33,61,.11);
-      isolation:isolate;
-    }
+    .gallery-section{width:min(var(--max),calc(100% - 40px));margin:0 auto;padding:0 0 76px}
+    .projects-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .project-card{margin:0;min-width:0}
     .project-open{
-      position:relative;
-      display:block;
-      width:100%;
-      padding:0;
-      border:0;
-      background:transparent;
-      color:#fff;
-      text-align:left;
-      cursor:pointer;
+      position:relative;display:block;width:100%;aspect-ratio:4/3;padding:0;border:0;
+      overflow:hidden;border-radius:var(--radius);background:#202020;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.10)
     }
-    .project-image-wrap{
-      background:#111;
-      overflow:hidden;
-      position:relative;
-      aspect-ratio:4/3;
-      overflow:hidden;
-      background:linear-gradient(135deg,#d8d9dc,#ececea);
-    }
+    .project-open:focus-visible{outline:4px solid var(--orange);outline-offset:3px}
     .project-image{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      transition:transform .38s ease,filter .38s ease;
+      width:100%;height:100%;object-fit:cover;object-position:center;background:#202020;
+      transition:transform .35s ease,filter .35s ease
     }
-    .project-image-wrap.is-placeholder::after{
-      content:"Lisää kohteen kuva";
-      position:absolute;
-      inset:0;
-      display:grid;
-      place-items:center;
-      padding:24px;
-      color:#697080;
-      text-align:center;
-      font-size:23px;
-      text-transform:uppercase;
-      letter-spacing:.02em;
+    .project-open:hover .project-image{transform:scale(1.025);filter:brightness(.93)}
+    .project-placeholder{
+      position:absolute;inset:0;display:grid;place-items:center;background:var(--blue);color:#fff;
+      font-family:var(--impact);font-size:19px;text-transform:uppercase;padding:20px;text-align:center
     }
-    .project-overlay{
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:flex-end;
-      justify-content:flex-end;
-      gap:16px;
-      padding:22px;
-      background:linear-gradient(to top,rgba(0,0,0,.82),rgba(0,0,0,.06) 66%);
-    }
-    .project-icon{
-      display:grid;
-      place-items:center;
-      width:42px;
-      height:42px;
-      flex:none;
-      border-radius:var(--radius);
-      background:var(--orange);
-      color:#000;
-      transition:transform .18s ease;
-    }
-    .project-icon svg{width:21px;height:21px}
-    .project-open:hover .project-image,
-    .project-open:focus-visible .project-image{
-      transform:scale(1.045);
-      filter:brightness(.92);
-    }
-    .project-open:hover .project-icon,
-    .project-open:focus-visible .project-icon{transform:translate(2px,-2px)}
-    .project-open:focus-visible{outline:4px solid var(--orange);outline-offset:-4px}
-
-    /* Sama arviointikäyntilomake kuin sivuston muilla sivuilla */
-    .section{
-      padding:var(--section-space) 0;
-      background:var(--paper);
-      scroll-margin-top:20px;
-    }
-    .section-title{
-      margin:0;
-      color:var(--navy);
-      text-align:center;
-      text-transform:uppercase;
-      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:clamp(40px,5.2vw,62px);
-      font-weight:400;
-      line-height:1;
-      letter-spacing:.005em;
-      text-wrap:balance;
-      max-width:980px;
-      margin-inline:auto;
-    }
-    .section-lead{
-      width:min(760px,100%);
-      margin:20px auto clamp(42px,6vw,66px);
-      text-align:center;
-      color:var(--navy);
-      font-size:17px;
-    }
-    .offer-card{
-      width:min(900px,100%);
-      margin:0 auto;
-      padding:clamp(30px,4vw,46px);
-      border-radius:var(--radius);
-      background:#fff;
-      box-shadow:0 14px 30px rgba(20,33,61,.1);
-    }
-    .offer-card h3{
-      margin:0 0 20px;
-      text-transform:uppercase;
-      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:31px;
-      font-weight:400;
-    }
-    form{display:grid;gap:18px}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    label{display:block;margin-bottom:5px;font-weight:700}
-    input,textarea{
-      width:100%;
-      border:0;
-      border-radius:var(--radius);
-      padding:14px;
-      background:#f3f4f6;
-      color:var(--navy);
-      font-size:16px;
-    }
-    textarea{min-height:150px;resize:vertical}
-    input:focus,textarea:focus{outline:3px solid rgba(252,163,17,.32)}
-    .submit-button{
-      min-height:58px;
-      border:0;
-      border-radius:var(--radius);
-      background:var(--orange);
-      color:#fff;
-      font-size:18px;
-      font-weight:400;
-      cursor:pointer;
-      transition:transform .18s ease,filter .18s ease;
-    }
-    .submit-button:hover,.submit-button:focus-visible{
-      transform:translateY(-2px);
-      filter:brightness(1.02);
-      outline:none;
+    .project-placeholder[hidden]{display:none}
+    .project-badge{
+      position:absolute;right:12px;bottom:12px;z-index:2;width:38px;height:38px;border-radius:var(--radius);
+      display:grid;place-items:center;background:rgba(16,16,16,.82);color:#fff;font-size:21px;pointer-events:none
     }
 
-    footer{
-      padding:48px 0;
-      background:#000;
-      color:#fff;
-    }
-    .footer-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:24px;
-      flex-wrap:wrap;
-    }
-    .footer-brand{
-      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:30px;
-      letter-spacing:.02em;
-    }
-    .footer-links{display:flex;gap:20px;flex-wrap:wrap;color:#d8d8d8}
-    .footer-links a:hover{text-decoration:underline}
+    .form-section{padding:72px 20px 82px;background:#f5f5f5;scroll-margin-top:90px}
+    .form-head{max-width:860px;margin:0 auto 24px}
+    .form-head h2{font-size:clamp(34px,4.5vw,52px);margin-bottom:12px}
+    .form-head p{font-size:16px;color:#333;margin:0}
+    .form-box{max-width:860px;margin:auto;background:#fff;padding:26px;border-radius:var(--radius);box-shadow:var(--shadow)}
+    form{display:grid;gap:14px}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    label{display:block;font-weight:700;font-size:14px;margin:0 0 5px}
+    input,textarea{width:100%;border:0;background:#f0f0f0;border-radius:var(--radius);padding:13px 14px;font-size:16px}
+    input:focus,textarea:focus{outline:3px solid rgba(243,165,0,.35)}
+    textarea{min-height:135px;resize:vertical}
+    .form-note{font-size:13px;color:#555;margin:5px 0 0}
+    #uploadedFiles{display:grid;gap:8px;margin-top:8px}
+    .uploaded-file{padding:9px 11px;background:#f0f0f0;border-radius:var(--radius);font-size:13px}
+    .uploaded-file button{margin-left:8px;border:0;background:#111;color:#fff;border-radius:6px;padding:5px 8px;cursor:pointer}
+    .submit-btn{justify-self:start;border:0;border-radius:var(--radius);background:var(--orange);color:#111;padding:13px 20px;font-family:var(--impact);text-transform:uppercase;font-size:16px;cursor:pointer}
 
+    .footer{background:#101010;color:#fff;padding:30px 20px}
+    .footer-inner{width:min(var(--max),100%);margin:auto;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:start}
+    .footer-links{display:flex;flex-wrap:wrap;gap:18px}
+    .footer-links a{font-size:14px;font-weight:700}
+    .footer-links a:hover{color:var(--orange)}
+    .contacts{display:grid;grid-template-columns:repeat(2,minmax(190px,1fr));gap:24px;font-size:12.5px;line-height:1.55;color:#e9e9e9}
+    .contacts strong{display:block;color:#fff;font-size:13px;margin-bottom:3px}
+    .contacts a{text-decoration:underline;text-underline-offset:2px}
+
+    /* Clean modal */
     .lightbox{
-      position:fixed;
-      inset:0;
-      z-index:3000;
-      display:none;
-      padding:clamp(14px,3vw,34px);
-      background:rgba(0,0,0,.88);
-      backdrop-filter:blur(9px);
+      position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.88);display:none;
+      padding:28px;align-items:center;justify-content:center
     }
-    .lightbox.open{display:grid;place-items:center}
+    .lightbox.open{display:flex}
     .lightbox-dialog{
-      position:relative;
-      display:grid;
-      grid-template-columns:minmax(0,1.55fr) minmax(280px,.65fr);
-      width:min(1240px,100%);
-      max-height:calc(100svh - 40px);
-      overflow:hidden;
-      border-radius:var(--radius);
-      background:#fff;
-      box-shadow:0 30px 90px rgba(0,0,0,.45);
+      width:min(1120px,96vw);max-height:94vh;background:#fff;border-radius:var(--radius);overflow:hidden;
+      display:grid;grid-template-rows:minmax(0,1fr) auto;box-shadow:0 28px 70px rgba(0,0,0,.45)
     }
-    .lightbox-media{
-      position:relative;
-      min-height:560px;
-      background:#111;
-      overflow:hidden;
-    }
-    .lightbox-image{
-      width:100%;
-      height:100%;
-      min-height:560px;
-      object-fit:contain;
-      background:#111;
-    }
-    .lightbox-image-placeholder{
-      display:none;
-      position:absolute;
-      inset:0;
-      place-items:center;
-      padding:30px;
-      background:linear-gradient(135deg,#34383f,#191b20);
-      color:#fff;
-      text-align:center;
-      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:clamp(28px,4vw,52px);
-      text-transform:uppercase;
-    }
-    .lightbox-image-placeholder.visible{display:grid}
-    .before-after{
-      position:relative;
-      width:100%;
-      height:100%;
-      min-height:560px;
-      overflow:hidden;
-      background:#111;
-      user-select:none;
-      -webkit-user-select:none;
-      touch-action:none;
-      cursor:ew-resize;
-    }
+    .lightbox-media{position:relative;background:#161616;min-height:min(72vh,720px);overflow:hidden}
+    .single-view{position:absolute;inset:0;display:grid;place-items:center;background:#161616}
+    .single-view[hidden]{display:none}
+    .single-view img{width:100%;height:100%;object-fit:contain;object-position:center;background:#161616}
+    .modal-placeholder{position:absolute;inset:0;display:grid;place-items:center;color:#fff;background:var(--blue);font-family:var(--impact);font-size:22px;text-align:center;padding:30px}
+    .modal-placeholder[hidden]{display:none}
 
-    .before-after[hidden]{display:none}
+    /* Rebuilt before/after slider */
+    .compare-view{position:absolute;inset:0;background:#161616;overflow:hidden;touch-action:none;user-select:none;cursor:ew-resize;--split:50%}
+    .compare-view[hidden]{display:none}
+    .compare-view img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;background:#161616;pointer-events:none;user-select:none;-webkit-user-drag:none}
+    .compare-before{z-index:1}
+    .compare-after{z-index:2;clip-path:inset(0 calc(100% - var(--split)) 0 0)}
+    .compare-line{position:absolute;z-index:3;top:0;bottom:0;left:var(--split);width:3px;background:#fff;transform:translateX(-50%);pointer-events:none}
+    .compare-handle{position:absolute;z-index:4;left:var(--split);top:50%;width:58px;height:58px;border-radius:50%;transform:translate(-50%,-50%);background:#fff;border:4px solid var(--orange);display:grid;place-items:center;box-shadow:0 8px 26px rgba(0,0,0,.3);pointer-events:none}
+    .compare-handle::before{content:"⟷";font-weight:900;font-size:21px;color:#111;line-height:1}
+    .compare-label{position:absolute;z-index:4;top:16px;background:rgba(0,0,0,.70);color:#fff;padding:7px 10px;border-radius:7px;font-family:var(--impact);text-transform:uppercase;font-size:13px;pointer-events:none}
+    .compare-label.before{left:16px}.compare-label.after{right:16px}
 
-    .before-after img{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center;
-      pointer-events:none;
-      user-select:none;
-      -webkit-user-select:none;
-      -webkit-user-drag:none;
-      background:#111;
-    }
+    .modal-close,.modal-arrow{position:absolute;z-index:7;border:0;cursor:pointer;color:#fff;background:rgba(0,0,0,.68);display:grid;place-items:center}
+    .modal-close{right:14px;top:14px;width:42px;height:42px;border-radius:var(--radius);font-size:26px}
+    .modal-arrow{top:50%;transform:translateY(-50%);width:46px;height:58px;border-radius:var(--radius);font-size:34px}
+    .modal-prev{left:14px}.modal-next{right:14px}
+    .modal-info{padding:15px 20px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff}
+    .modal-info strong{font-family:var(--impact);font-size:19px;text-transform:uppercase}
+    .modal-count{font-weight:800;color:var(--muted);font-size:14px;white-space:nowrap}
 
-    .before-after-before{
-      z-index:1;
-    }
-
-    .before-after-after{
-      z-index:2;
-      clip-path:inset(0 50% 0 0);
-      will-change:clip-path;
-    }
-
-    .before-after-line{
-      position:absolute;
-      top:0;
-      bottom:0;
-      left:50%;
-      width:4px;
-      background:#fff;
-      transform:translateX(-50%);
-      z-index:3;
-      box-shadow:0 0 0 1px rgba(0,0,0,.10);
-      pointer-events:none;
-    }
-
-    .before-after-handle{
-      position:absolute;
-      top:50%;
-      left:50%;
-      width:58px;
-      height:58px;
-      border-radius:50%;
-      background:#fff;
-      border:4px solid var(--yellow);
-      transform:translate(-50%,-50%);
-      z-index:4;
-      display:grid;
-      place-items:center;
-      box-shadow:var(--shadow);
-      pointer-events:none;
-    }
-
-    .before-after-handle::before{
-      content:"⟷";
-      font-size:21px;
-      line-height:1;
-      font-weight:900;
-      color:var(--black);
-    }
-
-    .before-after-label{
-      position:absolute;
-      z-index:5;
-      top:18px;
-      padding:8px 11px;
-      border-radius:10px;
-      background:rgba(0,0,0,.72);
-      color:#fff;
-      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:13px;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-      pointer-events:none;
-    }
-
-    .before-after-label.before{left:18px}
-    .before-after-label.after{right:18px}
-
-    .lightbox-details{
-      display:flex;
-      flex-direction:column;
-      min-width:0;
-      padding:clamp(30px,4vw,52px);
-      overflow-y:auto;
-    }
-    .lightbox-count{
-      color:var(--orange);
-      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
-      font-size:18px;
-      text-transform:uppercase;
-    }
-    .lightbox-title{
-      margin-top:12px;
-      color:var(--navy);
-      font-size:clamp(36px,4.5vw,58px);
-      line-height:1;
-    }
-    .lightbox-description{
-      margin-top:24px;
-      color:#3c4558;
-      font-size:16px;
-      line-height:1.7;
-    }
-    .lightbox-tip{
-      margin-top:auto;
-      padding-top:30px;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .lightbox-close,
-    .lightbox-arrow{
-      position:absolute;
-      z-index:4;
-      display:grid;
-      place-items:center;
-      border:0;
-      border-radius:var(--radius);
-      background:var(--orange);
-      color:#000;
-      cursor:pointer;
-      box-shadow:0 10px 26px rgba(0,0,0,.25);
-      transition:transform .18s ease,filter .18s ease;
-    }
-    .lightbox-close:hover,.lightbox-close:focus-visible,
-    .lightbox-arrow:hover,.lightbox-arrow:focus-visible{
-      transform:scale(1.04);
-      filter:brightness(1.03);
-      outline:none;
-    }
-    .lightbox-close{
-      top:16px;
-      right:16px;
-      width:46px;
-      height:46px;
-      font-size:27px;
-      line-height:1;
-    }
-    .lightbox-arrow{
-      top:50%;
-      width:52px;
-      height:58px;
-      transform:translateY(-50%);
-      font-size:31px;
-    }
-    .lightbox-arrow:hover,.lightbox-arrow:focus-visible{transform:translateY(-50%) scale(1.04)}
-    .lightbox-prev{left:16px}
-    .lightbox-next{right:16px}
-
-    @media(max-width:980px){
+    @media(max-width:900px){
       .projects-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .cta-panel{grid-template-columns:1fr}
-      .cta-button{justify-self:start}
-      .lightbox-dialog{grid-template-columns:1fr;overflow-y:auto}
-      .lightbox-media{min-height:min(58svh,570px)}
-      .before-after{min-height:min(58svh,570px)}
-      .lightbox-image{min-height:min(58svh,570px)}
-      .lightbox-details{min-height:270px}
+      .footer-inner{grid-template-columns:1fr}.contacts{grid-template-columns:1fr 1fr}
+      .lightbox{padding:12px}.lightbox-media{min-height:68vh}
     }
-
-    @media(max-width:780px){
-      .wrap{width:min(var(--max),calc(100% - 28px))}
-      .header-inner{min-height:70px;flex-wrap:wrap}
-      .brand-logo{width:54px;height:46px}
-      .brand-name{font-size:27px}
-      .menu-toggle{display:inline-flex}
-      .main-nav{
-        display:none;
-        width:100%;
-        padding:2px 0 10px;
-        flex-direction:column;
-        align-items:stretch;
-      }
-      .main-nav.open{display:flex}
-      .nav-pill{width:100%;min-height:46px}
-      .hero{height:clamp(300px,50vw,390px)}
-      .hero-image{object-position:center 60%}
-      .hero-title{bottom:24px;font-size:clamp(40px,11vw,60px)}
-      .intro-section{padding-top:58px}
-      .form-row{grid-template-columns:1fr}
-      .offer-card{padding:24px 18px}
-      .project-overlay{padding:18px}
-      .lightbox{padding:8px}
-      .lightbox-dialog{max-height:calc(100svh - 16px)}
-      .lightbox-close{top:10px;right:10px}
-      .lightbox-arrow{top:45%;width:46px;height:52px}
-      .lightbox-prev{left:10px}
-      .lightbox-next{right:10px}
-    }
-
-    @media(max-width:560px){
-      body{font-size:15px}
-      .hero{height:270px}
-      .hero-title{bottom:20px;font-size:38px}
-      .intro-section{padding-top:48px}
-      .projects-grid{grid-template-columns:1fr;gap:18px}
-      .project-image-wrap{
-      background:#111;
-      overflow:hidden;
-aspect-ratio:16/11}
-      .cta-panel{padding:28px 22px}
-      .lightbox-details{padding:28px 22px}
-      .lightbox-media,.lightbox-image{min-height:48svh}
-      .before-after{min-height:48svh}
-      .before-after-handle{width:52px;height:52px}
-      .before-after-handle::before{font-size:18px}
-    }
-
-    @media(prefers-reduced-motion:reduce){
-      html{scroll-behavior:auto}
-      *,*::before,*::after{
-        animation-duration:.01ms!important;
-        animation-iteration-count:1!important;
-        transition-duration:.01ms!important;
-      }
+    @media(max-width:760px){
+      .topbar{min-height:66px}.topbar-inner{width:calc(100% - 28px)}.brand img{width:132px;height:38px}
+      main{padding-top:66px}.menu-toggle{display:block}.nav{position:absolute;top:66px;left:0;right:0;background:#101010;padding:10px 14px 14px;display:none;flex-direction:column;align-items:stretch}.nav.open{display:flex}.nav a{text-align:center}
+      .hero{height:250px}.hero img{object-position:center 60%}.hero h1{left:18px;bottom:18px;font-size:42px}
+      .intro{width:calc(100% - 30px);padding:38px 0 30px}.intro h2{font-size:36px}.intro p{font-size:16px}
+      .gallery-section{width:calc(100% - 30px);padding-bottom:54px}.projects-grid{grid-template-columns:1fr;gap:14px}
+      .project-open{aspect-ratio:4/3}
+      .two-col{grid-template-columns:1fr}.form-section{padding:52px 15px 60px}.form-box{padding:18px}
+      .contacts{grid-template-columns:1fr;gap:14px}
+      .lightbox-dialog{width:100%;max-height:96vh}.lightbox-media{min-height:62vh}.modal-info{padding:12px 14px 14px}.modal-arrow{width:40px;height:52px;font-size:30px}.modal-prev{left:8px}.modal-next{right:8px}.modal-close{right:8px;top:8px}
+      .compare-handle{width:52px;height:52px}.compare-handle::before{font-size:18px}
     }
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#sisalto">Siirry sisältöön</a>
-
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <a class="brand" href="index.html" aria-label="PintaPojat etusivu">
-        <object
-          class="brand-logo"
-          data="assets/LogoKuva.pdf#page=1&toolbar=0&navpanes=0&scrollbar=0&view=Fit"
-          type="application/pdf"
-          aria-label="PintaPojat-logo">
-          <span aria-hidden="true">PP</span>
-        </object>
-        <span class="brand-name">PINTAPOJAT</span>
-      </a>
-
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html" aria-label="PintaPojat etusivu"><img src="assets/LogoValkoinen.png" alt="PintaPojat"></a>
       <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">Valikko</button>
-
-      <nav class="main-nav" id="mainNav" aria-label="Päävalikko">
-        <a class="nav-pill" href="index.html">ETUSIVU</a>
-        <a class="nav-pill" href="maalaustavat.html">MITEN MAALAAMME?</a>
-        <a class="nav-pill" href="#kohteet">REFERENSSIT</a>
-        <a class="nav-pill" href="#tarjous">PYYDÄ TARJOUS</a>
+      <nav class="nav" id="mainNav" aria-label="Päävalikko">
+        <a href="index.html">Etusivu</a>
+        <a href="maalaustavat.html">Miten maalaamme?</a>
+        <a class="cta" href="#arviointi">Pyydä tarjous</a>
       </nav>
     </div>
   </header>
 
-  <main id="sisalto">
-    <section class="hero" id="alku" aria-labelledby="sivun-otsikko">
-      <div class="hero-clip">
-        <img class="hero-image" src="assets/Referenssisivu_Kansikuva.jpg" alt="PintaPojat maalauskohteella" fetchpriority="high">
-        <div class="hero-shade" aria-hidden="true"></div>
-      </div>
-      <h1 class="hero-title" id="sivun-otsikko">Maalaamiamme kohteita</h1>
+  <main>
+    <section class="hero" aria-label="Referenssisivun kansikuva">
+      <img src="assets/Referenssisivu_Kansikuva.jpg" alt="PintaPoikien maalaama kohde">
+      <h1>Referenssit</h1>
     </section>
 
-    <section class="intro-section" aria-label="Kohteiden esittely">
-      <div class="wrap">
-        <div class="intro-content">
-          <p>Tänne olemme keränneet kuvia kesien 2025 ja 2026 kohteistamme.</p>
-          <p>Klikkaa kuvaa saadaksesi lisätietoja</p>
-        </div>
-      </div>
+    <section class="intro">
+      <h2>Maalaamiamme kohteita</h2>
+      <p>Tänne olemme keränneet kuvia kesien 2025 ja 2026 kohteistamme.<br>Klikkaa kuvaa saadaksesi lisätietoja.</p>
     </section>
 
-    <section class="projects-section" id="kohteet" aria-label="Maalaamiamme kohteita">
-      <div class="wrap">
-        <div class="projects-grid">
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="0" data-number="01" data-title="Kohde 01" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_01.jpg" alt="Maalattu kohde 1" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="1" data-number="02" data-title="Kohde 02" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_02.jpg" alt="Maalattu kohde 2" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="2" data-number="03" data-title="Kohde 03" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_03.jpg" alt="Maalattu kohde 3" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="3" data-number="04" data-title="Kohde 04" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_04.jpg" alt="Maalattu kohde 4" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="4" data-number="05" data-title="Kohde 05" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_05.jpg" alt="Maalattu kohde 5" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="5" data-number="06" data-title="Kohde 06" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_06.jpg" alt="Maalattu kohde 6" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="6" data-number="07" data-title="Kohde 07" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_07.jpg" alt="Maalattu kohde 7" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="7" data-number="08" data-title="Kohde 08" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_08.jpg" alt="Maalattu kohde 8" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="8" data-number="09" data-title="Kohde 09" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_09.jpg" alt="Maalattu kohde 9" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="9" data-number="10" data-title="Kohde 10" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_10.jpg" alt="Maalattu kohde 10" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="10" data-number="11" data-title="Kohde 11" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_11.jpg" alt="Maalattu kohde 11" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="11" data-number="12" data-title="Kohde 12" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_12.jpg" alt="Maalattu kohde 12" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="12" data-number="13" data-title="Kohde 13" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_13.jpg" alt="Maalattu kohde 13" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="13" data-number="14" data-title="Kohde 14" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_14.jpg" alt="Maalattu kohde 14" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="14" data-number="15" data-title="Kohde 15" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_15.jpg" alt="Maalattu kohde 15" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="15" data-number="16" data-title="Kohde 16" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_16.jpg" alt="Maalattu kohde 16" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="16" data-number="17" data-title="Kohde 17" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_17.jpg" alt="Maalattu kohde 17" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="17" data-number="18" data-title="Kohde 18" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_18.jpg" alt="Maalattu kohde 18" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="18" data-number="19" data-title="Kohde 19" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_19.jpg" alt="Maalattu kohde 19" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="19" data-number="20" data-title="Kohde 20" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_20.jpg" alt="Maalattu kohde 20" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="20" data-number="21" data-title="Kohde 21" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_21.jpg" alt="Maalattu kohde 21" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-          <article class="project-card">
-            <button class="project-open" type="button" data-index="21" data-number="22" data-title="Kohde 22" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_22.jpg" alt="Maalattu kohde 22" loading="lazy" decoding="async"></span>
-              <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
-            </button>
-          </article>
-        </div>
-      </div>
+    <section class="gallery-section" aria-label="Maalaamiamme kohteita">
+      <div class="projects-grid" id="projectsGrid"></div>
     </section>
 
-    <section class="section" id="tarjous" aria-labelledby="tarjous-otsikko">
-      <div class="wrap">
-        <h2 class="section-title" id="tarjous-otsikko">Pyydä ilmainen arvio</h2>
-        <p class="section-lead">Kerro kohteesta lyhyesti. Otamme yhteyttä ja sovimme maksuttoman arviointikäynnin.</p>
+    <section class="form-section" id="arviointi">
+      <div class="form-head">
+        <h2>Arviointikäynnin varaus</h2>
+        <p>Pyydä ilmainen arviointikäynti, niin arvioimme kohteen ja sopivan työn laajuuden. Mitä tarkemmat tiedot annat, sitä helpompi meidän on palata asiaan nopeasti.</p>
+      </div>
+      <div class="form-box">
+        <form id="arviointiForm" action="https://formspree.io/f/xeerkbjz" method="POST">
+          <input type="hidden" name="_subject" value="Uusi arviointikäyntipyyntö - PintaPojat" />
+          <input type="hidden" name="Liitteet" id="cloudinaryUrls" />
 
-        <div class="offer-card">
-          <h3>Tarjouspyyntö</h3>
-          <form action="https://formspree.io/f/xeerkbjz" method="POST">
-            <input type="hidden" name="_subject" value="Uusi tarjouspyyntö - PintaPojat">
-            <div class="form-row">
-              <div>
-                <label for="nimi">Nimi</label>
-                <input id="nimi" name="Nimi" type="text" autocomplete="name" required>
-              </div>
-              <div>
-                <label for="puhelin">Puhelinnumero</label>
-                <input id="puhelin" name="Puhelinnumero" type="tel" autocomplete="tel" required>
-              </div>
-            </div>
-            <div class="form-row">
-              <div>
-                <label for="sahkoposti">Sähköposti</label>
-                <input id="sahkoposti" name="Sähköposti" type="email" autocomplete="email" required>
-              </div>
-              <div>
-                <label for="osoite">Kohteen osoite</label>
-                <input id="osoite" name="Osoite" type="text" autocomplete="street-address">
-              </div>
-            </div>
-            <div>
-              <label for="kuvaus">Mitä kohteessa pitäisi tehdä?</label>
-              <textarea id="kuvaus" name="Työn kuvaus" required></textarea>
-            </div>
-            <button class="submit-button" type="submit">Lähetä tarjouspyyntö</button>
-          </form>
-        </div>
+          <div class="two-col">
+            <div><label for="nimi">Nimi</label><input id="nimi" name="Nimi" type="text" placeholder="Kirjoita nimesi" autocomplete="name" required></div>
+            <div><label for="puhelin">Puhelinnumero</label><input id="puhelin" name="Puhelinnumero" type="tel" placeholder="Esim. 040 123 4567" autocomplete="tel" required></div>
+          </div>
+          <div class="two-col">
+            <div><label for="sahkoposti">Sähköposti</label><input id="sahkoposti" name="Sähköposti" type="email" placeholder="Esim. nimi@sahkoposti.fi" autocomplete="email" required></div>
+            <div><label for="osoite">Kohteen osoite</label><input id="osoite" name="Osoite" type="text" placeholder="Esim. Katu 1" autocomplete="street-address"></div>
+          </div>
+          <div class="two-col">
+            <div><label for="postinumero">Postinumero</label><input id="postinumero" name="Postinumero" type="text" placeholder="Esim. 80100" autocomplete="postal-code"></div>
+            <div><label for="paikkakunta">Paikkakunta</label><input id="paikkakunta" name="Paikkakunta" type="text" placeholder="Esim. Joensuu" autocomplete="address-level2"></div>
+          </div>
+          <div><label for="kuvaus">Mitä kohteessa pitäisi tehdä?</label><textarea id="kuvaus" name="Työn kuvaus" placeholder="Kerro lyhyesti työstä" required></textarea></div>
+          <div>
+            <label for="liite">Lisää kuvia tai muita tiedostoja kohteesta</label>
+            <input id="liite" type="file" multiple accept="image/*,.pdf,.doc,.docx">
+            <p class="form-note">Voit liittää kuvia esimerkiksi julkisivusta, sokkelista tai korjattavista kohdista.</p>
+            <p class="form-note" id="uploadStatus" aria-live="polite"></p>
+            <div id="uploadedFiles"></div>
+          </div>
+          <button class="submit-btn" id="arviointiSubmitBtn" type="submit">Pyydä ilmainen arvio →</button>
+        </form>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap footer-inner">
-      <div class="footer-brand">PINTAPOJAT</div>
-      <nav class="footer-links" aria-label="Alatunnisteen linkit">
+  <footer class="footer">
+    <div class="footer-inner">
+      <nav class="footer-links" aria-label="Alatunnisteen sivulinkit">
         <a href="index.html">Etusivu</a>
         <a href="maalaustavat.html">Miten maalaamme?</a>
-        <a href="#kohteet">Kohteet</a>
-        <a href="#tarjous">Pyydä tarjous</a>
+        <a href="kohteet.html">Referenssit</a>
       </nav>
+      <div class="contacts">
+        <div><strong>Vilho Räisänen</strong><a href="tel:+358449805844">044 980 5844</a><br><a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a><br>Y-tunnus 3453360-6</div>
+        <div><strong>Ilmari Sippola</strong><a href="tel:+3584578325502">045 7832 5502</a><br><a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a><br>Y-tunnus 3586169-5</div>
+      </div>
     </div>
   </footer>
 
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" aria-hidden="true">
-    <div class="lightbox-dialog">
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="lightbox-media" id="lightboxMedia">
-        <img class="lightbox-image" id="lightboxImage" src="" alt="">
-        <div class="before-after" id="beforeAfter" hidden aria-label="Ennen ja jälkeen -vertailukuva">
-          <img class="before-after-before" id="beforeAfterBefore" src="" alt="">
-          <img class="before-after-after" id="beforeAfterAfter" src="" alt="">
-          <div class="before-after-line" id="beforeAfterLine" aria-hidden="true"></div>
-          <div class="before-after-handle" id="beforeAfterHandle" aria-hidden="true"></div>
-          <span class="before-after-label before">Ennen</span>
-          <span class="before-after-label after">Jälkeen</span>
+        <div class="single-view" id="singleView" hidden>
+          <img id="singleImage" src="" alt="">
         </div>
-        <div class="lightbox-image-placeholder" id="lightboxPlaceholder">Lisää kohteen kuva</div>
-        <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" type="button" aria-label="Edellinen kohde">‹</button>
-        <button class="lightbox-arrow lightbox-next" id="lightboxNext" type="button" aria-label="Seuraava kohde">›</button>
+
+        <div class="compare-view" id="compareView" hidden aria-label="Ennen ja jälkeen -vertailu">
+          <img class="compare-before" id="compareBefore" src="" alt="">
+          <img class="compare-after" id="compareAfter" src="" alt="">
+          <div class="compare-line" aria-hidden="true"></div>
+          <div class="compare-handle" aria-hidden="true"></div>
+          <span class="compare-label before">Ennen</span>
+          <span class="compare-label after">Jälkeen</span>
+        </div>
+
+        <div class="modal-placeholder" id="modalPlaceholder" hidden>Kuvaa ei löytynyt</div>
+        <button class="modal-close" id="modalClose" type="button" aria-label="Sulje">×</button>
+        <button class="modal-arrow modal-prev" id="modalPrev" type="button" aria-label="Edellinen kohde">‹</button>
+        <button class="modal-arrow modal-next" id="modalNext" type="button" aria-label="Seuraava kohde">›</button>
       </div>
-      <div class="lightbox-details">
-        <div class="lightbox-count" id="lightboxCount" aria-live="polite"></div>
-        <h2 class="lightbox-title" id="lightboxTitle"></h2>
-        <p class="lightbox-description" id="lightboxDescription"></p>
-        <p class="lightbox-tip">Selaa kohteita nuolipainikkeilla tai näppäimistön vasemmalla ja oikealla nuolella. Sulje näkymä Esc-näppäimellä.</p>
+      <div class="modal-info">
+        <strong id="modalTitle">Referenssi</strong>
+        <span class="modal-count" id="modalCount">1 / 22</span>
       </div>
-      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Sulje kohteen tiedot">×</button>
     </div>
   </div>
 
   <script>
-    const menuToggle = document.getElementById('menuToggle');
-    const mainNav = document.getElementById('mainNav');
+    const TOTAL_PROJECTS = 22;
+    const grid = document.getElementById('projectsGrid');
+    const projectData = [];
 
-    menuToggle.addEventListener('click', () => {
-      const isOpen = mainNav.classList.toggle('open');
-      menuToggle.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    mainNav.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        mainNav.classList.remove('open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    const projectButtons = Array.from(document.querySelectorAll('.project-open'));
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImage = document.getElementById('lightboxImage');
-    const lightboxPlaceholder = document.getElementById('lightboxPlaceholder');
-    const lightboxCount = document.getElementById('lightboxCount');
-    const lightboxTitle = document.getElementById('lightboxTitle');
-    const lightboxDescription = document.getElementById('lightboxDescription');
-    const lightboxClose = document.getElementById('lightboxClose');
-    const lightboxPrev = document.getElementById('lightboxPrev');
-    const lightboxNext = document.getElementById('lightboxNext');
-    const lightboxMedia = document.getElementById('lightboxMedia');
-
-    const beforeAfter = document.getElementById('beforeAfter');
-    const beforeAfterBefore = document.getElementById('beforeAfterBefore');
-    const beforeAfterAfter = document.getElementById('beforeAfterAfter');
-    const beforeAfterLine = document.getElementById('beforeAfterLine');
-    const beforeAfterHandle = document.getElementById('beforeAfterHandle');
-
-    let activeProjectIndex = 0;
-    let lastFocusedElement = null;
-    let touchStartX = 0;
-
-    function assetExists(src) {
-      return new Promise((resolve) => {
-        const image = new Image();
-        image.onload = () => resolve(true);
-        image.onerror = () => resolve(false);
-        image.src = src;
+    function imageExists(src){
+      return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = src;
       });
     }
 
-    async function getProjectData(index) {
-      const button = projectButtons[index];
-      const number = button.dataset.number;
-      const normalSrc = `assets/Kohde_${number}.jpg`;
-      const beforeSrc = `assets/Kohde_${number}_b.jpg`;
-      const afterSrc = `assets/Kohde_${number}_a.jpg`;
-
-      const [normalExists, beforeExists, afterExists] = await Promise.all([
-        assetExists(normalSrc),
-        assetExists(beforeSrc),
-        assetExists(afterSrc)
+    async function resolveProject(number){
+      const nn = String(number).padStart(2,'0');
+      const normal = `assets/Kohde_${nn}.jpg`;
+      const before = `assets/Kohde_${nn}_b.jpg`;
+      const after = `assets/Kohde_${nn}_a.jpg`;
+      const [normalOk,beforeOk,afterOk] = await Promise.all([
+        imageExists(normal), imageExists(before), imageExists(after)
       ]);
 
       return {
         number,
-        title: button.dataset.title,
-        description: button.dataset.description,
-        normalSrc,
-        beforeSrc,
-        afterSrc,
-        normalExists,
-        hasBeforeAfter: beforeExists && afterExists,
-        alt: `Maalattu kohde ${Number(number)}`
+        nn,
+        normal,
+        before,
+        after,
+        normalOk,
+        beforeOk,
+        afterOk,
+        hasCompare: beforeOk && afterOk,
+        thumb: (beforeOk && afterOk) ? after : (normalOk ? normal : (afterOk ? after : (beforeOk ? before : '')))
       };
     }
 
-    async function initProjectThumbnails() {
-      await Promise.all(projectButtons.map(async (button) => {
-        const number = button.dataset.number;
-        const image = button.querySelector('.project-image');
-        const wrap = image.parentElement;
+    function buildCard(project,index){
+      const article = document.createElement('article');
+      article.className = 'project-card';
 
-        const normalSrc = `assets/Kohde_${number}.jpg`;
-        const beforeSrc = `assets/Kohde_${number}_b.jpg`;
-        const afterSrc = `assets/Kohde_${number}_a.jpg`;
+      const button = document.createElement('button');
+      button.className = 'project-open';
+      button.type = 'button';
+      button.setAttribute('aria-label',`Avaa referenssi ${project.number}`);
 
-        const [normalExists, beforeExists, afterExists] = await Promise.all([
-          assetExists(normalSrc),
-          assetExists(beforeSrc),
-          assetExists(afterSrc)
-        ]);
+      const img = document.createElement('img');
+      img.className = 'project-image';
+      img.alt = `PintaPoikien maalaama kohde ${project.number}`;
+      img.loading = 'lazy';
+      img.decoding = 'async';
 
-        if (beforeExists && afterExists) {
-          // A before/after project uses the finished ("after") photo
-          // as its gallery thumbnail.
-          image.src = afterSrc;
-          image.alt = `Maalattu kohde ${Number(number)}`;
-          image.hidden = false;
-          wrap.classList.remove('is-placeholder');
-        } else if (normalExists) {
-          image.src = normalSrc;
-          image.alt = `Maalattu kohde ${Number(number)}`;
-          image.hidden = false;
-          wrap.classList.remove('is-placeholder');
-        } else {
-          // Keep the card visible rather than producing a gray patch.
-          image.removeAttribute('src');
-          image.hidden = true;
-          wrap.classList.add('is-placeholder');
-        }
-      }));
+      const placeholder = document.createElement('span');
+      placeholder.className = 'project-placeholder';
+      placeholder.textContent = 'Lisää kohteen kuva';
+      placeholder.hidden = Boolean(project.thumb);
+
+      if(project.thumb) img.src = project.thumb;
+      else img.hidden = true;
+
+      const badge = document.createElement('span');
+      badge.className = 'project-badge';
+      badge.setAttribute('aria-hidden','true');
+      badge.textContent = '↗';
+
+      button.append(img,placeholder,badge);
+      button.addEventListener('click',() => openLightbox(index));
+      article.appendChild(button);
+      return article;
     }
 
-    function setBeforeAfter(compareWrap, value) {
-      const after = compareWrap.querySelector('.before-after-after');
-      const line = compareWrap.querySelector('.before-after-line');
-      const handle = compareWrap.querySelector('.before-after-handle');
-
-      const safeValue = Math.max(0, Math.min(100, Number(value)));
-
-      after.style.clipPath = `inset(0 ${100 - safeValue}% 0 0)`;
-      line.style.left = safeValue + '%';
-      handle.style.left = safeValue + '%';
+    async function initGallery(){
+      const resolved = await Promise.all(Array.from({length:TOTAL_PROJECTS},(_,i)=>resolveProject(i+1)));
+      projectData.push(...resolved);
+      const frag = document.createDocumentFragment();
+      resolved.forEach((project,index)=>frag.appendChild(buildCard(project,index)));
+      grid.appendChild(frag);
     }
 
-    function updateBeforeAfterFromClientX(clientX) {
-      const rect = beforeAfter.getBoundingClientRect();
-      if (!rect.width) return;
+    const lightbox = document.getElementById('lightbox');
+    const modalClose = document.getElementById('modalClose');
+    const modalPrev = document.getElementById('modalPrev');
+    const modalNext = document.getElementById('modalNext');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalCount = document.getElementById('modalCount');
+    const modalPlaceholder = document.getElementById('modalPlaceholder');
+    const singleView = document.getElementById('singleView');
+    const singleImage = document.getElementById('singleImage');
+    const compareView = document.getElementById('compareView');
+    const compareBefore = document.getElementById('compareBefore');
+    const compareAfter = document.getElementById('compareAfter');
+    let activeIndex = 0;
+    let lastFocus = null;
+    let compareDragging = false;
+    let comparePointerId = null;
 
-      const x = Math.max(0, Math.min(rect.width, clientX - rect.left));
-      const percent = (x / rect.width) * 100;
-      setBeforeAfter(beforeAfter, percent);
+    function setSplit(percent){
+      const safe = Math.max(0,Math.min(100,percent));
+      compareView.style.setProperty('--split',`${safe}%`);
     }
 
-    let beforeAfterDragging = false;
-    let beforeAfterPointerId = null;
+    function splitFromClientX(clientX){
+      const rect = compareView.getBoundingClientRect();
+      if(!rect.width) return;
+      setSplit(((clientX - rect.left) / rect.width) * 100);
+    }
 
-    beforeAfter.addEventListener('pointerdown', (event) => {
-      beforeAfterDragging = true;
-      beforeAfterPointerId = event.pointerId;
-
-      if (beforeAfter.setPointerCapture) {
-        beforeAfter.setPointerCapture(event.pointerId);
-      }
-
-      updateBeforeAfterFromClientX(event.clientX);
+    compareView.addEventListener('pointerdown',event => {
+      compareDragging = true;
+      comparePointerId = event.pointerId;
+      compareView.setPointerCapture?.(event.pointerId);
+      splitFromClientX(event.clientX);
       event.preventDefault();
     });
 
-    beforeAfter.addEventListener('pointermove', (event) => {
-      if (!beforeAfterDragging || event.pointerId !== beforeAfterPointerId) return;
-      updateBeforeAfterFromClientX(event.clientX);
+    compareView.addEventListener('pointermove',event => {
+      if(!compareDragging || event.pointerId !== comparePointerId) return;
+      splitFromClientX(event.clientX);
       event.preventDefault();
     });
 
-    function stopBeforeAfterDrag(event) {
-      if (!beforeAfterDragging) return;
-      if (beforeAfterPointerId !== null && event.pointerId !== beforeAfterPointerId) return;
-
-      beforeAfterDragging = false;
-
-      if (
-        beforeAfterPointerId !== null &&
-        beforeAfter.releasePointerCapture &&
-        beforeAfter.hasPointerCapture?.(beforeAfterPointerId)
-      ) {
-        beforeAfter.releasePointerCapture(beforeAfterPointerId);
-      }
-
-      beforeAfterPointerId = null;
+    function stopCompare(event){
+      if(!compareDragging) return;
+      if(event.pointerId != null && comparePointerId != null && event.pointerId !== comparePointerId) return;
+      compareDragging = false;
+      if(comparePointerId != null && compareView.hasPointerCapture?.(comparePointerId)) compareView.releasePointerCapture(comparePointerId);
+      comparePointerId = null;
     }
+    compareView.addEventListener('pointerup',stopCompare);
+    compareView.addEventListener('pointercancel',stopCompare);
+    compareView.addEventListener('lostpointercapture',()=>{compareDragging=false;comparePointerId=null});
 
-    beforeAfter.addEventListener('pointerup', stopBeforeAfterDrag);
-    beforeAfter.addEventListener('pointercancel', stopBeforeAfterDrag);
-    beforeAfter.addEventListener('lostpointercapture', () => {
-      beforeAfterDragging = false;
-      beforeAfterPointerId = null;
-    });
+    function renderActive(){
+      const p = projectData[activeIndex];
+      if(!p) return;
 
-    setBeforeAfter(beforeAfter, 50);
+      modalTitle.textContent = `Referenssi ${p.number}`;
+      modalCount.textContent = `${p.number} / ${TOTAL_PROJECTS}`;
+      modalPlaceholder.hidden = true;
+      singleView.hidden = true;
+      compareView.hidden = true;
+      singleImage.removeAttribute('src');
+      compareBefore.removeAttribute('src');
+      compareAfter.removeAttribute('src');
 
-    async function renderProject(index) {
-      activeProjectIndex = (index + projectButtons.length) % projectButtons.length;
-      const project = await getProjectData(activeProjectIndex);
-
-      lightboxCount.textContent = `${activeProjectIndex + 1} / ${projectButtons.length}`;
-      lightboxTitle.textContent = project.title;
-      lightboxDescription.textContent = project.description;
-
-      if (project.hasBeforeAfter) {
-        lightboxImage.hidden = true;
-        lightboxImage.removeAttribute('src');
-        lightboxPlaceholder.classList.remove('visible');
-
-        beforeAfterBefore.src = project.beforeSrc;
-        beforeAfterAfter.src = project.afterSrc;
-        beforeAfterBefore.alt = `${project.title}, ennen`;
-        beforeAfterAfter.alt = `${project.title}, jälkeen`;
-
-        setBeforeAfter(beforeAfter, 50);
-        beforeAfter.hidden = false;
-      } else if (project.normalExists) {
-        beforeAfter.hidden = true;
-        beforeAfterBefore.removeAttribute('src');
-        beforeAfterAfter.removeAttribute('src');
-
-        lightboxImage.alt = project.alt;
-        lightboxImage.hidden = false;
-        lightboxPlaceholder.classList.remove('visible');
-        lightboxImage.src = project.normalSrc;
+      if(p.hasCompare){
+        compareBefore.src = p.before;
+        compareBefore.alt = `Referenssi ${p.number} ennen maalausta`;
+        compareAfter.src = p.after;
+        compareAfter.alt = `Referenssi ${p.number} maalauksen jälkeen`;
+        setSplit(50);
+        compareView.hidden = false;
+      } else if(p.thumb){
+        singleImage.src = p.thumb;
+        singleImage.alt = `Referenssi ${p.number}`;
+        singleView.hidden = false;
       } else {
-        beforeAfter.hidden = true;
-        beforeAfterBefore.removeAttribute('src');
-        beforeAfterAfter.removeAttribute('src');
-
-        lightboxImage.removeAttribute('src');
-        lightboxImage.hidden = true;
-        lightboxPlaceholder.classList.add('visible');
+        modalPlaceholder.hidden = false;
       }
     }
 
-    async function openLightbox(index) {
-      lastFocusedElement = document.activeElement;
+    function openLightbox(index){
+      lastFocus = document.activeElement;
+      activeIndex = index;
+      renderActive();
       lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
+      lightbox.setAttribute('aria-hidden','false');
       document.body.classList.add('modal-open');
-      await renderProject(index);
-      lightboxClose.focus();
+      modalClose.focus();
     }
 
-    function closeLightbox() {
+    function closeLightbox(){
       lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
+      lightbox.setAttribute('aria-hidden','true');
       document.body.classList.remove('modal-open');
-      lightboxImage.removeAttribute('src');
-      beforeAfter.hidden = true;
-      beforeAfterBefore.removeAttribute('src');
-      beforeAfterAfter.removeAttribute('src');
-      lastFocusedElement?.focus();
+      lastFocus?.focus();
     }
 
-    function showPreviousProject() {
-      renderProject(activeProjectIndex - 1);
+    function move(delta){
+      activeIndex = (activeIndex + delta + TOTAL_PROJECTS) % TOTAL_PROJECTS;
+      renderActive();
     }
 
-    function showNextProject() {
-      renderProject(activeProjectIndex + 1);
+    modalClose.addEventListener('click',closeLightbox);
+    modalPrev.addEventListener('click',()=>move(-1));
+    modalNext.addEventListener('click',()=>move(1));
+    lightbox.addEventListener('click',event=>{if(event.target===lightbox) closeLightbox()});
+    document.addEventListener('keydown',event=>{
+      if(!lightbox.classList.contains('open')) return;
+      if(event.key==='Escape') closeLightbox();
+      if(event.key==='ArrowLeft') move(-1);
+      if(event.key==='ArrowRight') move(1);
+    });
+
+    // Mobile swipe between projects only in single-image mode.
+    let swipeStartX = 0;
+    const media = document.getElementById('lightboxMedia');
+    media.addEventListener('touchstart',event=>{
+      if(!compareView.hidden) return;
+      swipeStartX = event.changedTouches[0].clientX;
+    },{passive:true});
+    media.addEventListener('touchend',event=>{
+      if(!compareView.hidden) return;
+      const diff = event.changedTouches[0].clientX - swipeStartX;
+      if(Math.abs(diff)<55) return;
+      move(diff>0?-1:1);
+    },{passive:true});
+
+    // Mobile nav
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    menuToggle.addEventListener('click',()=>{
+      const open = mainNav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded',open?'true':'false');
+    });
+    mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+      mainNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded','false');
+    }));
+
+    // Same upload/form logic as the other pages.
+    const arviointiForm = document.getElementById('arviointiForm');
+    const liiteInput = document.getElementById('liite');
+    const cloudinaryUrlsInput = document.getElementById('cloudinaryUrls');
+    const uploadStatus = document.getElementById('uploadStatus');
+    const uploadedFilesBox = document.getElementById('uploadedFiles');
+    const arviointiSubmitBtn = document.getElementById('arviointiSubmitBtn');
+    const CLOUD_NAME = 'dk6vndv1o';
+    const UPLOAD_PRESET = 'PintaPojat';
+    let selectedFiles = [];
+
+    function renderSelectedFiles(){
+      uploadedFilesBox.innerHTML='';
+      selectedFiles.forEach((file,index)=>{
+        const item=document.createElement('div');
+        item.className='uploaded-file';
+        item.textContent=`Valittu: ${file.name} `;
+        const remove=document.createElement('button');
+        remove.type='button';remove.textContent='Poista';
+        remove.addEventListener('click',()=>{selectedFiles.splice(index,1);renderSelectedFiles()});
+        item.appendChild(remove);uploadedFilesBox.appendChild(item);
+      });
     }
-
-    projectButtons.forEach((button, index) => {
-      button.addEventListener('click', () => openLightbox(index));
+    liiteInput.addEventListener('change',()=>{
+      selectedFiles=[...selectedFiles,...Array.from(liiteInput.files||[])];
+      renderSelectedFiles();liiteInput.value='';
+    });
+    async function uploadFileToCloudinary(file){
+      const fd=new FormData();fd.append('file',file);fd.append('upload_preset',UPLOAD_PRESET);
+      const response=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`,{method:'POST',body:fd});
+      const data=await response.json();
+      if(!response.ok||!data.secure_url) throw new Error(data?.error?.message||'Upload epäonnistui');
+      return data.secure_url;
+    }
+    arviointiForm.addEventListener('submit',async event=>{
+      event.preventDefault();
+      arviointiSubmitBtn.disabled=true;arviointiSubmitBtn.textContent='Lähetetään...';uploadStatus.textContent='';
+      try{
+        const urls=[];
+        if(selectedFiles.length){uploadStatus.textContent='Ladataan tiedostoja...';for(const file of selectedFiles) urls.push(await uploadFileToCloudinary(file));}
+        cloudinaryUrlsInput.value=urls.join('\n');
+        const response=await fetch(arviointiForm.action,{method:'POST',body:new FormData(arviointiForm),headers:{Accept:'application/json'}});
+        if(!response.ok) throw new Error('Lomakkeen lähetys epäonnistui');
+        arviointiForm.reset();selectedFiles=[];renderSelectedFiles();cloudinaryUrlsInput.value='';uploadStatus.textContent='Kiitos! Pyyntö lähetettiin onnistuneesti.';
+      }catch(error){console.error(error);uploadStatus.textContent='Lähetys epäonnistui. Yritä uudelleen.';}
+      finally{arviointiSubmitBtn.disabled=false;arviointiSubmitBtn.textContent='Pyydä ilmainen arvio →';}
     });
 
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightboxPrev.addEventListener('click', showPreviousProject);
-    lightboxNext.addEventListener('click', showNextProject);
-
-    lightbox.addEventListener('click', (event) => {
-      if (event.target === lightbox) closeLightbox();
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (!lightbox.classList.contains('open')) return;
-
-      if (event.key === 'Escape') closeLightbox();
-      if (event.key === 'ArrowLeft') showPreviousProject();
-      if (event.key === 'ArrowRight') showNextProject();
-
-      if (event.key === 'Tab') {
-        const focusable = Array.from(lightbox.querySelectorAll('button:not([disabled])'));
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-
-        if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault();
-          last.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault();
-          first.focus();
-        }
-      }
-    });
-
-    lightboxImage.addEventListener('error', () => {
-      lightboxImage.hidden = true;
-      lightboxPlaceholder.classList.add('visible');
-    });
-
-    let lightboxSwipeStartedOnSlider = false;
-
-    lightboxMedia.addEventListener('touchstart', (event) => {
-      lightboxSwipeStartedOnSlider = Boolean(event.target.closest?.('#beforeAfter'));
-
-      if (lightboxSwipeStartedOnSlider) return;
-      touchStartX = event.changedTouches[0].clientX;
-    }, { passive:true });
-
-    lightboxMedia.addEventListener('touchend', (event) => {
-      if (lightboxSwipeStartedOnSlider || beforeAfterDragging) {
-        lightboxSwipeStartedOnSlider = false;
-        return;
-      }
-
-      const touchEndX = event.changedTouches[0].clientX;
-      const distance = touchEndX - touchStartX;
-
-      if (Math.abs(distance) < 50) return;
-      if (distance > 0) showPreviousProject();
-      else showNextProject();
-    }, { passive:true });
-
-    initProjectThumbnails();
+    initGallery();
   </script>
 </body>
 </html>
