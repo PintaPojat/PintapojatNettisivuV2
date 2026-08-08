@@ -154,7 +154,7 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      object-position:center 50%;
+      object-position:center 20%;
     }
     .hero-shade{
       position:absolute;
@@ -223,6 +223,8 @@
       cursor:pointer;
     }
     .project-image-wrap{
+      background:#111;
+      overflow:hidden;
       position:relative;
       aspect-ratio:4/3;
       overflow:hidden;
@@ -425,7 +427,7 @@
       height:100%;
       min-height:560px;
       overflow:hidden;
-      background:#ddd;
+      background:#111;
       user-select:none;
       touch-action:none;
       border-radius:0;
@@ -623,7 +625,10 @@
       .hero-title{bottom:20px;font-size:38px}
       .intro-section{padding-top:48px}
       .projects-grid{grid-template-columns:1fr;gap:18px}
-      .project-image-wrap{aspect-ratio:16/11}
+      .project-image-wrap{
+      background:#111;
+      overflow:hidden;
+aspect-ratio:16/11}
       .cta-panel{padding:28px 22px}
       .lightbox-details{padding:28px 22px}
       .lightbox-media,.lightbox-image{min-height:48svh}
@@ -993,18 +998,21 @@
           assetExists(afterSrc)
         ]);
 
-        // Before/after projects use the "after" image as their gallery thumbnail.
-        // This fixes cards disappearing when Kohde_XX.jpg does not exist.
         if (beforeExists && afterExists) {
+          // A before/after project uses the finished ("after") photo
+          // as its gallery thumbnail.
           image.src = afterSrc;
+          image.alt = `Maalattu kohde ${Number(number)}`;
           image.hidden = false;
           wrap.classList.remove('is-placeholder');
-          image.alt = `Maalattu kohde ${Number(number)}`;
         } else if (normalExists) {
           image.src = normalSrc;
+          image.alt = `Maalattu kohde ${Number(number)}`;
           image.hidden = false;
           wrap.classList.remove('is-placeholder');
         } else {
+          // Keep the card visible rather than producing a gray patch.
+          image.removeAttribute('src');
           image.hidden = true;
           wrap.classList.add('is-placeholder');
         }
