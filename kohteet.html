@@ -154,7 +154,7 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      object-position:center 60%;
+      object-position:center 50%;
     }
     .hero-shade{
       position:absolute;
@@ -420,61 +420,80 @@
     }
     .lightbox-image-placeholder.visible{display:grid}
     .before-after{
-      position:absolute;
-      inset:0;
+      position:relative;
+      width:100%;
+      height:100%;
+      min-height:560px;
       overflow:hidden;
-      background:#111;
+      background:#ddd;
+      user-select:none;
+      touch-action:none;
+      border-radius:0;
     }
+
     .before-after[hidden]{display:none}
-    .before-after-base,
-    .before-after-after{
+
+    .before-after img{
       position:absolute;
       inset:0;
       width:100%;
       height:100%;
       object-fit:contain;
-      background:#111;
+      pointer-events:none;
       user-select:none;
       -webkit-user-drag:none;
+      background:#111;
     }
-    .before-after-after-wrap{
-      position:absolute;
-      inset:0 auto 0 0;
-      width:50%;
-      overflow:hidden;
-      border-right:2px solid #fff;
-      box-shadow:10px 0 24px rgba(0,0,0,.18);
+
+    .before-after-before{ z-index:1; }
+
+    .before-after-after{
+      z-index:2;
+      clip-path:inset(0 100% 0 0);
     }
-    .before-after-after-wrap img{
+
+    .before-after-line{
       position:absolute;
       top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      max-width:none;
-      object-fit:contain;
-      object-position:center;
-      background:#111;
-      user-select:none;
-      -webkit-user-drag:none;
-    }
-    .before-after-range{
-      position:absolute;
+      bottom:0;
+      left:50%;
+      width:4px;
+      background:var(--white);
       z-index:3;
-      left:18px;
-      right:18px;
-      bottom:18px;
-      width:calc(100% - 36px);
-      margin:0;
-      accent-color:var(--orange);
-      cursor:ew-resize;
+      box-shadow:0 0 0 1px rgba(0,0,0,0.08);
+      pointer-events:none;
     }
+
+    .before-after-handle{
+      position:absolute;
+      top:50%;
+      left:50%;
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      background:#ffffff;
+      border:4px solid var(--yellow);
+      transform:translate(-50%, -50%);
+      z-index:4;
+      display:grid;
+      place-items:center;
+      box-shadow:var(--shadow);
+      pointer-events:none;
+    }
+
+    .before-after-handle::before{
+      content:"⟷";
+      font-size:21px;
+      font-weight:900;
+      color:var(--black);
+    }
+
     .before-after-label{
       position:absolute;
-      z-index:3;
+      z-index:5;
       top:18px;
       padding:8px 11px;
-      border-radius:var(--radius);
+      border-radius:12px;
       background:rgba(0,0,0,.72);
       color:#fff;
       font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
@@ -483,36 +502,10 @@
       text-transform:uppercase;
       pointer-events:none;
     }
+
     .before-after-label.before{left:18px}
     .before-after-label.after{right:18px}
-    .before-after-handle{
-      position:absolute;
-      z-index:2;
-      top:0;
-      bottom:0;
-      left:50%;
-      width:3px;
-      background:#fff;
-      transform:translateX(-50%);
-      pointer-events:none;
-      box-shadow:0 0 16px rgba(0,0,0,.35);
-    }
-    .before-after-handle::before{
-      content:"↔";
-      position:absolute;
-      left:50%;
-      top:50%;
-      transform:translate(-50%,-50%);
-      display:grid;
-      place-items:center;
-      width:38px;
-      height:38px;
-      border-radius:50%;
-      background:var(--orange);
-      color:#000;
-      font-weight:800;
-      box-shadow:0 8px 20px rgba(0,0,0,.28);
-    }
+
     .lightbox-details{
       display:flex;
       flex-direction:column;
@@ -589,6 +582,7 @@
       .cta-button{justify-self:start}
       .lightbox-dialog{grid-template-columns:1fr;overflow-y:auto}
       .lightbox-media{min-height:min(58svh,570px)}
+      .before-after{min-height:min(58svh,570px)}
       .lightbox-image{min-height:min(58svh,570px)}
       .lightbox-details{min-height:270px}
     }
@@ -633,6 +627,9 @@
       .cta-panel{padding:28px 22px}
       .lightbox-details{padding:28px 22px}
       .lightbox-media,.lightbox-image{min-height:48svh}
+      .before-after{min-height:48svh}
+      .before-after-handle{width:52px;height:52px}
+      .before-after-handle::before{font-size:18px}
     }
 
     @media(prefers-reduced-motion:reduce){
@@ -695,133 +692,133 @@
         <div class="projects-grid">
           <article class="project-card">
             <button class="project-open" type="button" data-index="0" data-number="01" data-title="Kohde 01" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_01.jpg" alt="Maalattu kohde 1" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_01.jpg" alt="Maalattu kohde 1" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="1" data-number="02" data-title="Kohde 02" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_02.jpg" alt="Maalattu kohde 2" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_02.jpg" alt="Maalattu kohde 2" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="2" data-number="03" data-title="Kohde 03" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_03.jpg" alt="Maalattu kohde 3" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_03.jpg" alt="Maalattu kohde 3" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="3" data-number="04" data-title="Kohde 04" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_04.jpg" alt="Maalattu kohde 4" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_04.jpg" alt="Maalattu kohde 4" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="4" data-number="05" data-title="Kohde 05" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_05.jpg" alt="Maalattu kohde 5" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_05.jpg" alt="Maalattu kohde 5" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="5" data-number="06" data-title="Kohde 06" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_06.jpg" alt="Maalattu kohde 6" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_06.jpg" alt="Maalattu kohde 6" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="6" data-number="07" data-title="Kohde 07" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_07.jpg" alt="Maalattu kohde 7" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_07.jpg" alt="Maalattu kohde 7" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="7" data-number="08" data-title="Kohde 08" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_08.jpg" alt="Maalattu kohde 8" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_08.jpg" alt="Maalattu kohde 8" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="8" data-number="09" data-title="Kohde 09" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_09.jpg" alt="Maalattu kohde 9" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_09.jpg" alt="Maalattu kohde 9" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="9" data-number="10" data-title="Kohde 10" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_10.jpg" alt="Maalattu kohde 10" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_10.jpg" alt="Maalattu kohde 10" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="10" data-number="11" data-title="Kohde 11" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_11.jpg" alt="Maalattu kohde 11" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_11.jpg" alt="Maalattu kohde 11" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="11" data-number="12" data-title="Kohde 12" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_12.jpg" alt="Maalattu kohde 12" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_12.jpg" alt="Maalattu kohde 12" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="12" data-number="13" data-title="Kohde 13" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_13.jpg" alt="Maalattu kohde 13" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_13.jpg" alt="Maalattu kohde 13" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="13" data-number="14" data-title="Kohde 14" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_14.jpg" alt="Maalattu kohde 14" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_14.jpg" alt="Maalattu kohde 14" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="14" data-number="15" data-title="Kohde 15" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_15.jpg" alt="Maalattu kohde 15" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_15.jpg" alt="Maalattu kohde 15" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="15" data-number="16" data-title="Kohde 16" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_16.jpg" alt="Maalattu kohde 16" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_16.jpg" alt="Maalattu kohde 16" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="16" data-number="17" data-title="Kohde 17" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_17.jpg" alt="Maalattu kohde 17" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_17.jpg" alt="Maalattu kohde 17" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="17" data-number="18" data-title="Kohde 18" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_18.jpg" alt="Maalattu kohde 18" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_18.jpg" alt="Maalattu kohde 18" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="18" data-number="19" data-title="Kohde 19" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_19.jpg" alt="Maalattu kohde 19" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_19.jpg" alt="Maalattu kohde 19" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="19" data-number="20" data-title="Kohde 20" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_20.jpg" alt="Maalattu kohde 20" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_20.jpg" alt="Maalattu kohde 20" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="20" data-number="21" data-title="Kohde 21" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_21.jpg" alt="Maalattu kohde 21" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_21.jpg" alt="Maalattu kohde 21" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
           <article class="project-card">
             <button class="project-open" type="button" data-index="21" data-number="22" data-title="Kohde 22" data-description="Lisää tähän kohteen paikkakunta, työn ajankohta, tehdyt pohjatyöt, käytetty maali ja muut olennaiset tiedot.">
-              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_22.jpg" alt="Maalattu kohde 22" loading="lazy" decoding="async" onerror="this.hidden=true;this.parentElement.classList.add('is-placeholder')"></span>
+              <span class="project-image-wrap"><img class="project-image" src="assets/Kohde_22.jpg" alt="Maalattu kohde 22" loading="lazy" decoding="async"></span>
               <span class="project-overlay"><span class="project-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
             </button>
           </article>
@@ -885,15 +882,13 @@
     <div class="lightbox-dialog">
       <div class="lightbox-media" id="lightboxMedia">
         <img class="lightbox-image" id="lightboxImage" src="" alt="">
-        <div class="before-after" id="beforeAfter" hidden aria-label="Ennen ja jälkeen -vertailu">
-          <img class="before-after-base" id="beforeAfterBefore" src="" alt="">
-          <div class="before-after-after-wrap" id="beforeAfterAfterWrap">
-            <img class="before-after-after" id="beforeAfterAfter" src="" alt="">
-          </div>
+        <div class="before-after" id="beforeAfter" hidden aria-label="Ennen ja jälkeen -vertailukuva">
+          <img class="before-after-before" id="beforeAfterBefore" src="" alt="">
+          <img class="before-after-after" id="beforeAfterAfter" src="" alt="">
+          <div class="before-after-line" id="beforeAfterLine" aria-hidden="true"></div>
           <div class="before-after-handle" id="beforeAfterHandle" aria-hidden="true"></div>
           <span class="before-after-label before">Ennen</span>
           <span class="before-after-label after">Jälkeen</span>
-          <input class="before-after-range" id="beforeAfterRange" type="range" min="0" max="100" value="50" aria-label="Säädä ennen ja jälkeen -kuvien rajaa">
         </div>
         <div class="lightbox-image-placeholder" id="lightboxPlaceholder">Lisää kohteen kuva</div>
         <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" type="button" aria-label="Edellinen kohde">‹</button>
@@ -940,8 +935,7 @@
     const beforeAfter = document.getElementById('beforeAfter');
     const beforeAfterBefore = document.getElementById('beforeAfterBefore');
     const beforeAfterAfter = document.getElementById('beforeAfterAfter');
-    const beforeAfterAfterWrap = document.getElementById('beforeAfterAfterWrap');
-    const beforeAfterRange = document.getElementById('beforeAfterRange');
+    const beforeAfterLine = document.getElementById('beforeAfterLine');
     const beforeAfterHandle = document.getElementById('beforeAfterHandle');
 
     let activeProjectIndex = 0;
@@ -960,13 +954,12 @@
     async function getProjectData(index) {
       const button = projectButtons[index];
       const number = button.dataset.number;
-      const thumbnail = button.querySelector('.project-image');
-
       const normalSrc = `assets/Kohde_${number}.jpg`;
       const beforeSrc = `assets/Kohde_${number}_b.jpg`;
       const afterSrc = `assets/Kohde_${number}_a.jpg`;
 
-      const [beforeExists, afterExists] = await Promise.all([
+      const [normalExists, beforeExists, afterExists] = await Promise.all([
+        assetExists(normalSrc),
         assetExists(beforeSrc),
         assetExists(afterSrc)
       ]);
@@ -978,16 +971,96 @@
         normalSrc,
         beforeSrc,
         afterSrc,
+        normalExists,
         hasBeforeAfter: beforeExists && afterExists,
-        alt: thumbnail.getAttribute('alt')
+        alt: `Maalattu kohde ${Number(number)}`
       };
     }
 
-    function updateBeforeAfterPosition(value) {
-      const percentage = Number(value);
-      beforeAfterAfterWrap.style.width = `${percentage}%`;
-      beforeAfterHandle.style.left = `${percentage}%`;
+    async function initProjectThumbnails() {
+      await Promise.all(projectButtons.map(async (button) => {
+        const number = button.dataset.number;
+        const image = button.querySelector('.project-image');
+        const wrap = image.parentElement;
+
+        const normalSrc = `assets/Kohde_${number}.jpg`;
+        const beforeSrc = `assets/Kohde_${number}_b.jpg`;
+        const afterSrc = `assets/Kohde_${number}_a.jpg`;
+
+        const [normalExists, beforeExists, afterExists] = await Promise.all([
+          assetExists(normalSrc),
+          assetExists(beforeSrc),
+          assetExists(afterSrc)
+        ]);
+
+        // Before/after projects use the "after" image as their gallery thumbnail.
+        // This fixes cards disappearing when Kohde_XX.jpg does not exist.
+        if (beforeExists && afterExists) {
+          image.src = afterSrc;
+          image.hidden = false;
+          wrap.classList.remove('is-placeholder');
+          image.alt = `Maalattu kohde ${Number(number)}`;
+        } else if (normalExists) {
+          image.src = normalSrc;
+          image.hidden = false;
+          wrap.classList.remove('is-placeholder');
+        } else {
+          image.hidden = true;
+          wrap.classList.add('is-placeholder');
+        }
+      }));
     }
+
+    function setBeforeAfter(compareWrap, value) {
+      const after = compareWrap.querySelector('.before-after-after');
+      const line = compareWrap.querySelector('.before-after-line');
+      const handle = compareWrap.querySelector('.before-after-handle');
+
+      const safeValue = Math.max(0, Math.min(100, Number(value)));
+
+      after.style.clipPath = `inset(0 ${100 - safeValue}% 0 0)`;
+      line.style.left = safeValue + '%';
+      handle.style.left = safeValue + '%';
+    }
+
+    function updateBeforeAfterFromPointer(clientX) {
+      const rect = beforeAfter.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const percent = (x / rect.width) * 100;
+      setBeforeAfter(beforeAfter, percent);
+    }
+
+    let beforeAfterDragging = false;
+
+    beforeAfter.addEventListener('mousedown', (event) => {
+      beforeAfterDragging = true;
+      updateBeforeAfterFromPointer(event.clientX);
+    });
+
+    window.addEventListener('mousemove', (event) => {
+      if (!beforeAfterDragging) return;
+      updateBeforeAfterFromPointer(event.clientX);
+    });
+
+    window.addEventListener('mouseup', () => {
+      beforeAfterDragging = false;
+    });
+
+    beforeAfter.addEventListener('touchstart', (event) => {
+      beforeAfterDragging = true;
+      updateBeforeAfterFromPointer(event.touches[0].clientX);
+    }, { passive:true });
+
+    window.addEventListener('touchmove', (event) => {
+      if (!beforeAfterDragging) return;
+      updateBeforeAfterFromPointer(event.touches[0].clientX);
+    }, { passive:true });
+
+    window.addEventListener('touchend', () => {
+      beforeAfterDragging = false;
+    });
+
+    setBeforeAfter(beforeAfter, 50);
 
     async function renderProject(index) {
       activeProjectIndex = (index + projectButtons.length) % projectButtons.length;
@@ -996,9 +1069,6 @@
       lightboxCount.textContent = `${activeProjectIndex + 1} / ${projectButtons.length}`;
       lightboxTitle.textContent = project.title;
       lightboxDescription.textContent = project.description;
-
-      beforeAfterRange.value = '50';
-      updateBeforeAfterPosition(50);
 
       if (project.hasBeforeAfter) {
         lightboxImage.hidden = true;
@@ -1009,8 +1079,10 @@
         beforeAfterAfter.src = project.afterSrc;
         beforeAfterBefore.alt = `${project.title}, ennen`;
         beforeAfterAfter.alt = `${project.title}, jälkeen`;
+
+        setBeforeAfter(beforeAfter, 50);
         beforeAfter.hidden = false;
-      } else {
+      } else if (project.normalExists) {
         beforeAfter.hidden = true;
         beforeAfterBefore.removeAttribute('src');
         beforeAfterAfter.removeAttribute('src');
@@ -1019,18 +1091,15 @@
         lightboxImage.hidden = false;
         lightboxPlaceholder.classList.remove('visible');
         lightboxImage.src = project.normalSrc;
-      }
+      } else {
+        beforeAfter.hidden = true;
+        beforeAfterBefore.removeAttribute('src');
+        beforeAfterAfter.removeAttribute('src');
 
-      // Jos tavallinen pikkukuva puuttuu mutta ennen/jälkeen-kuvat löytyvät,
-      // käytetään kortissa automaattisesti jälkeen-kuvaa.
-      const thumbnail = projectButtons[activeProjectIndex].querySelector('.project-image');
-      assetExists(project.normalSrc).then((normalExists) => {
-        if (project.hasBeforeAfter && !normalExists) {
-          thumbnail.hidden = false;
-          thumbnail.parentElement.classList.remove('is-placeholder');
-          thumbnail.src = project.afterSrc;
-        }
-      });
+        lightboxImage.removeAttribute('src');
+        lightboxImage.hidden = true;
+        lightboxPlaceholder.classList.add('visible');
+      }
     }
 
     async function openLightbox(index) {
@@ -1061,10 +1130,6 @@
       renderProject(activeProjectIndex + 1);
     }
 
-    beforeAfterRange.addEventListener('input', (event) => {
-      updateBeforeAfterPosition(event.target.value);
-    });
-
     projectButtons.forEach((button, index) => {
       button.addEventListener('click', () => openLightbox(index));
     });
@@ -1085,7 +1150,7 @@
       if (event.key === 'ArrowRight') showNextProject();
 
       if (event.key === 'Tab') {
-        const focusable = Array.from(lightbox.querySelectorAll('button:not([disabled]), input:not([disabled])'));
+        const focusable = Array.from(lightbox.querySelectorAll('button:not([disabled])'));
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
 
@@ -1109,12 +1174,17 @@
     }, { passive:true });
 
     lightboxMedia.addEventListener('touchend', (event) => {
+      // Do not switch projects when the user was dragging the before/after slider.
+      if (beforeAfterDragging) return;
+
       const touchEndX = event.changedTouches[0].clientX;
       const distance = touchEndX - touchStartX;
       if (Math.abs(distance) < 50) return;
       if (distance > 0) showPreviousProject();
       else showNextProject();
     }, { passive:true });
+
+    initProjectThumbnails();
   </script>
 </body>
 </html>
