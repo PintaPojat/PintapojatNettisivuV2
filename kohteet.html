@@ -228,7 +228,7 @@
       inset:0;
       width:100%;
       height:100%;
-      object-fit:contain;
+      object-fit:cover;
       object-position:center;
       background:#111;
       transition:transform .28s ease,filter .28s ease;
@@ -1030,14 +1030,9 @@
       compareAfter.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
       compareLine.style.left = `${safeX}px`;
 
-      // Keep the circular handle visually inside the picture even when
-      // the split line reaches the exact image edge.
-      const handleRadius = compareHandle.offsetWidth / 2;
-      const handleX = Math.max(
-        handleRadius,
-        Math.min(rect.width - handleRadius, safeX)
-      );
-      compareHandle.style.left = `${handleX}px`;
+      // The handle follows the split line exactly. At the edges it may
+      // sit half outside the image, matching the classic before/after slider.
+      compareHandle.style.left = `${safeX}px`;
     }
 
     function updateSliderFromClientX(clientX) {
