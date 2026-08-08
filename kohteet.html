@@ -1,543 +1,1166 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#101010" />
-  <title>Referenssit | PintaPojat</title>
-  <meta name="description" content="Tutustu PintaPoikien maalaamiin kohteisiin Joensuussa ja lähialueilla." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+
+  <title>Maalaamiamme kohteita | PintaPojat</title>
+  <meta name="description" content="Tutustu PintaPoikien maalaamiin kohteisiin Joensuussa ja lähialueilla. Referenssejä kesiltä 2025 ja 2026.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --orange:#f3a500;
-      --blue:#163a63;
-      --black:#101010;
-      --white:#fff;
-      --bg:#ececec;
-      --text:#171717;
-      --muted:#646464;
+      --navy:#14213d;
+      --navy-hover:#1d2e52;
+      --orange:#fca311;
+      --paper:#e5e5e5;
+      --white:#ffffff;
+      --black:#000000;
+      --text:#17213a;
+      --muted:#5e6573;
+      --max:1160px;
       --radius:10px;
-      --max:1180px;
-      --shadow:0 14px 34px rgba(0,0,0,.12);
-      --font:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      --impact:Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      --section-space:clamp(88px,10vw,136px);
+      --header-height:80px;
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth;overflow-x:hidden}
-    body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;overflow-x:hidden}
+    body{
+      margin:0;
+      padding-top:var(--header-height);
+      overflow-x:hidden;
+      background:var(--paper);
+      color:var(--text);
+      font-family:Inter,"Segoe UI",Arial,sans-serif;
+      font-size:16px;
+      line-height:1.65;
+      text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased;
+    }
     body.modal-open{overflow:hidden}
-    img{display:block;max-width:100%}
     a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
     button,input,textarea{font:inherit}
-    h1,h2,h3{font-family:var(--impact);text-transform:uppercase;letter-spacing:.3px;margin:0;line-height:1}
-
-    .topbar{
-      position:fixed;inset:0 0 auto 0;z-index:1000;background:#101010;
-      min-height:74px;display:flex;align-items:center;
+    button,.nav-pill,.submit-button{
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-weight:400;
+      letter-spacing:.015em;
     }
-    .topbar-inner{width:min(var(--max),calc(100% - 40px));margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
-    .brand{display:flex;align-items:center;flex:0 0 auto}
-    .brand img{width:155px;height:44px;object-fit:contain;object-position:left center}
-    .nav{display:flex;align-items:center;gap:10px}
-    .nav a,.menu-toggle{
-      font-family:var(--impact);text-transform:uppercase;letter-spacing:.35px;font-size:15px;
-      padding:11px 17px;border-radius:var(--radius);border:0;cursor:pointer;
+    h1,h2,h3,.impact{
+      margin:0;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-weight:400;
+      text-transform:uppercase;
+      letter-spacing:.005em;
     }
-    .nav a{background:var(--blue);color:#fff}
-    .nav a.cta{background:var(--orange);color:#101010}
-    .menu-toggle{display:none;background:var(--orange);color:#101010}
+    p{margin:0}
+    .wrap{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
 
-    main{padding-top:74px}
-    .hero{position:relative;height:clamp(280px,34vw,430px);overflow:hidden;background:#222}
-    .hero img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
-    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.50),rgba(0,0,0,.03) 55%)}
-    .hero h1{position:absolute;z-index:2;left:max(22px,calc((100vw - var(--max))/2));bottom:28px;color:#fff;font-size:clamp(42px,6vw,76px)}
-
-    .intro{width:min(860px,calc(100% - 40px));margin:0 auto;padding:58px 0 42px}
-    .intro h2{font-size:clamp(34px,4.5vw,52px);margin-bottom:14px}
-    .intro p{font-size:17px;margin:0;color:#242424}
-
-    .gallery-section{width:min(var(--max),calc(100% - 40px));margin:0 auto;padding:0 0 76px}
-    .projects-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-    .project-card{margin:0;min-width:0}
-    .project-open{
-      position:relative;display:block;width:100%;aspect-ratio:4/3;padding:0;border:0;
-      overflow:hidden;border-radius:var(--radius);background:#202020;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.10)
+    .skip-link{
+      position:absolute;
+      left:-9999px;
+      top:12px;
+      z-index:11000;
+      padding:12px 16px;
+      background:#fff;
+      color:#000;
+      border-radius:var(--radius);
     }
-    .project-open:focus-visible{outline:4px solid var(--orange);outline-offset:3px}
+    .skip-link:focus{left:12px}
+
+    /* Sama yläpalkki kuin muilla sivuilla */
+    .site-header{
+      position:fixed;
+      inset:0 0 auto 0;
+      z-index:10000;
+      width:100%;
+      background:var(--black);
+      color:#fff;
+    }
+    .header-inner{
+      min-height:80px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:28px;
+      padding:10px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:15px;
+      min-width:max-content;
+    }
+    .brand-logo{
+      display:block;
+      width:64px;
+      height:54px;
+      flex:none;
+      border:0;
+      object-fit:contain;
+      background:transparent;
+      pointer-events:none;
+    }
+    .brand-name{
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:clamp(25px,2.4vw,32px);
+      line-height:1;
+      letter-spacing:.025em;
+      white-space:nowrap;
+    }
+    .main-nav{display:flex;align-items:center;gap:14px}
+    .nav-pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:9px 24px;
+      border-radius:var(--radius);
+      background:var(--navy);
+      color:#fff;
+      font-size:clamp(13px,1.35vw,17px);
+      line-height:1;
+      white-space:nowrap;
+      transition:transform .18s ease,background .18s ease;
+    }
+    .nav-pill:hover,.nav-pill:focus-visible{
+      background:var(--navy-hover);
+      transform:translateY(-2px);
+      outline:none;
+    }
+    .nav-pill.offer{background:var(--orange);color:#000}
+    .nav-pill.offer:hover,.nav-pill.offer:focus-visible{background:#ffb532}
+    .menu-toggle{
+      display:none;
+      border:0;
+      border-radius:var(--radius);
+      background:var(--orange);
+      color:#000;
+      padding:11px 14px;
+      cursor:pointer;
+    }
+
+    /* Hero */
+    .hero{
+      position:relative;
+      height:clamp(290px,34vw,410px);
+      overflow:hidden;
+      background:#1c1c1c;
+    }
+    .hero-image{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center 60%;
+    }
+    .hero-shade{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to bottom,rgba(0,0,0,.04),rgba(0,0,0,.14) 52%,rgba(0,0,0,.68));
+    }
+    .hero-title{
+      position:absolute;
+      z-index:2;
+      left:50%;
+      bottom:clamp(24px,3vw,38px);
+      width:min(1000px,94vw);
+      transform:translateX(-50%);
+      color:#fff;
+      text-align:center;
+      font-size:clamp(40px,5vw,60px);
+      line-height:1.02;
+      text-shadow:0 4px 22px rgba(0,0,0,.38);
+    }
+
+    .intro{
+      padding:clamp(44px,5vw,66px) 0 clamp(34px,4vw,52px);
+      text-align:center;
+    }
+    .intro p{
+      width:min(720px,100%);
+      margin:0 auto;
+      color:var(--muted);
+      font-size:clamp(16px,1.1vw,18px);
+      line-height:1.7;
+    }
+
+    /* Referenssigalleria */
+    .gallery-section{
+      padding:0 0 var(--section-space);
+    }
+    .projects-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:20px;
+    }
+    .project-card{
+      min-width:0;
+      overflow:hidden;
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:0 12px 28px rgba(20,33,61,.09);
+    }
+    .project-button{
+      width:100%;
+      display:block;
+      padding:0;
+      border:0;
+      background:none;
+      cursor:pointer;
+      text-align:inherit;
+    }
+    .project-image-wrap{
+      position:relative;
+      aspect-ratio:4/3;
+      overflow:hidden;
+      background:#d9dce2;
+    }
     .project-image{
-      width:100%;height:100%;object-fit:cover;object-position:center;background:#202020;
-      transition:transform .35s ease,filter .35s ease
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      transition:transform .28s ease,filter .28s ease;
     }
-    .project-open:hover .project-image{transform:scale(1.025);filter:brightness(.93)}
+    .project-button:hover .project-image,
+    .project-button:focus-visible .project-image{
+      transform:scale(1.035);
+      filter:brightness(.94);
+    }
+    .project-button:focus-visible{
+      outline:3px solid var(--orange);
+      outline-offset:3px;
+    }
     .project-placeholder{
-      position:absolute;inset:0;display:grid;place-items:center;background:var(--blue);color:#fff;
-      font-family:var(--impact);font-size:19px;text-transform:uppercase;padding:20px;text-align:center
+      position:absolute;
+      inset:0;
+      display:none;
+      place-items:center;
+      background:#d8dae0;
+      color:#666d79;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:22px;
     }
-    .project-placeholder[hidden]{display:none}
-    .project-badge{
-      position:absolute;right:12px;bottom:12px;z-index:2;width:38px;height:38px;border-radius:var(--radius);
-      display:grid;place-items:center;background:rgba(16,16,16,.82);color:#fff;font-size:21px;pointer-events:none
+    .project-image-wrap.missing .project-placeholder{display:grid}
+
+    /* Sama tarjouslomake kuin muilla sivuilla */
+    .offer-section{
+      padding:var(--section-space) 0;
+      background:var(--paper);
+    }
+    .offer-heading{
+      width:min(820px,100%);
+      margin:0 auto clamp(42px,6vw,66px);
+      text-align:center;
+    }
+    .offer-heading h2{
+      color:var(--navy);
+      font-size:clamp(36px,4.6vw,54px);
+      line-height:1;
+    }
+    .offer-heading p{
+      margin:18px auto 0;
+      color:var(--muted);
+      font-size:clamp(16px,1.1vw,18px);
+    }
+    .offer-card{
+      width:min(900px,100%);
+      margin:0 auto;
+      padding:clamp(30px,4vw,46px);
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:0 14px 30px rgba(20,33,61,.1);
+    }
+    .offer-card h3{
+      margin:0 0 20px;
+      text-transform:uppercase;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:28px;
+      font-weight:400;
+    }
+    form{display:grid;gap:18px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    label{display:block;margin-bottom:5px;font-weight:700}
+    input,textarea{
+      width:100%;
+      border:0;
+      border-radius:var(--radius);
+      padding:14px;
+      background:#f3f4f6;
+      color:var(--navy);
+      font-size:16px;
+    }
+    textarea{min-height:150px;resize:vertical}
+    input:focus,textarea:focus{outline:3px solid rgba(252,163,17,.32)}
+    .submit-button{
+      min-height:58px;
+      border:0;
+      border-radius:var(--radius);
+      background:var(--orange);
+      color:#fff;
+      font-size:18px;
+      font-weight:400;
+      cursor:pointer;
+      transition:transform .18s ease,filter .18s ease;
+    }
+    .submit-button:hover,.submit-button:focus-visible{
+      transform:translateY(-2px);
+      filter:brightness(1.02);
+      outline:none;
     }
 
-    .form-section{padding:72px 20px 82px;background:#f5f5f5;scroll-margin-top:90px}
-    .form-head{max-width:860px;margin:0 auto 24px}
-    .form-head h2{font-size:clamp(34px,4.5vw,52px);margin-bottom:12px}
-    .form-head p{font-size:16px;color:#333;margin:0}
-    .form-box{max-width:860px;margin:auto;background:#fff;padding:26px;border-radius:var(--radius);box-shadow:var(--shadow)}
-    form{display:grid;gap:14px}
-    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    label{display:block;font-weight:700;font-size:14px;margin:0 0 5px}
-    input,textarea{width:100%;border:0;background:#f0f0f0;border-radius:var(--radius);padding:13px 14px;font-size:16px}
-    input:focus,textarea:focus{outline:3px solid rgba(243,165,0,.35)}
-    textarea{min-height:135px;resize:vertical}
-    .form-note{font-size:13px;color:#555;margin:5px 0 0}
-    #uploadedFiles{display:grid;gap:8px;margin-top:8px}
-    .uploaded-file{padding:9px 11px;background:#f0f0f0;border-radius:var(--radius);font-size:13px}
-    .uploaded-file button{margin-left:8px;border:0;background:#111;color:#fff;border-radius:6px;padding:5px 8px;cursor:pointer}
-    .submit-btn{justify-self:start;border:0;border-radius:var(--radius);background:var(--orange);color:#111;padding:13px 20px;font-family:var(--impact);text-transform:uppercase;font-size:16px;cursor:pointer}
+    /* Sama alapalkki kuin muilla sivuilla */
+    footer{padding:42px 0;background:#000;color:#fff}
+    .footer-inner{display:grid;gap:24px}
+    .footer-top{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+    .footer-brand{font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;font-size:28px;letter-spacing:.02em}
+    .footer-page-links{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+    .footer-page-link{
+      color:#fff;
+      font-size:14px;
+      font-weight:600;
+      letter-spacing:.02em;
+      text-decoration:none;
+      transition:color .18s ease,opacity .18s ease;
+    }
+    .footer-page-link:hover,.footer-page-link:focus-visible{color:var(--orange);outline:none}
+    .footer-contacts{
+      display:flex;
+      align-items:flex-start;
+      gap:34px;
+      flex-wrap:wrap;
+      padding-top:20px;
+    }
+    .footer-contact{min-width:220px}
+    .footer-contact h3{
+      margin:0 0 6px;
+      color:#fff;
+      text-transform:uppercase;
+      font-family:Impact,Anton,Haettenschweiler,"Arial Narrow Bold",sans-serif;
+      font-size:17px;
+      font-weight:400;
+      letter-spacing:.01em;
+    }
+    .footer-contact p{margin:2px 0;color:#cfcfcf;font-size:12.5px;line-height:1.45}
+    .footer-contact a{color:#fff}
+    .footer-contact a:hover,.footer-contact a:focus-visible{color:var(--orange);outline:none}
 
-    .footer{background:#101010;color:#fff;padding:30px 20px}
-    .footer-inner{width:min(var(--max),100%);margin:auto;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:start}
-    .footer-links{display:flex;flex-wrap:wrap;gap:18px}
-    .footer-links a{font-size:14px;font-weight:700}
-    .footer-links a:hover{color:var(--orange)}
-    .contacts{display:grid;grid-template-columns:repeat(2,minmax(190px,1fr));gap:24px;font-size:12.5px;line-height:1.55;color:#e9e9e9}
-    .contacts strong{display:block;color:#fff;font-size:13px;margin-bottom:3px}
-    .contacts a{text-decoration:underline;text-underline-offset:2px}
-
-    /* Clean modal */
+    /* Lähikatselu */
     .lightbox{
-      position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.88);display:none;
-      padding:28px;align-items:center;justify-content:center
+      position:fixed;
+      inset:0;
+      z-index:20000;
+      display:none;
+      place-items:center;
+      padding:26px;
+      background:rgba(0,0,0,.88);
     }
-    .lightbox.open{display:flex}
+    .lightbox.open{display:grid}
     .lightbox-dialog{
-      width:min(1120px,96vw);max-height:94vh;background:#fff;border-radius:var(--radius);overflow:hidden;
-      display:grid;grid-template-rows:minmax(0,1fr) auto;box-shadow:0 28px 70px rgba(0,0,0,.45)
+      position:relative;
+      width:min(1180px,96vw);
+      max-height:94svh;
+      display:grid;
+      grid-template-rows:minmax(0,1fr) auto;
+      overflow:hidden;
+      border-radius:var(--radius);
+      background:#0d0d0d;
+      box-shadow:0 24px 70px rgba(0,0,0,.45);
     }
-    .lightbox-media{position:relative;background:#161616;min-height:min(72vh,720px);overflow:hidden}
-    .single-view{position:absolute;inset:0;display:grid;place-items:center;background:#161616}
+    .lightbox-media{
+      position:relative;
+      min-height:280px;
+      height:min(78svh,780px);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      background:#0d0d0d;
+    }
+
+    /* Tavallinen kuva näkyy kokonaan, ei cropata */
+    .single-view{
+      width:100%;
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding:18px 64px;
+    }
     .single-view[hidden]{display:none}
-    .single-view img{width:100%;height:100%;object-fit:contain;object-position:center;background:#161616}
-    .modal-placeholder{position:absolute;inset:0;display:grid;place-items:center;color:#fff;background:var(--blue);font-family:var(--impact);font-size:22px;text-align:center;padding:30px}
-    .modal-placeholder[hidden]{display:none}
+    .single-view img{
+      display:block;
+      width:auto;
+      height:auto;
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+      object-position:center;
+    }
 
-    /* Rebuilt before/after slider */
-    .compare-view{position:absolute;inset:0;background:#161616;overflow:hidden;touch-action:none;user-select:none;cursor:ew-resize;--split:50%}
-    .compare-view[hidden]{display:none}
-    .compare-view img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;background:#161616;pointer-events:none;user-select:none;-webkit-user-drag:none}
+    /* Ennen-jälkeen slideri */
+    .compare-shell{
+      position:relative;
+      display:block;
+      overflow:hidden;
+      background:#0d0d0d;
+      touch-action:none;
+      user-select:none;
+      -webkit-user-select:none;
+      cursor:ew-resize;
+    }
+    .compare-shell[hidden]{display:none}
+    .compare-shell img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center;
+      pointer-events:none;
+      user-select:none;
+      -webkit-user-drag:none;
+    }
     .compare-before{z-index:1}
-    .compare-after{z-index:2;clip-path:inset(0 calc(100% - var(--split)) 0 0)}
-    .compare-line{position:absolute;z-index:3;top:0;bottom:0;left:var(--split);width:3px;background:#fff;transform:translateX(-50%);pointer-events:none}
-    .compare-handle{position:absolute;z-index:4;left:var(--split);top:50%;width:58px;height:58px;border-radius:50%;transform:translate(-50%,-50%);background:#fff;border:4px solid var(--orange);display:grid;place-items:center;box-shadow:0 8px 26px rgba(0,0,0,.3);pointer-events:none}
-    .compare-handle::before{content:"⟷";font-weight:900;font-size:21px;color:#111;line-height:1}
-    .compare-label{position:absolute;z-index:4;top:16px;background:rgba(0,0,0,.70);color:#fff;padding:7px 10px;border-radius:7px;font-family:var(--impact);text-transform:uppercase;font-size:13px;pointer-events:none}
-    .compare-label.before{left:16px}.compare-label.after{right:16px}
+    .compare-after{
+      z-index:2;
+      clip-path:inset(0 50% 0 0);
+      will-change:clip-path;
+    }
+    .compare-line{
+      position:absolute;
+      z-index:3;
+      top:0;
+      bottom:0;
+      left:50%;
+      width:3px;
+      background:#fff;
+      transform:translateX(-50%);
+      pointer-events:none;
+    }
+    .compare-handle{
+      position:absolute;
+      z-index:4;
+      top:50%;
+      left:50%;
+      width:54px;
+      height:54px;
+      display:grid;
+      place-items:center;
+      border:4px solid var(--orange);
+      border-radius:50%;
+      background:#fff;
+      color:#000;
+      transform:translate(-50%,-50%);
+      box-shadow:0 10px 24px rgba(0,0,0,.3);
+      pointer-events:none;
+    }
+    .compare-handle::before{
+      content:"⟷";
+      font-size:20px;
+      font-weight:900;
+      line-height:1;
+    }
 
-    .modal-close,.modal-arrow{position:absolute;z-index:7;border:0;cursor:pointer;color:#fff;background:rgba(0,0,0,.68);display:grid;place-items:center}
-    .modal-close{right:14px;top:14px;width:42px;height:42px;border-radius:var(--radius);font-size:26px}
-    .modal-arrow{top:50%;transform:translateY(-50%);width:46px;height:58px;border-radius:var(--radius);font-size:34px}
-    .modal-prev{left:14px}.modal-next{right:14px}
-    .modal-info{padding:15px 20px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff}
-    .modal-info strong{font-family:var(--impact);font-size:19px;text-transform:uppercase}
-    .modal-count{font-weight:800;color:var(--muted);font-size:14px;white-space:nowrap}
+    .modal-close,
+    .modal-arrow{
+      position:absolute;
+      z-index:20;
+      border:0;
+      color:#fff;
+      background:rgba(0,0,0,.68);
+      cursor:pointer;
+    }
+    .modal-close{
+      top:14px;
+      right:14px;
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      font-size:30px;
+      line-height:1;
+    }
+    .modal-arrow{
+      top:50%;
+      width:46px;
+      height:64px;
+      transform:translateY(-50%);
+      border-radius:var(--radius);
+      font-size:38px;
+      line-height:1;
+    }
+    .modal-prev{left:10px}
+    .modal-next{right:10px}
+    .modal-close:hover,.modal-close:focus-visible,
+    .modal-arrow:hover,.modal-arrow:focus-visible{
+      background:var(--orange);
+      color:#000;
+      outline:none;
+    }
+    .modal-placeholder{
+      color:#fff;
+      font-weight:700;
+      text-align:center;
+    }
+    .modal-count{
+      padding:11px 18px 13px;
+      color:#cfcfcf;
+      font-size:13px;
+      text-align:center;
+      background:#111;
+    }
 
     @media(max-width:900px){
       .projects-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .footer-inner{grid-template-columns:1fr}.contacts{grid-template-columns:1fr 1fr}
-      .lightbox{padding:12px}.lightbox-media{min-height:68vh}
     }
+
     @media(max-width:760px){
-      .topbar{min-height:66px}.topbar-inner{width:calc(100% - 28px)}.brand img{width:132px;height:38px}
-      main{padding-top:66px}.menu-toggle{display:block}.nav{position:absolute;top:66px;left:0;right:0;background:#101010;padding:10px 14px 14px;display:none;flex-direction:column;align-items:stretch}.nav.open{display:flex}.nav a{text-align:center}
-      .hero{height:250px}.hero img{object-position:center 60%}.hero h1{left:18px;bottom:18px;font-size:42px}
-      .intro{width:calc(100% - 30px);padding:38px 0 30px}.intro h2{font-size:36px}.intro p{font-size:16px}
-      .gallery-section{width:calc(100% - 30px);padding-bottom:54px}.projects-grid{grid-template-columns:1fr;gap:14px}
-      .project-open{aspect-ratio:4/3}
-      .two-col{grid-template-columns:1fr}.form-section{padding:52px 15px 60px}.form-box{padding:18px}
-      .contacts{grid-template-columns:1fr;gap:14px}
-      .lightbox-dialog{width:100%;max-height:96vh}.lightbox-media{min-height:62vh}.modal-info{padding:12px 14px 14px}.modal-arrow{width:40px;height:52px;font-size:30px}.modal-prev{left:8px}.modal-next{right:8px}.modal-close{right:8px;top:8px}
-      .compare-handle{width:52px;height:52px}.compare-handle::before{font-size:18px}
+      :root{--header-height:72px}
+      .wrap{width:min(var(--max),calc(100% - 28px))}
+      .header-inner{min-height:72px;padding:8px 0;gap:12px}
+      .brand{gap:10px}
+      .brand-logo{width:52px;height:46px}
+      .brand-name{font-size:24px}
+      .menu-toggle{display:inline-flex;align-items:center;justify-content:center}
+      .main-nav{
+        position:absolute;
+        top:100%;
+        left:0;
+        right:0;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        gap:8px;
+        padding:12px 14px 16px;
+        background:#000;
+      }
+      .main-nav.open{display:flex}
+      .nav-pill{width:100%;min-height:44px}
+      .hero{height:280px}
+      .hero-image{object-position:center 60%}
+      .hero-title{font-size:clamp(34px,10vw,48px);bottom:22px}
+      .projects-grid{grid-template-columns:1fr;gap:16px}
+      .form-row{grid-template-columns:1fr}
+      .footer-top{align-items:flex-start}
+      .footer-page-links{gap:14px 20px}
+      .footer-contacts{gap:20px}
+      .lightbox{padding:10px}
+      .lightbox-dialog{width:100%;max-height:96svh}
+      .lightbox-media{height:76svh}
+      .single-view{padding:58px 10px 12px}
+      .modal-arrow{width:42px;height:58px}
+      .modal-prev{left:4px}
+      .modal-next{right:4px}
+      .compare-handle{width:48px;height:48px}
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="index.html" aria-label="PintaPojat etusivu"><img src="assets/LogoValkoinen.png" alt="PintaPojat"></a>
+  <a class="skip-link" href="#sisalto">Siirry sisältöön</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="PintaPojat etusivu">
+        <img class="brand-logo" src="assets/LogoValkoinen.png" alt="PintaPojat-logo">
+        <span class="brand-name">PINTAPOJAT</span>
+      </a>
+
       <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">Valikko</button>
-      <nav class="nav" id="mainNav" aria-label="Päävalikko">
-        <a href="index.html">Etusivu</a>
-        <a href="maalaustavat.html">Miten maalaamme?</a>
-        <a class="cta" href="#arviointi">Pyydä tarjous</a>
+
+      <nav class="main-nav" id="mainNav" aria-label="Päävalikko">
+        <a class="nav-pill" href="index.html">ETUSIVU</a>
+        <a class="nav-pill" href="maalaustavat.html">MITEN MAALAAMME?</a>
+        <a class="nav-pill offer" href="#tarjous">PYYDÄ TARJOUS</a>
       </nav>
     </div>
   </header>
 
-  <main>
-    <section class="hero" aria-label="Referenssisivun kansikuva">
-      <img src="assets/Referenssisivu_Kansikuva.jpg" alt="PintaPoikien maalaama kohde">
-      <h1>Referenssit</h1>
+  <main id="sisalto">
+    <section class="hero" aria-label="Maalaamiamme kohteita">
+      <img class="hero-image" src="assets/Referenssisivu_Kansikuva.jpg" alt="PintaPoikien maalaama kohde">
+      <div class="hero-shade" aria-hidden="true"></div>
+      <h1 class="hero-title">Maalaamiamme kohteita</h1>
     </section>
 
     <section class="intro">
-      <h2>Maalaamiamme kohteita</h2>
-      <p>Tänne olemme keränneet kuvia kesien 2025 ja 2026 kohteistamme.<br>Klikkaa kuvaa saadaksesi lisätietoja.</p>
-    </section>
-
-    <section class="gallery-section" aria-label="Maalaamiamme kohteita">
-      <div class="projects-grid" id="projectsGrid"></div>
-    </section>
-
-    <section class="form-section" id="arviointi">
-      <div class="form-head">
-        <h2>Arviointikäynnin varaus</h2>
-        <p>Pyydä ilmainen arviointikäynti, niin arvioimme kohteen ja sopivan työn laajuuden. Mitä tarkemmat tiedot annat, sitä helpompi meidän on palata asiaan nopeasti.</p>
+      <div class="wrap">
+        <p>Tänne olemme keränneet kuvia kesien 2025 ja 2026 kohteistamme.<br>Klikkaa kuvaa saadaksesi lisätietoja.</p>
       </div>
-      <div class="form-box">
-        <form id="arviointiForm" action="https://formspree.io/f/xeerkbjz" method="POST">
-          <input type="hidden" name="_subject" value="Uusi arviointikäyntipyyntö - PintaPojat" />
-          <input type="hidden" name="Liitteet" id="cloudinaryUrls" />
+    </section>
 
-          <div class="two-col">
-            <div><label for="nimi">Nimi</label><input id="nimi" name="Nimi" type="text" placeholder="Kirjoita nimesi" autocomplete="name" required></div>
-            <div><label for="puhelin">Puhelinnumero</label><input id="puhelin" name="Puhelinnumero" type="tel" placeholder="Esim. 040 123 4567" autocomplete="tel" required></div>
-          </div>
-          <div class="two-col">
-            <div><label for="sahkoposti">Sähköposti</label><input id="sahkoposti" name="Sähköposti" type="email" placeholder="Esim. nimi@sahkoposti.fi" autocomplete="email" required></div>
-            <div><label for="osoite">Kohteen osoite</label><input id="osoite" name="Osoite" type="text" placeholder="Esim. Katu 1" autocomplete="street-address"></div>
-          </div>
-          <div class="two-col">
-            <div><label for="postinumero">Postinumero</label><input id="postinumero" name="Postinumero" type="text" placeholder="Esim. 80100" autocomplete="postal-code"></div>
-            <div><label for="paikkakunta">Paikkakunta</label><input id="paikkakunta" name="Paikkakunta" type="text" placeholder="Esim. Joensuu" autocomplete="address-level2"></div>
-          </div>
-          <div><label for="kuvaus">Mitä kohteessa pitäisi tehdä?</label><textarea id="kuvaus" name="Työn kuvaus" placeholder="Kerro lyhyesti työstä" required></textarea></div>
-          <div>
-            <label for="liite">Lisää kuvia tai muita tiedostoja kohteesta</label>
-            <input id="liite" type="file" multiple accept="image/*,.pdf,.doc,.docx">
-            <p class="form-note">Voit liittää kuvia esimerkiksi julkisivusta, sokkelista tai korjattavista kohdista.</p>
-            <p class="form-note" id="uploadStatus" aria-live="polite"></p>
-            <div id="uploadedFiles"></div>
-          </div>
-          <button class="submit-btn" id="arviointiSubmitBtn" type="submit">Pyydä ilmainen arvio →</button>
-        </form>
+    <section class="gallery-section" aria-label="Maalaamiemme kohteiden galleria">
+      <div class="wrap">
+        <div class="projects-grid" id="projectsGrid">
+          <article class="project-card" data-project="01">
+            <button class="project-button" type="button" aria-label="Avaa kohde 1">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 1" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 01</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="02">
+            <button class="project-button" type="button" aria-label="Avaa kohde 2">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 2" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 02</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="03">
+            <button class="project-button" type="button" aria-label="Avaa kohde 3">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 3" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 03</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="04">
+            <button class="project-button" type="button" aria-label="Avaa kohde 4">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 4" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 04</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="05">
+            <button class="project-button" type="button" aria-label="Avaa kohde 5">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 5" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 05</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="06">
+            <button class="project-button" type="button" aria-label="Avaa kohde 6">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 6" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 06</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="07">
+            <button class="project-button" type="button" aria-label="Avaa kohde 7">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 7" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 07</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="08">
+            <button class="project-button" type="button" aria-label="Avaa kohde 8">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 8" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 08</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="09">
+            <button class="project-button" type="button" aria-label="Avaa kohde 9">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 9" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 09</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="10">
+            <button class="project-button" type="button" aria-label="Avaa kohde 10">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 10" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 10</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="11">
+            <button class="project-button" type="button" aria-label="Avaa kohde 11">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 11" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 11</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="12">
+            <button class="project-button" type="button" aria-label="Avaa kohde 12">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 12" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 12</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="13">
+            <button class="project-button" type="button" aria-label="Avaa kohde 13">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 13" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 13</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="14">
+            <button class="project-button" type="button" aria-label="Avaa kohde 14">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 14" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 14</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="15">
+            <button class="project-button" type="button" aria-label="Avaa kohde 15">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 15" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 15</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="16">
+            <button class="project-button" type="button" aria-label="Avaa kohde 16">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 16" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 16</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="17">
+            <button class="project-button" type="button" aria-label="Avaa kohde 17">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 17" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 17</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="18">
+            <button class="project-button" type="button" aria-label="Avaa kohde 18">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 18" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 18</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="19">
+            <button class="project-button" type="button" aria-label="Avaa kohde 19">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 19" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 19</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="20">
+            <button class="project-button" type="button" aria-label="Avaa kohde 20">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 20" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 20</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="21">
+            <button class="project-button" type="button" aria-label="Avaa kohde 21">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 21" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 21</div>
+              </div>
+            </button>
+          </article>
+          <article class="project-card" data-project="22">
+            <button class="project-button" type="button" aria-label="Avaa kohde 22">
+              <div class="project-image-wrap">
+                <img class="project-image" alt="PintaPoikien maalaama kohde 22" loading="lazy" decoding="async">
+                <div class="project-placeholder" aria-hidden="true">KUVA 22</div>
+              </div>
+            </button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="offer-section" id="tarjous" aria-labelledby="tarjous-otsikko">
+      <div class="wrap">
+        <div class="offer-heading">
+          <h2 id="tarjous-otsikko">Pyydä ilmainen arvio</h2>
+          <p>Kerro kohteesta lyhyesti. Otamme yhteyttä ja sovimme maksuttoman arviointikäynnin.</p>
+        </div>
+
+        <div class="offer-card">
+          <h3>Tarjouspyyntö</h3>
+          <form action="https://formspree.io/f/xeerkbjz" method="POST">
+            <input type="hidden" name="_subject" value="Uusi tarjouspyyntö - PintaPojat">
+            <div class="form-row">
+              <div>
+                <label for="nimi">Nimi</label>
+                <input id="nimi" name="Nimi" type="text" autocomplete="name" required>
+              </div>
+              <div>
+                <label for="puhelin">Puhelinnumero</label>
+                <input id="puhelin" name="Puhelinnumero" type="tel" autocomplete="tel" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <label for="sahkoposti">Sähköposti</label>
+                <input id="sahkoposti" name="Sähköposti" type="email" autocomplete="email" required>
+              </div>
+              <div>
+                <label for="osoite">Kohteen osoite</label>
+                <input id="osoite" name="Osoite" type="text" autocomplete="street-address">
+              </div>
+            </div>
+            <div>
+              <label for="kuvaus">Mitä kohteessa pitäisi tehdä?</label>
+              <textarea id="kuvaus" name="Työn kuvaus" required></textarea>
+            </div>
+            <button class="submit-button" type="submit">Lähetä tarjouspyyntö</button>
+          </form>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <nav class="footer-links" aria-label="Alatunnisteen sivulinkit">
-        <a href="index.html">Etusivu</a>
-        <a href="maalaustavat.html">Miten maalaamme?</a>
-        <a href="kohteet.html">Referenssit</a>
-      </nav>
-      <div class="contacts">
-        <div><strong>Vilho Räisänen</strong><a href="tel:+358449805844">044 980 5844</a><br><a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a><br>Y-tunnus 3453360-6</div>
-        <div><strong>Ilmari Sippola</strong><a href="tel:+3584578325502">045 7832 5502</a><br><a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a><br>Y-tunnus 3586169-5</div>
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">PINTAPOJAT</div>
+        <nav class="footer-page-links" aria-label="Alatunnisteen sivulinkit">
+          <a class="footer-page-link" href="index.html">ETUSIVU</a>
+          <a class="footer-page-link" href="maalaustavat.html">MITEN MAALAAMME?</a>
+          <a class="footer-page-link" href="kohteet.html">REFERENSSIT</a>
+        </nav>
+      </div>
+
+      <div class="footer-contacts" aria-label="PintaPoikien yhteystiedot">
+        <section class="footer-contact">
+          <h3>Vilho Räisänen</h3>
+          <p><strong>Puhelin:</strong> <a href="tel:+358449805844">044 980 5844</a></p>
+          <p><strong>Sähköposti:</strong> <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a></p>
+          <p><strong>Y-tunnus:</strong> 3453360-6</p>
+        </section>
+
+        <section class="footer-contact">
+          <h3>Ilmari Sippola</h3>
+          <p><strong>Puhelin:</strong> <a href="tel:+3584578325502">045 7832 5502</a></p>
+          <p><strong>Sähköposti:</strong> <a href="mailto:pintapojat@gmail.com">pintapojat@gmail.com</a></p>
+          <p><strong>Y-tunnus:</strong> 3586169-5</p>
+        </section>
       </div>
     </div>
   </footer>
 
   <div class="lightbox" id="lightbox" aria-hidden="true">
-    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="Kohteen lähikatselu">
       <div class="lightbox-media" id="lightboxMedia">
         <div class="single-view" id="singleView" hidden>
-          <img id="singleImage" src="" alt="">
+          <img id="singleImage" alt="">
         </div>
 
-        <div class="compare-view" id="compareView" hidden aria-label="Ennen ja jälkeen -vertailu">
-          <img class="compare-before" id="compareBefore" src="" alt="">
-          <img class="compare-after" id="compareAfter" src="" alt="">
-          <div class="compare-line" aria-hidden="true"></div>
-          <div class="compare-handle" aria-hidden="true"></div>
-          <span class="compare-label before">Ennen</span>
-          <span class="compare-label after">Jälkeen</span>
+        <div class="compare-shell" id="compareShell" hidden aria-label="Ennen ja jälkeen -vertailu">
+          <img class="compare-before" id="compareBefore" alt="">
+          <img class="compare-after" id="compareAfter" alt="">
+          <div class="compare-line" id="compareLine" aria-hidden="true"></div>
+          <div class="compare-handle" id="compareHandle" aria-hidden="true"></div>
         </div>
 
         <div class="modal-placeholder" id="modalPlaceholder" hidden>Kuvaa ei löytynyt</div>
+
         <button class="modal-close" id="modalClose" type="button" aria-label="Sulje">×</button>
         <button class="modal-arrow modal-prev" id="modalPrev" type="button" aria-label="Edellinen kohde">‹</button>
         <button class="modal-arrow modal-next" id="modalNext" type="button" aria-label="Seuraava kohde">›</button>
       </div>
-      <div class="modal-info">
-        <strong id="modalTitle">Referenssi</strong>
-        <span class="modal-count" id="modalCount">1 / 22</span>
-      </div>
+      <div class="modal-count" id="modalCount">1 / 22</div>
     </div>
   </div>
 
   <script>
     const TOTAL_PROJECTS = 22;
-    const grid = document.getElementById('projectsGrid');
-    const projectData = [];
 
-    function imageExists(src){
-      return new Promise(resolve => {
-        const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => resolve(false);
-        img.src = src;
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mainNav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    mainNav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    function fileExists(src) {
+      return new Promise((resolve) => {
+        const image = new Image();
+        image.onload = () => resolve(true);
+        image.onerror = () => resolve(false);
+        image.src = src;
       });
     }
 
-    async function resolveProject(number){
-      const nn = String(number).padStart(2,'0');
-      const normal = `assets/Kohde_${nn}.jpg`;
-      const before = `assets/Kohde_${nn}_b.jpg`;
-      const after = `assets/Kohde_${nn}_a.jpg`;
-      const [normalOk,beforeOk,afterOk] = await Promise.all([
-        imageExists(normal), imageExists(before), imageExists(after)
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = reject;
+        image.src = src;
+      });
+    }
+
+    const projectCards = Array.from(document.querySelectorAll('.project-card'));
+    const projectCache = new Map();
+
+    async function getProject(number) {
+      if (projectCache.has(number)) return projectCache.get(number);
+
+      const normal = `assets/Kohde_${number}.jpg`;
+      const before = `assets/Kohde_${number}_b.jpg`;
+      const after = `assets/Kohde_${number}_a.jpg`;
+
+      const [normalExists,beforeExists,afterExists] = await Promise.all([
+        fileExists(normal),
+        fileExists(before),
+        fileExists(after)
       ]);
 
-      return {
+      const data = {
         number,
-        nn,
         normal,
         before,
         after,
-        normalOk,
-        beforeOk,
-        afterOk,
-        hasCompare: beforeOk && afterOk,
-        thumb: (beforeOk && afterOk) ? after : (normalOk ? normal : (afterOk ? after : (beforeOk ? before : '')))
+        normalExists,
+        hasCompare:beforeExists && afterExists
       };
+      projectCache.set(number,data);
+      return data;
     }
 
-    function buildCard(project,index){
-      const article = document.createElement('article');
-      article.className = 'project-card';
+    async function initialiseGallery() {
+      await Promise.all(projectCards.map(async (card) => {
+        const number = card.dataset.project;
+        const image = card.querySelector('.project-image');
+        const wrap = card.querySelector('.project-image-wrap');
+        const data = await getProject(number);
 
-      const button = document.createElement('button');
-      button.className = 'project-open';
-      button.type = 'button';
-      button.setAttribute('aria-label',`Avaa referenssi ${project.number}`);
-
-      const img = document.createElement('img');
-      img.className = 'project-image';
-      img.alt = `PintaPoikien maalaama kohde ${project.number}`;
-      img.loading = 'lazy';
-      img.decoding = 'async';
-
-      const placeholder = document.createElement('span');
-      placeholder.className = 'project-placeholder';
-      placeholder.textContent = 'Lisää kohteen kuva';
-      placeholder.hidden = Boolean(project.thumb);
-
-      if(project.thumb) img.src = project.thumb;
-      else img.hidden = true;
-
-      const badge = document.createElement('span');
-      badge.className = 'project-badge';
-      badge.setAttribute('aria-hidden','true');
-      badge.textContent = '↗';
-
-      button.append(img,placeholder,badge);
-      button.addEventListener('click',() => openLightbox(index));
-      article.appendChild(button);
-      return article;
-    }
-
-    async function initGallery(){
-      const resolved = await Promise.all(Array.from({length:TOTAL_PROJECTS},(_,i)=>resolveProject(i+1)));
-      projectData.push(...resolved);
-      const frag = document.createDocumentFragment();
-      resolved.forEach((project,index)=>frag.appendChild(buildCard(project,index)));
-      grid.appendChild(frag);
+        if (data.hasCompare) {
+          image.src = data.after;
+          image.hidden = false;
+          wrap.classList.remove('missing');
+        } else if (data.normalExists) {
+          image.src = data.normal;
+          image.hidden = false;
+          wrap.classList.remove('missing');
+        } else {
+          image.hidden = true;
+          wrap.classList.add('missing');
+        }
+      }));
     }
 
     const lightbox = document.getElementById('lightbox');
+    const lightboxMedia = document.getElementById('lightboxMedia');
+    const singleView = document.getElementById('singleView');
+    const singleImage = document.getElementById('singleImage');
+    const compareShell = document.getElementById('compareShell');
+    const compareBefore = document.getElementById('compareBefore');
+    const compareAfter = document.getElementById('compareAfter');
+    const compareLine = document.getElementById('compareLine');
+    const compareHandle = document.getElementById('compareHandle');
+    const modalPlaceholder = document.getElementById('modalPlaceholder');
+    const modalCount = document.getElementById('modalCount');
     const modalClose = document.getElementById('modalClose');
     const modalPrev = document.getElementById('modalPrev');
     const modalNext = document.getElementById('modalNext');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalCount = document.getElementById('modalCount');
-    const modalPlaceholder = document.getElementById('modalPlaceholder');
-    const singleView = document.getElementById('singleView');
-    const singleImage = document.getElementById('singleImage');
-    const compareView = document.getElementById('compareView');
-    const compareBefore = document.getElementById('compareBefore');
-    const compareAfter = document.getElementById('compareAfter');
+
     let activeIndex = 0;
-    let lastFocus = null;
-    let compareDragging = false;
-    let comparePointerId = null;
+    let sliderDragging = false;
+    let sliderPointerId = null;
+    let sliderMinX = 27;
+    let sliderMaxX = 100;
+    let touchStartX = 0;
+    let touchStartedOnCompare = false;
 
-    function setSplit(percent){
-      const safe = Math.max(0,Math.min(100,percent));
-      compareView.style.setProperty('--split',`${safe}%`);
-    }
-
-    function splitFromClientX(clientX){
-      const rect = compareView.getBoundingClientRect();
-      if(!rect.width) return;
-      setSplit(((clientX - rect.left) / rect.width) * 100);
-    }
-
-    compareView.addEventListener('pointerdown',event => {
-      compareDragging = true;
-      comparePointerId = event.pointerId;
-      compareView.setPointerCapture?.(event.pointerId);
-      splitFromClientX(event.clientX);
-      event.preventDefault();
-    });
-
-    compareView.addEventListener('pointermove',event => {
-      if(!compareDragging || event.pointerId !== comparePointerId) return;
-      splitFromClientX(event.clientX);
-      event.preventDefault();
-    });
-
-    function stopCompare(event){
-      if(!compareDragging) return;
-      if(event.pointerId != null && comparePointerId != null && event.pointerId !== comparePointerId) return;
-      compareDragging = false;
-      if(comparePointerId != null && compareView.hasPointerCapture?.(comparePointerId)) compareView.releasePointerCapture(comparePointerId);
-      comparePointerId = null;
-    }
-    compareView.addEventListener('pointerup',stopCompare);
-    compareView.addEventListener('pointercancel',stopCompare);
-    compareView.addEventListener('lostpointercapture',()=>{compareDragging=false;comparePointerId=null});
-
-    function renderActive(){
-      const p = projectData[activeIndex];
-      if(!p) return;
-
-      modalTitle.textContent = `Referenssi ${p.number}`;
-      modalCount.textContent = `${p.number} / ${TOTAL_PROJECTS}`;
-      modalPlaceholder.hidden = true;
+    function hideModalMedia() {
       singleView.hidden = true;
-      compareView.hidden = true;
+      compareShell.hidden = true;
+      modalPlaceholder.hidden = true;
       singleImage.removeAttribute('src');
       compareBefore.removeAttribute('src');
       compareAfter.removeAttribute('src');
+    }
 
-      if(p.hasCompare){
-        compareBefore.src = p.before;
-        compareBefore.alt = `Referenssi ${p.number} ennen maalausta`;
-        compareAfter.src = p.after;
-        compareAfter.alt = `Referenssi ${p.number} maalauksen jälkeen`;
-        setSplit(50);
-        compareView.hidden = false;
-      } else if(p.thumb){
-        singleImage.src = p.thumb;
-        singleImage.alt = `Referenssi ${p.number}`;
-        singleView.hidden = false;
+    function sizeCompareStage(image) {
+      const maxWidth = Math.min(window.innerWidth * .90, 1100);
+      const maxHeight = Math.min(window.innerHeight * .76, 760);
+      const ratio = image.naturalWidth / image.naturalHeight || 4 / 3;
+
+      let width = maxWidth;
+      let height = width / ratio;
+
+      if (height > maxHeight) {
+        height = maxHeight;
+        width = height * ratio;
+      }
+
+      compareShell.style.width = `${Math.max(220,width)}px`;
+      compareShell.style.height = `${Math.max(220,height)}px`;
+
+      requestAnimationFrame(() => {
+        const rect = compareShell.getBoundingClientRect();
+        const handleRadius = compareHandle.offsetWidth / 2;
+        sliderMinX = handleRadius;
+        sliderMaxX = Math.max(handleRadius, rect.width - handleRadius);
+        setSliderPosition(rect.width / 2);
+      });
+    }
+
+    function setSliderPosition(x) {
+      const rect = compareShell.getBoundingClientRect();
+      if (!rect.width) return;
+
+      const safeX = Math.max(sliderMinX, Math.min(sliderMaxX, x));
+      const percent = (safeX / rect.width) * 100;
+
+      compareAfter.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+      compareLine.style.left = `${safeX}px`;
+      compareHandle.style.left = `${safeX}px`;
+    }
+
+    function updateSliderFromClientX(clientX) {
+      const rect = compareShell.getBoundingClientRect();
+      setSliderPosition(clientX - rect.left);
+    }
+
+    compareShell.addEventListener('pointerdown', (event) => {
+      sliderDragging = true;
+      sliderPointerId = event.pointerId;
+      compareShell.setPointerCapture?.(event.pointerId);
+      updateSliderFromClientX(event.clientX);
+      event.preventDefault();
+    });
+
+    compareShell.addEventListener('pointermove', (event) => {
+      if (!sliderDragging || event.pointerId !== sliderPointerId) return;
+      updateSliderFromClientX(event.clientX);
+      event.preventDefault();
+    });
+
+    function stopSlider(event) {
+      if (!sliderDragging) return;
+      if (sliderPointerId !== null && event.pointerId !== sliderPointerId) return;
+      sliderDragging = false;
+      sliderPointerId = null;
+    }
+
+    compareShell.addEventListener('pointerup', stopSlider);
+    compareShell.addEventListener('pointercancel', stopSlider);
+    compareShell.addEventListener('lostpointercapture', () => {
+      sliderDragging = false;
+      sliderPointerId = null;
+    });
+
+    async function renderProject(index) {
+      activeIndex = (index + TOTAL_PROJECTS) % TOTAL_PROJECTS;
+      const number = String(activeIndex + 1).padStart(2,'0');
+      const data = await getProject(number);
+
+      hideModalMedia();
+      modalCount.textContent = `${activeIndex + 1} / ${TOTAL_PROJECTS}`;
+
+      if (data.hasCompare) {
+        try {
+          const [beforeLoaded,afterLoaded] = await Promise.all([
+            loadImage(data.before),
+            loadImage(data.after)
+          ]);
+
+          compareBefore.src = data.before;
+          compareAfter.src = data.after;
+          compareBefore.alt = `Kohde ${activeIndex + 1} ennen maalausta`;
+          compareAfter.alt = `Kohde ${activeIndex + 1} maalauksen jälkeen`;
+          compareShell.hidden = false;
+
+          // Jälkeen-kuvan kuvasuhde määrää näyttöalueen, joten koko kuva mahtuu näkyviin.
+          sizeCompareStage(afterLoaded);
+        } catch (error) {
+          modalPlaceholder.hidden = false;
+        }
+      } else if (data.normalExists) {
+        try {
+          await loadImage(data.normal);
+          singleImage.src = data.normal;
+          singleImage.alt = `PintaPoikien maalaama kohde ${activeIndex + 1}`;
+          singleView.hidden = false;
+        } catch (error) {
+          modalPlaceholder.hidden = false;
+        }
       } else {
         modalPlaceholder.hidden = false;
       }
     }
 
-    function openLightbox(index){
-      lastFocus = document.activeElement;
-      activeIndex = index;
-      renderActive();
+    function openLightbox(index) {
       lightbox.classList.add('open');
       lightbox.setAttribute('aria-hidden','false');
       document.body.classList.add('modal-open');
+      renderProject(index);
       modalClose.focus();
     }
 
-    function closeLightbox(){
+    function closeLightbox() {
       lightbox.classList.remove('open');
       lightbox.setAttribute('aria-hidden','true');
       document.body.classList.remove('modal-open');
-      lastFocus?.focus();
+      hideModalMedia();
     }
 
-    function move(delta){
-      activeIndex = (activeIndex + delta + TOTAL_PROJECTS) % TOTAL_PROJECTS;
-      renderActive();
-    }
+    function previousProject(){renderProject(activeIndex - 1)}
+    function nextProject(){renderProject(activeIndex + 1)}
+
+    projectCards.forEach((card,index) => {
+      card.querySelector('.project-button').addEventListener('click', () => openLightbox(index));
+    });
 
     modalClose.addEventListener('click',closeLightbox);
-    modalPrev.addEventListener('click',()=>move(-1));
-    modalNext.addEventListener('click',()=>move(1));
-    lightbox.addEventListener('click',event=>{if(event.target===lightbox) closeLightbox()});
-    document.addEventListener('keydown',event=>{
-      if(!lightbox.classList.contains('open')) return;
-      if(event.key==='Escape') closeLightbox();
-      if(event.key==='ArrowLeft') move(-1);
-      if(event.key==='ArrowRight') move(1);
+    modalPrev.addEventListener('click',previousProject);
+    modalNext.addEventListener('click',nextProject);
+
+    lightbox.addEventListener('click',(event) => {
+      if (event.target === lightbox) closeLightbox();
     });
 
-    // Mobile swipe between projects only in single-image mode.
-    let swipeStartX = 0;
-    const media = document.getElementById('lightboxMedia');
-    media.addEventListener('touchstart',event=>{
-      if(!compareView.hidden) return;
-      swipeStartX = event.changedTouches[0].clientX;
-    },{passive:true});
-    media.addEventListener('touchend',event=>{
-      if(!compareView.hidden) return;
-      const diff = event.changedTouches[0].clientX - swipeStartX;
-      if(Math.abs(diff)<55) return;
-      move(diff>0?-1:1);
+    document.addEventListener('keydown',(event) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (event.key === 'Escape') closeLightbox();
+      if (event.key === 'ArrowLeft') previousProject();
+      if (event.key === 'ArrowRight') nextProject();
+    });
+
+    lightboxMedia.addEventListener('touchstart',(event) => {
+      touchStartedOnCompare = Boolean(event.target.closest?.('#compareShell'));
+      if (!touchStartedOnCompare) touchStartX = event.changedTouches[0].clientX;
     },{passive:true});
 
-    // Mobile nav
-    const menuToggle = document.getElementById('menuToggle');
-    const mainNav = document.getElementById('mainNav');
-    menuToggle.addEventListener('click',()=>{
-      const open = mainNav.classList.toggle('open');
-      menuToggle.setAttribute('aria-expanded',open?'true':'false');
-    });
-    mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-      mainNav.classList.remove('open');
-      menuToggle.setAttribute('aria-expanded','false');
-    }));
+    lightboxMedia.addEventListener('touchend',(event) => {
+      if (touchStartedOnCompare || sliderDragging) {
+        touchStartedOnCompare = false;
+        return;
+      }
 
-    // Same upload/form logic as the other pages.
-    const arviointiForm = document.getElementById('arviointiForm');
-    const liiteInput = document.getElementById('liite');
-    const cloudinaryUrlsInput = document.getElementById('cloudinaryUrls');
-    const uploadStatus = document.getElementById('uploadStatus');
-    const uploadedFilesBox = document.getElementById('uploadedFiles');
-    const arviointiSubmitBtn = document.getElementById('arviointiSubmitBtn');
-    const CLOUD_NAME = 'dk6vndv1o';
-    const UPLOAD_PRESET = 'PintaPojat';
-    let selectedFiles = [];
+      const distance = event.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(distance) < 55) return;
+      if (distance > 0) previousProject();
+      else nextProject();
+    },{passive:true});
 
-    function renderSelectedFiles(){
-      uploadedFilesBox.innerHTML='';
-      selectedFiles.forEach((file,index)=>{
-        const item=document.createElement('div');
-        item.className='uploaded-file';
-        item.textContent=`Valittu: ${file.name} `;
-        const remove=document.createElement('button');
-        remove.type='button';remove.textContent='Poista';
-        remove.addEventListener('click',()=>{selectedFiles.splice(index,1);renderSelectedFiles()});
-        item.appendChild(remove);uploadedFilesBox.appendChild(item);
-      });
-    }
-    liiteInput.addEventListener('change',()=>{
-      selectedFiles=[...selectedFiles,...Array.from(liiteInput.files||[])];
-      renderSelectedFiles();liiteInput.value='';
-    });
-    async function uploadFileToCloudinary(file){
-      const fd=new FormData();fd.append('file',file);fd.append('upload_preset',UPLOAD_PRESET);
-      const response=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`,{method:'POST',body:fd});
-      const data=await response.json();
-      if(!response.ok||!data.secure_url) throw new Error(data?.error?.message||'Upload epäonnistui');
-      return data.secure_url;
-    }
-    arviointiForm.addEventListener('submit',async event=>{
-      event.preventDefault();
-      arviointiSubmitBtn.disabled=true;arviointiSubmitBtn.textContent='Lähetetään...';uploadStatus.textContent='';
-      try{
-        const urls=[];
-        if(selectedFiles.length){uploadStatus.textContent='Ladataan tiedostoja...';for(const file of selectedFiles) urls.push(await uploadFileToCloudinary(file));}
-        cloudinaryUrlsInput.value=urls.join('\n');
-        const response=await fetch(arviointiForm.action,{method:'POST',body:new FormData(arviointiForm),headers:{Accept:'application/json'}});
-        if(!response.ok) throw new Error('Lomakkeen lähetys epäonnistui');
-        arviointiForm.reset();selectedFiles=[];renderSelectedFiles();cloudinaryUrlsInput.value='';uploadStatus.textContent='Kiitos! Pyyntö lähetettiin onnistuneesti.';
-      }catch(error){console.error(error);uploadStatus.textContent='Lähetys epäonnistui. Yritä uudelleen.';}
-      finally{arviointiSubmitBtn.disabled=false;arviointiSubmitBtn.textContent='Pyydä ilmainen arvio →';}
+    window.addEventListener('resize',() => {
+      if (!compareShell.hidden && compareAfter.naturalWidth) {
+        sizeCompareStage(compareAfter);
+      }
     });
 
-    initGallery();
+    initialiseGallery();
   </script>
 </body>
 </html>
