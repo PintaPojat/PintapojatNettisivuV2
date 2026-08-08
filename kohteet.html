@@ -382,42 +382,50 @@
       position:relative;
       min-height:280px;
       height:min(78svh,780px);
-      display:grid;
-      place-items:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       overflow:hidden;
       background:#0d0d0d;
     }
 
     /* Tavallinen kuva näkyy kokonaan, ei cropata */
     .single-view{
-      width:100%;
-      height:100%;
-      display:grid;
-      place-items:center;
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
       padding:18px 64px;
+      background:#0d0d0d;
     }
     .single-view[hidden]{display:none}
     .single-view img{
       display:block;
-      width:100%;
-      height:100%;
+      width:auto;
+      height:auto;
       max-width:100%;
       max-height:100%;
       object-fit:contain;
       object-position:center;
       background:#0d0d0d;
+      flex:none;
     }
 
     /* Ennen-jälkeen slideri */
     .compare-shell{
       position:relative;
       display:block;
-      overflow:hidden;
+      overflow:visible;
       background:#0d0d0d;
       touch-action:none;
       user-select:none;
       -webkit-user-select:none;
       cursor:ew-resize;
+      flex:none;
+      max-width:100%;
+      max-height:100%;
     }
     .compare-shell[hidden]{display:none}
     .compare-shell img{
@@ -558,6 +566,7 @@
       .lightbox-dialog{width:100%;max-height:96svh}
       .lightbox-media{height:76svh}
       .single-view{padding:58px 10px 12px}
+      .single-view img{max-width:100%;max-height:100%;width:auto;height:auto}
       .modal-arrow{width:42px;height:58px}
       .modal-prev{left:4px}
       .modal-next{right:4px}
@@ -1007,8 +1016,8 @@
         width = height * ratio;
       }
 
-      compareShell.style.width = `${Math.max(220,width)}px`;
-      compareShell.style.height = `${Math.max(220,height)}px`;
+      compareShell.style.width = `${width}px`;
+      compareShell.style.height = `${height}px`;
 
       requestAnimationFrame(() => {
         const rect = compareShell.getBoundingClientRect();
